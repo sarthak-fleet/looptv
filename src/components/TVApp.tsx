@@ -8,6 +8,7 @@ import { applyPreference, createSmartMixProfile, parseSmartMixProfile, pickSmart
 import Link from "next/link";
 import Player, { type PlayerHandle } from "./Player";
 import Search from "./Search";
+import StationBuilder from "./StationBuilder";
 import stations from "../../channels.config";
 
 const SMART_MIX_ID = "smart-mix";
@@ -22,6 +23,7 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const [paused, setPaused] = useState(false);
   const [muted, setMuted] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [stationBuilderOpen, setStationBuilderOpen] = useState(false);
   const [hideWatched, setHideWatched] = useState(true);
   const [watchedIds, setWatchedIds] = useState<Set<string>>(() => getWatchedIds());
   const [blockedSources, setBlockedSources] = useState<Set<string>>(() => getBlockedSources());
@@ -56,7 +58,7 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
 
   // v2: Topic-based categories via zero-shot classification
   // NER categories (person/place extraction) were too noisy for useful filtering
-  const categories = [{ id: "all", name: "All" }];
+  const categories = useMemo(() => [{ id: "all", name: "All" }], []);
 
   useEffect(() => {
     loadCatalog()
@@ -280,6 +282,15 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4h2m-1 0v16m-7-5h14M5 9h14" /></svg>
               Smart Mix
             </button>
+            <button
+              onClick={() => setStationBuilderOpen(true)}
+              className="bg-white/10 hover:bg-white/15 text-white text-sm px-5 py-2.5 rounded-xl transition-colors flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v14m7-7H5" />
+              </svg>
+              Build Station
+            </button>
           </div>
           {stats.totalWatched > 0 && (
             <p className="text-white/20 text-sm mt-4">
@@ -306,6 +317,12 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
             );
           })}
         </div>
+        <StationBuilder
+          catalog={catalog}
+          stations={stations}
+          visible={stationBuilderOpen}
+          onClose={() => setStationBuilderOpen(false)}
+        />
       </div>
     );
   }
