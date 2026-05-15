@@ -32,6 +32,7 @@ export default function PlaylistPage() {
 
   useEffect(() => {
     if (ids.length === 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setEntries([]);
       return;
     }

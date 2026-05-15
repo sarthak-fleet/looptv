@@ -13,6 +13,8 @@ export default function BlockedSourcesPage() {
   }, []);
 
   useEffect(() => {
+    // localStorage is client-only — refresh on mount.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     refresh();
   }, [refresh]);
 
