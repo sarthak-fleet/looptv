@@ -1,5 +1,22 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { getWatchedIds, markWatched, getStats, clearWatched } from "../watched";
+import {
+  addWatchLater,
+  blockSource,
+  clearWatched,
+  getBlockedSources,
+  getSmartMixProfileRaw,
+  getStats,
+  getUserPrefs,
+  getWatchedIds,
+  getWatchLater,
+  markWatched,
+  removeWatchLater,
+  resetSmartMixProfile,
+  resetUserPrefs,
+  setSmartMixProfileRaw,
+  setUserPrefs,
+  unblockSource,
+} from "../watched";
 
 // Mock localStorage
 const store: Record<string, string> = {};
@@ -111,5 +128,130 @@ describe("clearWatched", () => {
 
     expect(getWatchedIds().size).toBe(0);
     expect(getStats().totalWatched).toBe(0);
+  });
+});
+
+describe("blocked sources", () => {
+  it("starts empty", () => {
+    expect(getBlockedSources().size).toBe(0);
+  });
+
+  it("blocks and unblocks a source", () => {
+    blockSource("Comedy Central");
+    expect(getBlockedSources().has("Comedy Central")).toBe(true);
+    unblockSource("Comedy Central");
+    expect(getBlockedSources().has("Comedy Central")).toBe(false);
+  });
+
+  it("does not duplicate when blocked twice", () => {
+    blockSource("SNL");
+    blockSource("SNL");
+    expect(getBlockedSources().size).toBe(1);
+  });
+
+  it("unblock is a no-op if not previously blocked", () => {
+    unblockSource("never-blocked");
+    expect(getBlockedSources().size).toBe(0);
+  });
+});
+
+describe("watch later", () => {
+  it("starts empty", () => {
+    expect(getWatchLater()).toEqual([]);
+  });
+
+  it("adds an id and preserves insertion order", () => {
+    addWatchLater("v1");
+    addWatchLater("v2");
+    expect(getWatchLater()).toEqual(["v1", "v2"]);
+  });
+
+  it("does not duplicate ids", () => {
+    addWatchLater("v1");
+    addWatchLater("v1");
+    expect(getWatchLater()).toEqual(["v1"]);
+  });
+
+  it("removes a specific id without disturbing others", () => {
+    addWatchLater("v1");
+    addWatchLater("v2");
+    addWatchLater("v3");
+    removeWatchLater("v2");
+    expect(getWatchLater()).toEqual(["v1", "v3"]);
+  });
+});
+
+describe("smart mix profile raw I/O", () => {
+  it("returns null when unset", () => {
+    expect(getSmartMixProfileRaw()).toBeNull();
+  });
+
+  it("round-trips an arbitrary JSON string", () => {
+    setSmartMixProfileRaw('{"favorites":["a","b"]}');
+    expect(getSmartMixProfileRaw()).toBe('{"favorites":["a","b"]}');
+  });
+
+  it("reset clears the stored profile", () => {
+    setSmartMixProfileRaw("{}");
+    resetSmartMixProfile();
+    expect(getSmartMixProfileRaw()).toBeNull();
+  });
+});
+
+describe("user prefs", () => {
+  it("returns defaults when unset", () => {
+    const prefs = getUserPrefs();
+    expect(prefs).toEqual({
+      defaultStation: null,
+      hideWatched: true,
+      autoplayOnLoad: false,
+      startMuted: false,
+    });
+  });
+
+  it("patches a single key without disturbing the rest", () => {
+    const updated = setUserPrefs({ defaultStation: "comedy" });
+    expect(updated.defaultStation).toBe("comedy");
+    expect(updated.hideWatched).toBe(true);
+    expect(getUserPrefs().defaultStation).toBe("comedy");
+  });
+
+  it("survives an arbitrary unknown field in stored prefs", () => {
+    localStorage.setItem(
+      "looptv_prefs",
+      JSON.stringify({ defaultStation: "snl", legacyField: 1 }),
+    );
+    const prefs = getUserPrefs();
+    expect(prefs.defaultStation).toBe("snl");
+    expect(prefs.hideWatched).toBe(true);
+  });
+
+  it("reset wipes prefs back to defaults", () => {
+    setUserPrefs({ defaultStation: "snl", autoplayOnLoad: true });
+    resetUserPrefs();
+    expect(getUserPrefs().defaultStation).toBeNull();
+    expect(getUserPrefs().autoplayOnLoad).toBe(false);
+  });
+
+  it("recovers from malformed JSON in storage", () => {
+    localStorage.setItem("looptv_prefs", "}{");
+    expect(getUserPrefs().defaultStation).toBeNull();
+  });
+});
+
+describe("malformed localStorage tolerance", () => {
+  it("getWatchedIds recovers from invalid JSON", () => {
+    localStorage.setItem("looptv_watched", "{not json");
+    expect(getWatchedIds().size).toBe(0);
+  });
+
+  it("getStats returns defaults on invalid JSON", () => {
+    localStorage.setItem("looptv_stats", "[broken");
+    expect(getStats().totalWatched).toBe(0);
+  });
+
+  it("getWatchLater recovers from invalid JSON", () => {
+    localStorage.setItem("looptv_watch_later", "}{");
+    expect(getWatchLater()).toEqual([]);
   });
 });

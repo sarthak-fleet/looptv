@@ -135,3 +135,43 @@ export function resetSmartMixProfile(): void {
   if (typeof window === "undefined") return;
   localStorage.removeItem(SMART_MIX_KEY);
 }
+
+const PREFS_KEY = "looptv_prefs";
+
+export interface UserPrefs {
+  defaultStation: string | null;
+  hideWatched: boolean;
+  autoplayOnLoad: boolean;
+  startMuted: boolean;
+}
+
+function defaultPrefs(): UserPrefs {
+  return {
+    defaultStation: null,
+    hideWatched: true,
+    autoplayOnLoad: false,
+    startMuted: false,
+  };
+}
+
+export function getUserPrefs(): UserPrefs {
+  if (typeof window === "undefined") return defaultPrefs();
+  try {
+    const raw = localStorage.getItem(PREFS_KEY);
+    return raw ? { ...defaultPrefs(), ...JSON.parse(raw) } : defaultPrefs();
+  } catch {
+    return defaultPrefs();
+  }
+}
+
+export function setUserPrefs(patch: Partial<UserPrefs>): UserPrefs {
+  if (typeof window === "undefined") return defaultPrefs();
+  const next = { ...getUserPrefs(), ...patch };
+  localStorage.setItem(PREFS_KEY, JSON.stringify(next));
+  return next;
+}
+
+export function resetUserPrefs(): void {
+  if (typeof window === "undefined") return;
+  localStorage.removeItem(PREFS_KEY);
+}

@@ -1,13 +1,40 @@
 import type { Catalog, Video } from "./types";
 
 let catalogCache: Catalog | null = null;
+let inflight: Promise<Catalog> | null = null;
+
+const RETRY_DELAYS_MS = [400, 1200];
+
+async function fetchCatalogWithRetry(): Promise<Catalog> {
+  let lastErr: unknown;
+  for (let attempt = 0; attempt <= RETRY_DELAYS_MS.length; attempt += 1) {
+    try {
+      const res = await fetch("/catalog.json", { cache: "force-cache" });
+      if (!res.ok) throw new Error(`Failed to load catalog: ${res.status}`);
+      return (await res.json()) as Catalog;
+    } catch (err) {
+      lastErr = err;
+      if (attempt < RETRY_DELAYS_MS.length) {
+        await new Promise((r) => setTimeout(r, RETRY_DELAYS_MS[attempt]));
+      }
+    }
+  }
+  throw lastErr instanceof Error ? lastErr : new Error("Failed to load catalog");
+}
 
 export async function loadCatalog(): Promise<Catalog> {
   if (catalogCache) return catalogCache;
-  const res = await fetch("/catalog.json");
-  if (!res.ok) throw new Error(`Failed to load catalog: ${res.status}`);
-  catalogCache = await res.json();
-  return catalogCache!;
+  // Dedupe concurrent loads (e.g. React StrictMode double-invoking effects).
+  if (inflight) return inflight;
+  inflight = fetchCatalogWithRetry()
+    .then((c) => {
+      catalogCache = c;
+      return c;
+    })
+    .finally(() => {
+      inflight = null;
+    });
+  return inflight;
 }
 
 export function getVideosForStation(

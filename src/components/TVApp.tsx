@@ -5,6 +5,7 @@ import type { Catalog, Video } from "@/lib/types";
 import { loadCatalog, getVideosForStation, pickRandom, formatDuration } from "@/lib/catalog";
 import { getWatchedIds, markWatched, getStats, getBlockedSources, blockSource, getWatchLater, addWatchLater, removeWatchLater, getSmartMixProfileRaw, setSmartMixProfileRaw, resetSmartMixProfile } from "@/lib/watched";
 import { applyPreference, createSmartMixProfile, parseSmartMixProfile, pickSmartMixVideo, serializeSmartMixProfile, type SmartMixProfile } from "@/lib/smartmix";
+import { ytErrorReason } from "@/lib/yt-errors";
 import Link from "next/link";
 import Player, { type PlayerHandle } from "./Player";
 import Search from "./Search";
@@ -63,7 +64,18 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   useEffect(() => {
     loadCatalog()
       .then((c) => { setCatalog(c); setStatus(""); })
-      .catch(() => setStatus("No catalog found. Run: pnpm run build:catalog"));
+      .catch((err) => {
+        console.error("TVApp: catalog load failed after retries", err);
+        const isDev =
+          typeof window !== "undefined" &&
+          (window.location.hostname === "localhost" ||
+            window.location.hostname === "127.0.0.1");
+        setStatus(
+          isDev
+            ? "No catalog found. Run: pnpm run build:catalog"
+            : "Catalog couldn't load. Check your connection and refresh.",
+        );
+      });
   }, []);
 
   // Mark video as watched only if user watched >= 50%
@@ -223,9 +235,9 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   }, [mode, playNext, playPrev, handleCategoryChange, categories, searchOpen, startPlaying]);
 
   const handleError = useCallback(
-    () => {
+    (code: number) => {
       if (currentVideo) skippedRef.current.add(currentVideo.id);
-      setStatus("Skipping...");
+      setStatus(`Skipping (${ytErrorReason(code)})...`);
       setTimeout(() => playNext(), 500);
     },
     [currentVideo, playNext]
