@@ -32,3 +32,9 @@ export interface Catalog {
   lastUpdated: string;
   stations: Record<string, StationCatalog>;
 }
+
+export interface CatalogSummary {
+  lastUpdated: string;
+  stations: Record<string, { videoCount: number }>;
+  totalVideos: number;
+}

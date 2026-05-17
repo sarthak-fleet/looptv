@@ -128,9 +128,22 @@ for (const station of stationsConfig) {
 
 catalog.lastUpdated = new Date().toISOString();
 fs.writeFileSync(OUTPUT, JSON.stringify(catalog));
+const summaryOutput = path.join(path.dirname(OUTPUT), "catalog-summary.json");
+const catalogSummary = {
+  lastUpdated: catalog.lastUpdated,
+  totalVideos: Object.values(catalog.stations).reduce((total, station) => total + station.videos.length, 0),
+  stations: Object.fromEntries(
+    Object.entries(catalog.stations).map(([stationId, station]) => [
+      stationId,
+      { videoCount: station.videos.length },
+    ])
+  ),
+};
+fs.writeFileSync(summaryOutput, JSON.stringify(catalogSummary));
 const sizeKB = Math.round(fs.statSync(OUTPUT).size / 1024);
 console.log(`\nTotal new videos needing NER: ${totalNew}`);
 console.log(`Output: ${OUTPUT} (${sizeKB}KB)`);
+console.log(`Summary: ${summaryOutput}`);
 
 if (emptyStations.length > 0) {
   console.error(

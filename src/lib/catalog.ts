@@ -1,7 +1,9 @@
-import type { Catalog, Video } from "./types";
+import type { Catalog, CatalogSummary, Video } from "./types";
 
 let catalogCache: Catalog | null = null;
 let inflight: Promise<Catalog> | null = null;
+let summaryCache: CatalogSummary | null = null;
+let summaryInflight: Promise<CatalogSummary> | null = null;
 
 const RETRY_DELAYS_MS = [400, 1200];
 
@@ -35,6 +37,24 @@ export async function loadCatalog(): Promise<Catalog> {
       inflight = null;
     });
   return inflight;
+}
+
+export async function loadCatalogSummary(): Promise<CatalogSummary> {
+  if (summaryCache) return summaryCache;
+  if (summaryInflight) return summaryInflight;
+  summaryInflight = fetch("/catalog-summary.json", { cache: "force-cache" })
+    .then((res) => {
+      if (!res.ok) throw new Error(`Failed to load catalog summary: ${res.status}`);
+      return res.json() as Promise<CatalogSummary>;
+    })
+    .then((summary) => {
+      summaryCache = summary;
+      return summary;
+    })
+    .finally(() => {
+      summaryInflight = null;
+    });
+  return summaryInflight;
 }
 
 export function getVideosForStation(

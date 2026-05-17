@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
-import type { Catalog, Video } from "@/lib/types";
-import { loadCatalog, getVideosForStation, pickRandom, formatDuration } from "@/lib/catalog";
+import type { Catalog, CatalogSummary, Video } from "@/lib/types";
+import { loadCatalog, loadCatalogSummary, getVideosForStation, pickRandom, formatDuration } from "@/lib/catalog";
 import { getWatchedIds, markWatched, getStats, getBlockedSources, blockSource, getWatchLater, addWatchLater, removeWatchLater, getSmartMixProfileRaw, setSmartMixProfileRaw, resetSmartMixProfile } from "@/lib/watched";
 import { applyPreference, createSmartMixProfile, parseSmartMixProfile, pickSmartMixVideo, serializeSmartMixProfile, type SmartMixProfile } from "@/lib/smartmix";
 import { ytErrorReason } from "@/lib/yt-errors";
@@ -16,6 +16,7 @@ const SMART_MIX_ID = "smart-mix";
 
 export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const [catalog, setCatalog] = useState<Catalog | null>(null);
+  const [catalogSummary, setCatalogSummary] = useState<CatalogSummary | null>(null);
   const [activeStation, setActiveStation] = useState(initialChannel || stations[0].id);
   const [activeCategory, setActiveCategory] = useState("all");
   const [currentVideo, setCurrentVideo] = useState<Video | null>(null);
@@ -62,6 +63,11 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const categories = useMemo(() => [{ id: "all", name: "All" }], []);
 
   useEffect(() => {
+    loadCatalogSummary()
+      .then(setCatalogSummary)
+      .catch(() => {
+        // The full catalog still powers playback; summary only improves first paint.
+      });
     loadCatalog()
       .then((c) => { setCatalog(c); setStatus(""); })
       .catch((err) => {
@@ -313,7 +319,10 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-4xl">
           {stations.map((st) => {
-            const count = catalog?.stations?.[st.id]?.videos?.length ?? 0;
+            const count =
+              catalog?.stations?.[st.id]?.videos?.length ??
+              catalogSummary?.stations?.[st.id]?.videoCount ??
+              0;
             return (
               <Link
                 key={st.id}
