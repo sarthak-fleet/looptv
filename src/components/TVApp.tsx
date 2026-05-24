@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import type { Catalog, CatalogSummary, Video } from "@/lib/types";
 import { loadCatalog, loadCatalogSummary, getVideosForStation, pickRandom, formatDuration, getCatalogFreshness, getSourceFreshness } from "@/lib/catalog";
-import { getWatchedIds, markWatched, getStats, getBlockedSources, blockSource, getWatchLater, addWatchLater, removeWatchLater, getSavedForPlayback, addSavedForPlayback, removeSavedForPlayback, getSmartMixProfileRaw, setSmartMixProfileRaw, resetSmartMixProfile, getEmbedHealth, type EmbedHealthRecord } from "@/lib/watched";
+import { getWatchedIds, markWatched, getStats, getBlockedSources, blockSource, unblockSource, getWatchLater, addWatchLater, removeWatchLater, getSavedForPlayback, addSavedForPlayback, removeSavedForPlayback, getSmartMixProfileRaw, setSmartMixProfileRaw, resetSmartMixProfile, getEmbedHealth, type EmbedHealthRecord } from "@/lib/watched";
 import { applyPreference, createSmartMixProfile, parseSmartMixProfile, pickSmartMixVideo, serializeSmartMixProfile, type SmartMixProfile } from "@/lib/smartmix";
 import { ytErrorReason } from "@/lib/yt-errors";
 import { trackActivated, trackCoreAction } from "@/lib/analytics";
@@ -11,6 +11,7 @@ import Link from "next/link";
 import Player, { type PlayerHandle } from "./Player";
 import Search from "./Search";
 import StationBuilder from "./StationBuilder";
+import ChannelHealth from "./ChannelHealth";
 import stations from "../../channels.config";
 import bundledCatalogSummary from "../../public/catalog-summary.json";
 
@@ -35,6 +36,7 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const [activeSources, setActiveSources] = useState<Set<string> | null>(null); // null = all active
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
+  const [showHealth, setShowHealth] = useState(false);
   const [nextVideoPreview, setNextVideoPreview] = useState<Video | null>(null);
   const [copied, setCopied] = useState(false);
   const [watchLaterIds, setWatchLaterIds] = useState<Set<string>>(() => new Set(getWatchLater()));
@@ -199,6 +201,20 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
     setShowGuide(false);
   }, [currentVideo, maybeMarkWatched]);
 
+  const handleToggleBlock = useCallback((source: string) => {
+    if (blockedSources.has(source)) {
+      unblockSource(source);
+      setBlockedSources((prev) => {
+        const next = new Set(prev);
+        next.delete(source);
+        return next;
+      });
+    } else {
+      blockSource(source);
+      setBlockedSources((prev) => new Set([...prev, source]));
+    }
+  }, [blockedSources]);
+
   const handleCategoryChange = useCallback(
     (id: string) => {
       setActiveCategory(id);
@@ -260,7 +276,8 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
 
       if (e.key === "?") { e.preventDefault(); setShowShortcuts((s) => !s); return; }
       if (e.key === "/") { e.preventDefault(); setSearchOpen(true); return; }
-      if (e.key === "Escape") { e.preventDefault(); setSearchOpen(false); setShowShortcuts(false); setShowGuide(false); return; }
+      if (e.key === "Escape") { e.preventDefault(); setSearchOpen(false); setShowShortcuts(false); setShowGuide(false); setShowHealth(false); return; }
+      if (e.key.toLowerCase() === "h") { e.preventDefault(); setShowHealth((s) => !s); return; }
       if (searchOpen) return;
 
       if (mode === "lobby") {
@@ -436,6 +453,15 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
               </svg>
               Build Station
             </button>
+            <button
+              onClick={() => setShowHealth(true)}
+              className="bg-white/10 hover:bg-white/15 text-white text-sm px-5 py-3 min-h-11 rounded-xl transition-colors flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+              Channel Health
+            </button>
           </div>
           {stats.totalWatched > 0 && (
             <p className="text-white/20 text-sm mt-4">
@@ -537,6 +563,15 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
           stations={stations}
           visible={stationBuilderOpen}
           onClose={() => setStationBuilderOpen(false)}
+        />
+        <ChannelHealth
+          visible={showHealth}
+          onClose={() => setShowHealth(false)}
+          stations={stations}
+          catalog={catalog}
+          embedHealth={embedHealth}
+          blockedSources={blockedSources}
+          onToggleBlock={handleToggleBlock}
         />
       </div>
     );
@@ -662,6 +697,15 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
         </div>
 
         <Search videos={allVideos} onSelect={playVideo} onQueue={(v) => { queueRef.current.push(v); setQueueCount(queueRef.current.length); }} onClose={() => setSearchOpen(false)} visible={searchOpen} watchLaterIds={watchLaterIds} onToggleWatchLater={(id) => { if (watchLaterIds.has(id)) { removeWatchLater(id); setWatchLaterIds((prev) => { const n = new Set(prev); n.delete(id); return n; }); } else { addWatchLater(id); setWatchLaterIds((prev) => new Set([...prev, id])); } }} />
+        <ChannelHealth
+          visible={showHealth}
+          onClose={() => setShowHealth(false)}
+          stations={stations}
+          catalog={catalog}
+          embedHealth={embedHealth}
+          blockedSources={blockedSources}
+          onToggleBlock={handleToggleBlock}
+        />
       </div>
     );
   }
@@ -942,7 +986,19 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
           <div className="relative flex flex-col bg-zinc-950 border-r border-white/10 w-64 overflow-y-auto">
             <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 shrink-0">
               <span className="text-white text-sm font-semibold">Channels</span>
-              <kbd className="text-white/25 text-xs font-mono bg-white/5 px-1.5 py-0.5 rounded">G</kbd>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => { setShowGuide(false); setShowHealth(true); }}
+                  className="text-white/40 hover:text-white text-xs flex items-center gap-1 hover:bg-white/10 px-2 py-1 rounded transition-colors"
+                  title="Channel Health (H)"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                  Health
+                </button>
+                <kbd className="text-white/25 text-xs font-mono bg-white/5 px-1.5 py-0.5 rounded">G</kbd>
+              </div>
             </div>
             <div className="py-1">
               {[
@@ -1003,6 +1059,7 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
                 ["M", "Mute / Unmute"],
                 ["F", "Fullscreen"],
                 ["G", "Channel guide"],
+                ["H", "Channel health"],
                 ["W", "Toggle watched filter"],
                 ["/", "Search"],
                 ["?", "This help"],
@@ -1017,6 +1074,16 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
           </div>
         </div>
       )}
+
+      <ChannelHealth
+        visible={showHealth}
+        onClose={() => setShowHealth(false)}
+        stations={stations}
+        catalog={catalog}
+        embedHealth={embedHealth}
+        blockedSources={blockedSources}
+        onToggleBlock={handleToggleBlock}
+      />
     </div>
   );
 }
