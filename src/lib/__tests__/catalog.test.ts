@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { formatDuration, pickRandom, getVideosForStation } from "../catalog";
+import { formatDuration, getCatalogFreshness, pickRandom, getVideosForStation } from "../catalog";
 import { applyPreference, createSmartMixProfile, parseSmartMixProfile, pickSmartMixVideo, scoreVideo, serializeSmartMixProfile } from "../smartmix";
 import type { Video, Catalog } from "../types";
 
@@ -24,6 +24,42 @@ describe("formatDuration", () => {
 
   it("formats 3600 seconds as 1:00:00", () => {
     expect(formatDuration(3600)).toBe("1:00:00");
+  });
+});
+
+describe("getCatalogFreshness", () => {
+  const now = new Date("2026-05-24T12:00:00.000Z");
+
+  it("reports loading when the catalog timestamp is not available yet", () => {
+    expect(getCatalogFreshness(null, now)).toMatchObject({
+      state: "loading",
+      label: "Checking catalog freshness...",
+      ageDays: null,
+    });
+  });
+
+  it("reports fresh weekly catalog data", () => {
+    expect(getCatalogFreshness("2026-05-20T12:00:00.000Z", now)).toMatchObject({
+      state: "fresh",
+      label: "Catalog updated 4 days ago",
+      ageDays: 4,
+    });
+  });
+
+  it("reports stale catalog data after the weekly grace period", () => {
+    expect(getCatalogFreshness("2026-05-10T12:00:00.000Z", now)).toMatchObject({
+      state: "stale",
+      label: "Catalog updated 14 days ago",
+      ageDays: 14,
+    });
+  });
+
+  it("reports unknown for malformed catalog timestamps", () => {
+    expect(getCatalogFreshness("not-a-date", now)).toMatchObject({
+      state: "unknown",
+      label: "Catalog freshness unknown",
+      ageDays: null,
+    });
   });
 });
 

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import type { Catalog, CatalogSummary, Video } from "@/lib/types";
-import { loadCatalog, loadCatalogSummary, getVideosForStation, pickRandom, formatDuration } from "@/lib/catalog";
+import { loadCatalog, loadCatalogSummary, getVideosForStation, pickRandom, formatDuration, getCatalogFreshness } from "@/lib/catalog";
 import { getWatchedIds, markWatched, getStats, getBlockedSources, blockSource, getWatchLater, addWatchLater, removeWatchLater, getSavedForPlayback, addSavedForPlayback, removeSavedForPlayback, getSmartMixProfileRaw, setSmartMixProfileRaw, resetSmartMixProfile } from "@/lib/watched";
 import { applyPreference, createSmartMixProfile, parseSmartMixProfile, pickSmartMixVideo, serializeSmartMixProfile, type SmartMixProfile } from "@/lib/smartmix";
 import { ytErrorReason } from "@/lib/yt-errors";
@@ -47,6 +47,7 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
     }
   });
   const [smartMixReason, setSmartMixReason] = useState("");
+  const [playbackIssue, setPlaybackIssue] = useState<{ reason: string; skipped: number } | null>(null);
   const queueRef = useRef<Video[]>([]);
   const [queueCount, setQueueCount] = useState(0);
   const skippedRef = useRef(new Set<string>());
@@ -263,8 +264,10 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
 
   const handleError = useCallback(
     (code: number) => {
+      const reason = ytErrorReason(code);
       if (currentVideo) skippedRef.current.add(currentVideo.id);
-      setStatus(`Skipping (${ytErrorReason(code)})...`);
+      setPlaybackIssue((prev) => ({ reason, skipped: (prev?.skipped ?? 0) + 1 }));
+      setStatus(`Skipped: ${reason}. Trying next...`);
       setTimeout(() => playNext(), 500);
     },
     [currentVideo, playNext]
@@ -275,6 +278,14 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
     : catalog?.stations?.[activeStation]?.videos ?? [];
   const catalogLoaded = catalog !== null;
   const unwatchedCount = allVideos.filter((v) => !watchedIds.has(v.id)).length;
+  const catalogFreshness = useMemo(
+    () => getCatalogFreshness(catalog?.lastUpdated ?? catalogSummary?.lastUpdated),
+    [catalog?.lastUpdated, catalogSummary?.lastUpdated],
+  );
+  const catalogFreshnessLabel =
+    catalogFreshness.state === "stale"
+      ? `Channel catalog may be stale - ${catalogFreshness.label}`
+      : catalogFreshness.label;
 
   const updateSmartPreference = useCallback((preference: "favorite" | "dislike") => {
     if (!currentVideo) return;
@@ -295,6 +306,9 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
         <div className="text-center mb-10">
           <h1 className="text-white text-5xl font-bold tracking-tight mb-2">LoopTV</h1>
           <p className="text-white/40 text-base">Pick a channel. Random clips play nonstop.</p>
+          <p className={`text-xs mt-2 ${catalogFreshness.state === "stale" ? "text-yellow-400" : "text-white/25"}`}>
+            {catalogFreshnessLabel}
+          </p>
           <div className="flex flex-wrap items-center justify-center gap-3 mt-5">
             <button
               onClick={() => { setActiveStation("all"); setMode("playing"); }}
@@ -354,6 +368,9 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
                 <p className="text-white/40 text-sm mt-1">{st.description}</p>
                 <p className="text-white/30 text-xs mt-2">
                   {count ? `${count.toLocaleString()} videos` : catalogLoaded ? "No videos" : "Loading..."}
+                </p>
+                <p className={`text-xs mt-1 ${catalogFreshness.state === "stale" ? "text-yellow-400/80" : "text-white/20"}`}>
+                  {catalogFreshness.state === "loading" ? "Checking freshness..." : catalogFreshnessLabel}
                 </p>
               </Link>
             );
@@ -422,6 +439,9 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
           <p className="text-white/40 text-sm">
             {allVideos.length > 0 ? `${unwatchedCount.toLocaleString()} unwatched of ${allVideos.length.toLocaleString()}` : catalogLoaded ? "No videos" : "Loading..."}
           </p>
+          <p className={`text-xs mt-2 ${catalogFreshness.state === "stale" ? "text-yellow-400" : "text-white/25"}`}>
+            {catalogFreshnessLabel}
+          </p>
         </div>
 
         {categories.length > 1 && (
@@ -482,10 +502,44 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
             videoId={currentVideo.id}
             onEnded={playNext}
             onError={handleError}
-            onReady={() => setStatus("")}
-            onPlay={() => setPaused(false)}
+            onReady={() => { setStatus(""); setPlaybackIssue(null); }}
+            onPlay={() => { setPaused(false); setPlaybackIssue(null); }}
             onPause={() => setPaused(true)}
           />
+        )}
+        {!currentVideo && (
+          <div className="absolute inset-0 bg-black flex items-center justify-center px-6">
+            <div className="text-center max-w-sm">
+              <p className="text-white text-base font-medium mb-2">
+                {status || (catalogLoaded ? "No playable video selected" : "Loading channel...")}
+              </p>
+              <p className="text-white/45 text-sm">
+                {catalogLoaded
+                  ? "Try another channel or search the catalog for something playable."
+                  : "The catalog is loading before playback can start."}
+              </p>
+            </div>
+          </div>
+        )}
+        {playbackIssue && currentVideo && (
+          <div className="absolute left-3 right-3 top-3 z-10 mx-auto max-w-xl rounded-lg border border-yellow-400/25 bg-black/80 px-4 py-3 text-sm shadow-lg backdrop-blur">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="font-medium text-yellow-200">
+                  Skipped {playbackIssue.skipped} unplayable {playbackIssue.skipped === 1 ? "video" : "videos"}
+                </p>
+                <p className="mt-0.5 text-white/55">
+                  Last failure: {playbackIssue.reason}. LoopTV is trying the next item.
+                </p>
+              </div>
+              <button
+                onClick={() => setSearchOpen(true)}
+                className="self-start rounded-lg bg-white/10 px-3 py-2 text-white transition-colors hover:bg-white/15 sm:self-auto"
+              >
+                Search
+              </button>
+            </div>
+          </div>
         )}
       </div>
 
@@ -506,7 +560,7 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
             {currentVideo && (
               <div>
                 <p className="text-white text-sm font-medium truncate">{currentVideo.title}</p>
-                <p className="text-white/40 text-xs mt-0.5 flex items-center gap-2">
+                <p className="text-white/40 text-xs mt-0.5 flex flex-wrap items-center gap-2">
                   <span className="text-red-500 font-semibold">{config.name}</span>
                   {currentVideo.source && (
                     <span className="text-white/30 inline-flex items-center gap-1">
@@ -530,6 +584,9 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
                   <span>{formatDuration(currentVideo.duration)}</span>
                   {queueCount > 0 && <span className="text-blue-400">{queueCount} queued</span>}
                   {status && <span className="text-yellow-500">{status}</span>}
+                  <span className={catalogFreshness.state === "stale" ? "text-yellow-400" : "text-white/25"}>
+                    {catalogFreshnessLabel}
+                  </span>
                 </p>
                 {isSmartMix && (
                   <p className="text-white/30 text-xs mt-1 truncate">

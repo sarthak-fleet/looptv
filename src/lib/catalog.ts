@@ -6,6 +6,15 @@ let summaryCache: CatalogSummary | null = null;
 let summaryInflight: Promise<CatalogSummary> | null = null;
 
 const RETRY_DELAYS_MS = [400, 1200];
+const MS_PER_DAY = 24 * 60 * 60 * 1000;
+export const STALE_CATALOG_DAYS = 10;
+
+export type CatalogFreshness = {
+  state: "loading" | "fresh" | "stale" | "unknown";
+  label: string;
+  ageDays: number | null;
+  updatedAt: Date | null;
+};
 
 function catalogVideoCount(catalog: Catalog): number {
   return Object.values(catalog.stations ?? {}).reduce(
@@ -105,6 +114,40 @@ export function getVideosForStation(
 
   const idSet = new Set(ids);
   return station.videos.filter((v) => idSet.has(v.id));
+}
+
+export function getCatalogFreshness(
+  lastUpdated?: string | null,
+  now: Date = new Date(),
+): CatalogFreshness {
+  if (!lastUpdated) {
+    return {
+      state: "loading",
+      label: "Checking catalog freshness...",
+      ageDays: null,
+      updatedAt: null,
+    };
+  }
+
+  const updatedAt = new Date(lastUpdated);
+  if (Number.isNaN(updatedAt.getTime())) {
+    return {
+      state: "unknown",
+      label: "Catalog freshness unknown",
+      ageDays: null,
+      updatedAt: null,
+    };
+  }
+
+  const ageDays = Math.max(0, Math.floor((now.getTime() - updatedAt.getTime()) / MS_PER_DAY));
+  const ageLabel = ageDays === 0 ? "today" : ageDays === 1 ? "1 day ago" : `${ageDays} days ago`;
+
+  return {
+    state: ageDays > STALE_CATALOG_DAYS ? "stale" : "fresh",
+    label: `Catalog updated ${ageLabel}`,
+    ageDays,
+    updatedAt,
+  };
 }
 
 export function pickRandom(videos: Video[], exclude?: string): Video | null {
