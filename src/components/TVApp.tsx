@@ -34,6 +34,8 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const [blockedSources, setBlockedSources] = useState<Set<string>>(() => getBlockedSources());
   const [activeSources, setActiveSources] = useState<Set<string> | null>(null); // null = all active
   const [showShortcuts, setShowShortcuts] = useState(false);
+  const [showGuide, setShowGuide] = useState(false);
+  const [nextVideoPreview, setNextVideoPreview] = useState<Video | null>(null);
   const [copied, setCopied] = useState(false);
   const [watchLaterIds, setWatchLaterIds] = useState<Set<string>>(() => new Set(getWatchLater()));
   const [savedForPlaybackIds, setSavedForPlaybackIds] = useState<Set<string>>(() => new Set(getSavedForPlayback()));
@@ -186,6 +188,17 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
     [currentVideo, maybeMarkWatched]
   );
 
+  const switchToStation = useCallback((stationId: string) => {
+    maybeMarkWatched(currentVideo);
+    skippedRef.current.clear();
+    historyRef.current = [];
+    setHasHistory(false);
+    setActiveStation(stationId);
+    setActiveSources(null);
+    setCurrentVideo(null);
+    setShowGuide(false);
+  }, [currentVideo, maybeMarkWatched]);
+
   const handleCategoryChange = useCallback(
     (id: string) => {
       setActiveCategory(id);
@@ -224,6 +237,22 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
     }
   }, [mode, currentVideo]);
 
+  // Pre-compute the next video for "Up next" display in the control bar.
+  // Skipped refs are excluded intentionally — they're a transient runtime set.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (!catalog || !currentVideo || isSmartMix) { setNextVideoPreview(null); return; }
+    const videos = getVideosForStation(catalog, activeStation, activeCategory);
+    const pool = videos.filter(
+      (v) => v.id !== currentVideo.id &&
+      (!hideWatched || !watchedIds.has(v.id)) &&
+      (!v.source || !blockedSources.has(v.source)) &&
+      (!activeSources || !v.source || activeSources.has(v.source))
+    );
+    const src = pool.length > 0 ? pool : videos.filter((v) => v.id !== currentVideo.id);
+    setNextVideoPreview(src.length > 0 ? src[Math.floor(Math.random() * src.length)] : null);
+  }, [catalog, currentVideo, activeStation, activeCategory, hideWatched, watchedIds, blockedSources, activeSources, isSmartMix]);
+
   // Keyboard shortcuts
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -231,7 +260,7 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
 
       if (e.key === "?") { e.preventDefault(); setShowShortcuts((s) => !s); return; }
       if (e.key === "/") { e.preventDefault(); setSearchOpen(true); return; }
-      if (e.key === "Escape") { e.preventDefault(); setSearchOpen(false); setShowShortcuts(false); return; }
+      if (e.key === "Escape") { e.preventDefault(); setSearchOpen(false); setShowShortcuts(false); setShowGuide(false); return; }
       if (searchOpen) return;
 
       if (mode === "lobby") {
@@ -249,6 +278,7 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
         case "p": case "arrowleft": e.preventDefault(); playPrev(); break;
         case "m": e.preventDefault(); playerRef.current?.toggleMute(); setMuted((m) => !m); break;
         case "f": e.preventDefault(); if (document.fullscreenElement) { document.exitFullscreen(); } else { document.documentElement.requestFullscreen(); } break;
+        case "g": e.preventDefault(); setShowGuide((g) => !g); break;
         case "w": e.preventDefault(); setHideWatched((h) => !h); break;
         default: {
           const n = parseInt(e.key);
@@ -261,7 +291,7 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [mode, playNext, playPrev, handleCategoryChange, categories, searchOpen, startPlaying]);
+  }, [mode, playNext, playPrev, handleCategoryChange, categories, searchOpen, startPlaying, switchToStation]);
 
   const handleError = useCallback(
     (code: number) => {
@@ -738,6 +768,11 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
                     {smartMixReason || "Learning from favorites, dislikes, tags, sources, skips, and watch history."}
                   </p>
                 )}
+                {nextVideoPreview && !isSmartMix && (
+                  <p className="hidden sm:block text-white/20 text-xs mt-0.5 truncate">
+                    Up next: {nextVideoPreview.title}
+                  </p>
+                )}
               </div>
             )}
           </div>
@@ -860,6 +895,15 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
             <button onClick={() => setSearchOpen(true)} className="p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors" title="Search (/)">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
             </button>
+            <button
+              onClick={() => setShowGuide((g) => !g)}
+              className={`p-2 rounded-lg transition-colors ${showGuide ? "text-white bg-white/10" : "text-white/60 hover:text-white hover:bg-white/10"}`}
+              title="Channel guide (G)"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h8M4 18h8" />
+              </svg>
+            </button>
             <div className="w-px h-5 bg-white/10 mx-1" />
             <button onClick={playPrev} className={`p-3 min-h-11 min-w-11 flex items-center justify-center rounded-lg transition-colors ${hasHistory ? "text-white/60 hover:text-white hover:bg-white/10" : "text-white/20 cursor-not-allowed"}`} title="Previous (P)">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" /></svg>
@@ -892,6 +936,60 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
 
       <Search videos={allVideos} onSelect={playVideo} onQueue={(v) => { queueRef.current.push(v); setQueueCount(queueRef.current.length); }} onClose={() => setSearchOpen(false)} visible={searchOpen} watchLaterIds={watchLaterIds} onToggleWatchLater={(id) => { if (watchLaterIds.has(id)) { removeWatchLater(id); setWatchLaterIds((prev) => { const n = new Set(prev); n.delete(id); return n; }); } else { addWatchLater(id); setWatchLaterIds((prev) => new Set([...prev, id])); } }} />
 
+      {showGuide && (
+        <div className="fixed inset-0 z-[100] flex">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setShowGuide(false)} />
+          <div className="relative flex flex-col bg-zinc-950 border-r border-white/10 w-64 overflow-y-auto">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 shrink-0">
+              <span className="text-white text-sm font-semibold">Channels</span>
+              <kbd className="text-white/25 text-xs font-mono bg-white/5 px-1.5 py-0.5 rounded">G</kbd>
+            </div>
+            <div className="py-1">
+              {[
+                { id: "all", name: "Play All", count: totalCatalogVideos },
+                { id: SMART_MIX_ID, name: "Smart Mix", count: null as number | null },
+              ].map(({ id, name, count }) => {
+                const isActive = activeStation === id;
+                return (
+                  <button
+                    key={id}
+                    onClick={() => switchToStation(id)}
+                    className={`w-full flex items-center justify-between px-4 py-2.5 text-left transition-colors ${isActive ? "bg-white/10" : "hover:bg-white/5"}`}
+                  >
+                    <span className={`text-sm font-medium ${isActive ? "text-white" : "text-white/60"}`}>{name}</span>
+                    <span className="flex items-center gap-2">
+                      {count != null && <span className="text-white/25 text-xs">{count.toLocaleString()}</span>}
+                      {isActive && <span className="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0" />}
+                    </span>
+                  </button>
+                );
+              })}
+              <div className="h-px bg-white/5 mx-4 my-1" />
+              {stations.map((st) => {
+                const count =
+                  catalog?.stations?.[st.id]?.videos?.length ??
+                  catalogSummary?.stations?.[st.id]?.videoCount ??
+                  0;
+                const isActive = activeStation === st.id;
+                return (
+                  <button
+                    key={st.id}
+                    onClick={() => switchToStation(st.id)}
+                    className={`w-full flex items-center justify-between px-4 py-2.5 text-left transition-colors ${isActive ? "bg-white/10" : "hover:bg-white/5"}`}
+                  >
+                    <span className={`text-sm ${isActive ? "text-white font-medium" : "text-white/60"}`}>{st.name}</span>
+                    <span className="flex items-center gap-2">
+                      <span className="text-white/25 text-xs">{count > 0 ? count.toLocaleString() : "–"}</span>
+                      {isActive && <span className="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0" />}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
       {showShortcuts && (
         <div className="fixed inset-0 z-[300] flex items-center justify-center">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setShowShortcuts(false)} />
@@ -904,6 +1002,7 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
                 ["P / ←", "Previous video"],
                 ["M", "Mute / Unmute"],
                 ["F", "Fullscreen"],
+                ["G", "Channel guide"],
                 ["W", "Toggle watched filter"],
                 ["/", "Search"],
                 ["?", "This help"],
