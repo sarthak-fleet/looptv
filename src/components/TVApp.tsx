@@ -17,6 +17,7 @@ import bundledCatalogSummary from "../../public/catalog-summary.json";
 
 const SMART_MIX_ID = "smart-mix";
 const INITIAL_CATALOG_SUMMARY = bundledCatalogSummary as CatalogSummary;
+const EMPTY_STATS = { totalWatched: 0, totalSeconds: 0 };
 
 export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const [catalog, setCatalog] = useState<Catalog | null>(null);
@@ -31,34 +32,30 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [stationBuilderOpen, setStationBuilderOpen] = useState(false);
   const [hideWatched, setHideWatched] = useState(true);
-  const [watchedIds, setWatchedIds] = useState<Set<string>>(() => getWatchedIds());
-  const [blockedSources, setBlockedSources] = useState<Set<string>>(() => getBlockedSources());
+  const [watchedIds, setWatchedIds] = useState<Set<string>>(() => new Set());
+  const [blockedSources, setBlockedSources] = useState<Set<string>>(() => new Set());
   const [activeSources, setActiveSources] = useState<Set<string> | null>(null); // null = all active
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
   const [showHealth, setShowHealth] = useState(false);
   const [nextVideoPreview, setNextVideoPreview] = useState<Video | null>(null);
   const [copied, setCopied] = useState(false);
-  const [watchLaterIds, setWatchLaterIds] = useState<Set<string>>(() => new Set(getWatchLater()));
-  const [savedForPlaybackIds, setSavedForPlaybackIds] = useState<Set<string>>(() => new Set(getSavedForPlayback()));
-  const [smartMixProfile, setSmartMixProfile] = useState<SmartMixProfile>(() => {
-    const raw = getSmartMixProfileRaw();
-    if (!raw) return createSmartMixProfile();
-    try {
-      return parseSmartMixProfile(raw);
-    } catch {
-      return createSmartMixProfile();
-    }
-  });
+  const [watchLaterIds, setWatchLaterIds] = useState<Set<string>>(() => new Set());
+  const [savedForPlaybackIds, setSavedForPlaybackIds] = useState<Set<string>>(() => new Set());
+  const [smartMixProfile, setSmartMixProfile] = useState<SmartMixProfile>(() => createSmartMixProfile());
   const [smartMixReason, setSmartMixReason] = useState("");
   const [playbackIssue, setPlaybackIssue] = useState<{ reason: string; skipped: number } | null>(null);
-  const [embedHealth, setEmbedHealth] = useState<Record<string, EmbedHealthRecord>>(() => getEmbedHealth());
+  const [embedHealth, setEmbedHealth] = useState<Record<string, EmbedHealthRecord>>(() => ({}));
   const queueRef = useRef<Video[]>([]);
   const [queueCount, setQueueCount] = useState(0);
   const skippedRef = useRef(new Set<string>());
   const historyRef = useRef<Video[]>([]);
   const [hasHistory, setHasHistory] = useState(false);
   const playerRef = useRef<PlayerHandle>(null);
+  // Defer time-dependent and localStorage-dependent state to after mount so
+  // build-time SSR and the first client render produce identical HTML.
+  const [mounted, setMounted] = useState(false);
+  const [landingStats, setLandingStats] = useState(EMPTY_STATS);
 
   const isPlayAll = activeStation === "all";
   const isSmartMix = activeStation === SMART_MIX_ID;
@@ -71,6 +68,34 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   // v2: Topic-based categories via zero-shot classification
   // NER categories (person/place extraction) were too noisy for useful filtering
   const categories = useMemo(() => [{ id: "all", name: "All" }], []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    queueMicrotask(() => {
+      if (cancelled) return;
+      setMounted(true);
+      setLandingStats(getStats());
+      setWatchedIds(getWatchedIds());
+      setBlockedSources(getBlockedSources());
+      setWatchLaterIds(new Set(getWatchLater()));
+      setSavedForPlaybackIds(new Set(getSavedForPlayback()));
+      setEmbedHealth(getEmbedHealth());
+
+      const rawSmartMixProfile = getSmartMixProfileRaw();
+      if (rawSmartMixProfile) {
+        try {
+          setSmartMixProfile(parseSmartMixProfile(rawSmartMixProfile));
+        } catch {
+          setSmartMixProfile(createSmartMixProfile());
+        }
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     loadCatalogSummary()
@@ -327,8 +352,10 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const catalogLoaded = catalog !== null;
   const unwatchedCount = allVideos.filter((v) => !watchedIds.has(v.id)).length;
   const catalogFreshness = useMemo(
-    () => getCatalogFreshness(catalog?.lastUpdated ?? catalogSummary?.lastUpdated),
-    [catalog?.lastUpdated, catalogSummary?.lastUpdated],
+    () => mounted
+      ? getCatalogFreshness(catalog?.lastUpdated ?? catalogSummary?.lastUpdated)
+      : { state: "loading" as const, label: "Checking catalog freshness...", ageDays: null, updatedAt: null },
+    [mounted, catalog?.lastUpdated, catalogSummary?.lastUpdated],
   );
   const catalogFreshnessLabel =
     catalogFreshness.state === "stale"
@@ -373,7 +400,7 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
 
   // ── Landing: channel picker with stats ──
   if (mode === "landing") {
-    const stats = getStats();
+    const stats = landingStats;
     const totalHours = Math.floor(stats.totalSeconds / 3600);
     const totalMins = Math.floor((stats.totalSeconds % 3600) / 60);
 
