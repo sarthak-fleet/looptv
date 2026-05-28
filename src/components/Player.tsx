@@ -5,7 +5,7 @@ import { recordEmbedAttempt } from "@/lib/watched";
 
 declare global {
   interface Window {
-    YT: typeof YT;
+    YT: unknown;
     onYouTubeIframeAPIReady: () => void;
   }
 }
