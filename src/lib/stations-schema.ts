@@ -9,6 +9,10 @@ const YouTubeSourceSchema = z
     handle: z
       .string()
       .regex(YOUTUBE_HANDLE, "YouTube handle must start with @ and contain only [A-Za-z0-9._-]"),
+    channelId: z
+      .string()
+      .regex(/^UC[A-Za-z0-9_-]{22}$/, "channelId must be a UC... YouTube channel id")
+      .optional(),
     minDuration: z.number().int().nonnegative().optional(),
     maxDuration: z.number().int().nonnegative().optional(),
     topPercentile: z.number().min(0).max(100).optional(),

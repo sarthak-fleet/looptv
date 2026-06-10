@@ -4,7 +4,7 @@
     "name": "Saturday Night Live",
     "description": "Sketches, Weekend Update, cold opens, and more",
     "sources": [
-      { "name": "Saturday Night Live", "handle": "@SaturdayNightLive", "minDuration": 60, "maxDuration": 1800 }
+      { "name": "Saturday Night Live", "handle": "@SaturdayNightLive", "channelId": "UCqFzWxSCi39LnW1JKFR3efg", "minDuration": 60, "maxDuration": 1800 }
     ]
   },
   {
@@ -12,19 +12,19 @@
     "name": "Science",
     "description": "Kurzgesagt, Veritasium, SmarterEveryDay, and more",
     "sources": [
-      { "name": "Kurzgesagt", "handle": "@kurzgesagt", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "TED-Ed", "handle": "@TEDEd", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "Veritasium", "handle": "@veritasium", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "Be Smart", "handle": "@besmart", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "Science Channel", "handle": "@sciencechannel", "minDuration": 60, "maxDuration": 1800 },
-      { "name": "minutephysics", "handle": "@MinutePhysics", "minDuration": 60, "maxDuration": 900 },
-      { "name": "Physics Girl", "handle": "@physicsgirl", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "engineerguy", "handle": "@engineerguyvideo", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "Quanta Magazine", "handle": "@QuantaScienceChannel", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "This.", "handle": "@this.science", "minDuration": 60, "maxDuration": 1200 },
-      { "name": "SmarterEveryDay", "handle": "@SmarterEveryDay", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "Steve Mould", "handle": "@SteveMould", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "ElectroBOOM", "handle": "@ElectroBOOM", "minDuration": 120, "maxDuration": 1200 }
+      { "name": "Kurzgesagt", "handle": "@kurzgesagt", "channelId": "UCsXVk37bltHxD1rDPwtNM8Q", "minDuration": 120, "maxDuration": 3600 },
+      { "name": "TED-Ed", "handle": "@TEDEd", "channelId": "UCsooa4yRKGN_zEE8iknghZA", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "Veritasium", "handle": "@veritasium", "channelId": "UCHnyfMqiRRG1u-2MsSQLbXA", "minDuration": 120, "maxDuration": 3600 },
+      { "name": "Be Smart", "handle": "@besmart", "channelId": "UCH4BNI0-FOK2dMXoFtViWHw", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "Science Channel", "handle": "@sciencechannel", "channelId": "UCvJiYiBUbw4tmpRSZT2r1Hw", "minDuration": 60, "maxDuration": 1800 },
+      { "name": "minutephysics", "handle": "@MinutePhysics", "channelId": "UCUHW94eEFW7hkUMVaZz4eDg", "minDuration": 60, "maxDuration": 900 },
+      { "name": "Physics Girl", "handle": "@physicsgirl", "channelId": "UC7DdEm33SyaTDtWYGO2CwdA", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "engineerguy", "handle": "@engineerguyvideo", "channelId": "UC2bkHVIDjXS7sgrgjFtzOXQ", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "Quanta Magazine", "handle": "@QuantaScienceChannel", "channelId": "UCTpmmkp1E4nmZqWPS-dl5bg", "minDuration": 120, "maxDuration": 3600 },
+      { "name": "This.", "handle": "@this.science", "channelId": "UCujEh8EooZHJe4YDinK3PAg", "minDuration": 60, "maxDuration": 1200 },
+      { "name": "SmarterEveryDay", "handle": "@SmarterEveryDay", "channelId": "UC6107grRI4m0o2-emgoDnAA", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "Steve Mould", "handle": "@SteveMould", "channelId": "UCEIwxahdLz7bap-VDs9h35A", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "ElectroBOOM", "handle": "@ElectroBOOM", "channelId": "UCJ0-OtVpF0wOKEqT2Z1HEtA", "minDuration": 120, "maxDuration": 1200 }
     ]
   },
   {
@@ -32,13 +32,13 @@
     "name": "Space",
     "description": "PBS Space Time, Astrum, Cool Worlds, Everyday Astronaut, and more",
     "sources": [
-      { "name": "PBS Space Time", "handle": "@pbsspacetime", "minDuration": 120, "maxDuration": 1500 },
-      { "name": "Astrum", "handle": "@astrumspace", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "Cool Worlds", "handle": "@coolworldslab", "minDuration": 120, "maxDuration": 2400 },
-      { "name": "Everyday Astronaut", "handle": "@everydayastronaut", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "melodysheep", "handle": "@melodysheep", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "Primal Space", "handle": "@primalspace", "minDuration": 120, "maxDuration": 900 },
-      { "name": "Dr. Becky", "handle": "@drbecky", "minDuration": 120, "maxDuration": 1200 }
+      { "name": "PBS Space Time", "handle": "@pbsspacetime", "channelId": "UC7_gcs09iThXybpVgjHZ_7g", "minDuration": 120, "maxDuration": 1500 },
+      { "name": "Astrum", "handle": "@astrumspace", "channelId": "UC-9b7aDP6ZN0coj9-xFnrtw", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "Cool Worlds", "handle": "@coolworldslab", "channelId": "UCGHZpIpAWJQ-Jy_CeCdXhMA", "minDuration": 120, "maxDuration": 2400 },
+      { "name": "Everyday Astronaut", "handle": "@everydayastronaut", "channelId": "UC6uKrU_WqJ1R2HMTY3LIx5Q", "minDuration": 120, "maxDuration": 3600 },
+      { "name": "melodysheep", "handle": "@melodysheep", "channelId": "UCR9sFzaG9Ia_kXJhfxtFMBA", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "Primal Space", "handle": "@primalspace", "channelId": "UClZbmi9JzfnB2CEb0fG8iew", "minDuration": 120, "maxDuration": 900 },
+      { "name": "Dr. Becky", "handle": "@drbecky", "channelId": "UCYNbYGl89UUowy8oXkipC-Q", "minDuration": 120, "maxDuration": 1200 }
     ]
   },
   {
@@ -46,21 +46,21 @@
     "name": "Tech",
     "description": "Fireship, ColdFusion, Sebastian Lague, Technology Connections, and more",
     "sources": [
-      { "name": "Fireship", "handle": "@Fireship", "minDuration": 30, "maxDuration": 1800 },
-      { "name": "Beyond Fireship", "handle": "@beyondfireship", "minDuration": 60, "maxDuration": 1800 },
-      { "name": "NetworkChuck", "handle": "@NetworkChuck", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "ColdFusion", "handle": "@ColdFusion", "minDuration": 300, "maxDuration": 3600 },
-      { "name": "Tech Tangents", "handle": "@TechTangents", "minDuration": 120, "maxDuration": 2400 },
-      { "name": "KRAZAM", "handle": "@KRAZAM", "minDuration": 30, "maxDuration": 600 },
-      { "name": "Low Level", "handle": "@LowLevelTV", "minDuration": 60, "maxDuration": 1200 },
-      { "name": "CodeAesthetic", "handle": "@CodeAesthetic", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "No Boilerplate", "handle": "@NoBoilerplate", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "Theo", "handle": "@t3dotgg", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "Sebastian Lague", "handle": "@SebastianLague", "minDuration": 120, "maxDuration": 3000 },
-      { "name": "Technology Connections", "handle": "@TechnologyConnections", "minDuration": 120, "maxDuration": 2100 },
-      { "name": "Dave's Garage", "handle": "@DavesGarage", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "Stuff Made Here", "handle": "@StuffMadeHere", "minDuration": 120, "maxDuration": 1500 },
-      { "name": "Ben Eater", "handle": "@beneater", "minDuration": 120, "maxDuration": 1800 }
+      { "name": "Fireship", "handle": "@Fireship", "channelId": "UCsBjURrPoezykLs9EqgamOA", "minDuration": 30, "maxDuration": 1800 },
+      { "name": "Beyond Fireship", "handle": "@beyondfireship", "channelId": "UC2Xd-TjJByJyK2w1zNwY0zQ", "minDuration": 60, "maxDuration": 1800 },
+      { "name": "NetworkChuck", "handle": "@NetworkChuck", "channelId": "UC9x0AN7BWHpCDHSm9NiJFJQ", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "ColdFusion", "handle": "@ColdFusion", "channelId": "UC4QZ_LsYcvcq7qOsOhpAX4A", "minDuration": 300, "maxDuration": 3600 },
+      { "name": "Tech Tangents", "handle": "@TechTangents", "channelId": "UCerEIdrEW-IqwvlH8lTQUJQ", "minDuration": 120, "maxDuration": 2400 },
+      { "name": "KRAZAM", "handle": "@KRAZAM", "channelId": "UCgBVkKoOAr3ajSdFFLp13_A", "minDuration": 30, "maxDuration": 600 },
+      { "name": "Low Level", "handle": "@LowLevelTV", "channelId": "UC6biysICWOJ-C3P4Tyeggzg", "minDuration": 60, "maxDuration": 1200 },
+      { "name": "CodeAesthetic", "handle": "@CodeAesthetic", "channelId": "UCaSCt8s_4nfkRglWCvNSDrg", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "No Boilerplate", "handle": "@NoBoilerplate", "channelId": "UCUMwY9iS8oMyWDYIe6_RmoA", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "Theo", "handle": "@t3dotgg", "channelId": "UCbRP3c757lWg9M-U7TyEkXA", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "Sebastian Lague", "handle": "@SebastianLague", "channelId": "UCmtyQOKKmrMVaKuRXz02jbQ", "minDuration": 120, "maxDuration": 3000 },
+      { "name": "Technology Connections", "handle": "@TechnologyConnections", "channelId": "UCy0tKL1T7wFoYcxCe0xjN6Q", "minDuration": 120, "maxDuration": 2100 },
+      { "name": "Dave's Garage", "handle": "@DavesGarage", "channelId": "UCNzszbnvQeFzObW0ghk0Ckw", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "Stuff Made Here", "handle": "@StuffMadeHere", "channelId": "UCj1VqrHhDte54oLgPG4xpuQ", "minDuration": 120, "maxDuration": 1500 },
+      { "name": "Ben Eater", "handle": "@beneater", "channelId": "UCS0N5baNlQWJCUrhCEo8WlA", "minDuration": 120, "maxDuration": 1800 }
     ]
   },
   {
@@ -68,15 +68,15 @@
     "name": "Comedy",
     "description": "The Onion, CalebCity, Ryan George, ProZD, and more",
     "sources": [
-      { "name": "The Onion", "handle": "@TheOnion", "minDuration": 30, "maxDuration": 600 },
-      { "name": "Studio C", "handle": "@StudioCtv", "minDuration": 60, "maxDuration": 900 },
-      { "name": "HISHE", "handle": "@HowItShouldHaveEnded", "minDuration": 60, "maxDuration": 900 },
-      { "name": "I Mostly Blame Myself", "handle": "@IMostlyBlameMyself", "minDuration": 30, "maxDuration": 600 },
-      { "name": "BroScienceLife", "handle": "@BroScienceLife", "minDuration": 60, "maxDuration": 600 },
-      { "name": "Worthikids", "handle": "@Worthikids", "minDuration": 30, "maxDuration": 600 },
-      { "name": "CalebCity", "handle": "@CalebCity", "minDuration": 30, "maxDuration": 600 },
-      { "name": "ProZD", "handle": "@ProZD", "minDuration": 30, "maxDuration": 600 },
-      { "name": "Ryan George", "handle": "@RyanGeorge", "minDuration": 60, "maxDuration": 600 }
+      { "name": "The Onion", "handle": "@TheOnion", "channelId": "UCfAOh2t5DpxVrgS9NQKjC7A", "minDuration": 30, "maxDuration": 600 },
+      { "name": "Studio C", "handle": "@StudioCtv", "channelId": "UCsZXuHKonP9utl5q2hFCkgA", "minDuration": 60, "maxDuration": 900 },
+      { "name": "HISHE", "handle": "@HowItShouldHaveEnded", "channelId": "UCHCph-_jLba_9atyCZJPLQQ", "minDuration": 60, "maxDuration": 900 },
+      { "name": "I Mostly Blame Myself", "handle": "@IMostlyBlameMyself", "channelId": "UCVQyWbVBZSWvivXuQjKvQew", "minDuration": 30, "maxDuration": 600 },
+      { "name": "BroScienceLife", "handle": "@BroScienceLife", "channelId": "UCduKuJToxWPizJ7I2E6n1kA", "minDuration": 60, "maxDuration": 600 },
+      { "name": "Worthikids", "handle": "@Worthikids", "channelId": "UCxXu9tCU63mF1ntk89XPkzA", "minDuration": 30, "maxDuration": 600 },
+      { "name": "CalebCity", "handle": "@CalebCity", "channelId": "UCI1XS_GkLGDOgf8YLaaXNRA", "minDuration": 30, "maxDuration": 600 },
+      { "name": "ProZD", "handle": "@ProZD", "channelId": "UC6MFZAOHXlKK1FI7V0XQVeA", "minDuration": 30, "maxDuration": 600 },
+      { "name": "Ryan George", "handle": "@RyanGeorge", "channelId": "UCh9IfI45mmk59eDvSWtuuhQ", "minDuration": 60, "maxDuration": 600 }
     ]
   },
   {
@@ -84,18 +84,18 @@
     "name": "CS Deep Dive",
     "description": "Computerphile, Coding Train, ByteByteGo, and more",
     "sources": [
-      { "name": "Computerphile", "handle": "@Computerphile", "minDuration": 120, "maxDuration": 2400 },
-      { "name": "The Coding Train", "handle": "@TheCodingTrain", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "Hussein Nasser", "handle": "@hnasr", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "ByteByteGo", "handle": "@ByteByteGo", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "William Fiset", "handle": "@WilliamFiset-videos", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "Michael Sambol", "handle": "@MichaelSambol", "minDuration": 30, "maxDuration": 600 },
-      { "name": "Spanning Tree", "handle": "@SpanningTree", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "Defog Tech", "handle": "@DefogTech", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "Arpit Bhayani", "handle": "@AsliEngineering", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "StatQuest", "handle": "@statquest", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "TechWorld with Nana", "handle": "@TechWorldwithNana", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "Steve (Builder.io)", "handle": "@Steve8708", "minDuration": 60, "maxDuration": 1800 }
+      { "name": "Computerphile", "handle": "@Computerphile", "channelId": "UC9-y-6csu5WGm29I7JiwpnA", "minDuration": 120, "maxDuration": 2400 },
+      { "name": "The Coding Train", "handle": "@TheCodingTrain", "channelId": "UCvjgXvBlbQiydffZU7m1_aw", "minDuration": 120, "maxDuration": 3600 },
+      { "name": "Hussein Nasser", "handle": "@hnasr", "channelId": "UC_ML5xP23TOWKUcc-oAE_Eg", "minDuration": 120, "maxDuration": 3600 },
+      { "name": "ByteByteGo", "handle": "@ByteByteGo", "channelId": "UCZgt6AzoyjslHTC9dz0UoTw", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "William Fiset", "handle": "@WilliamFiset-videos", "channelId": "UCD8yeTczadqdARzQUp29PJw", "minDuration": 120, "maxDuration": 3600 },
+      { "name": "Michael Sambol", "handle": "@MichaelSambol", "channelId": "UCzDJwLWoYCUQowF_nG3m5OQ", "minDuration": 30, "maxDuration": 600 },
+      { "name": "Spanning Tree", "handle": "@SpanningTree", "channelId": "UCDzVUXiTr3hClI-zzCWbYzg", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "Defog Tech", "handle": "@DefogTech", "channelId": "UCiz26UeGvcTy4_M3Zhgk7FQ", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "Arpit Bhayani", "handle": "@AsliEngineering", "channelId": "UC_b1GUJv_2QiMP4BxC9-Dxg", "minDuration": 120, "maxDuration": 3600 },
+      { "name": "StatQuest", "handle": "@statquest", "channelId": "UCtYLUTtgS3k1Fg4y5tAhLbw", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "TechWorld with Nana", "handle": "@TechWorldwithNana", "channelId": "UCdngmbVKX1Tgre699-XLlUA", "minDuration": 120, "maxDuration": 3600 },
+      { "name": "Steve (Builder.io)", "handle": "@Steve8708", "channelId": "UCGmR6lhKMlCkvrvb39vPtdA", "minDuration": 60, "maxDuration": 1800 }
     ]
   },
   {
@@ -103,14 +103,14 @@
     "name": "AI / ML",
     "description": "Karpathy, Yannic Kilcher, Two Minute Papers, and more",
     "sources": [
-      { "name": "Andrej Karpathy", "handle": "@AndrejKarpathy", "minDuration": 120, "maxDuration": 7200 },
-      { "name": "Two Minute Papers", "handle": "@TwoMinutePapers", "minDuration": 60, "maxDuration": 900 },
-      { "name": "Yannic Kilcher", "handle": "@YannicKilcher", "minDuration": 300, "maxDuration": 7200 },
-      { "name": "bycloud", "handle": "@bycloudAI", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "Animated AI", "handle": "@animatedai", "minDuration": 30, "maxDuration": 600 },
-      { "name": "AI Engineer", "handle": "@aiDotEngineer", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "Simon Oz", "handle": "@szymonozog7862", "minDuration": 60, "maxDuration": 1800 },
-      { "name": "Yifan", "handle": "@YifanBTH", "minDuration": 60, "maxDuration": 1800 }
+      { "name": "Andrej Karpathy", "handle": "@AndrejKarpathy", "channelId": "UCXUPKJO5MZQN11PqgIvyuvQ", "minDuration": 120, "maxDuration": 7200 },
+      { "name": "Two Minute Papers", "handle": "@TwoMinutePapers", "channelId": "UCbfYPyITQ-7l4upoX8nvctg", "minDuration": 60, "maxDuration": 900 },
+      { "name": "Yannic Kilcher", "handle": "@YannicKilcher", "channelId": "UCZHmQk67mSJgfCCTn7xBfew", "minDuration": 300, "maxDuration": 7200 },
+      { "name": "bycloud", "handle": "@bycloudAI", "channelId": "UCgfe2ooZD3VJPB6aJAnuQng", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "Animated AI", "handle": "@animatedai", "channelId": "UC5bSCGdcE9x9ffqqgJlGp5Q", "minDuration": 30, "maxDuration": 600 },
+      { "name": "AI Engineer", "handle": "@aiDotEngineer", "channelId": "UCLKPca3kwwd-B59HNr-_lvA", "minDuration": 120, "maxDuration": 3600 },
+      { "name": "Simon Oz", "handle": "@szymonozog7862", "channelId": "UC5Obl4eU2zVQwuXv91mypeQ", "minDuration": 60, "maxDuration": 1800 },
+      { "name": "Yifan", "handle": "@YifanBTH", "channelId": "UCJL_hSRHW8414diAIleErnw", "minDuration": 60, "maxDuration": 1800 }
     ]
   },
   {
@@ -118,16 +118,16 @@
     "name": "Startups",
     "description": "Y Combinator, Garry Tan, Slidebean, Company Man, and more",
     "sources": [
-      { "name": "Y Combinator", "handle": "@ycombinator", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "YC Root Access", "handle": "@ycrootaccess", "minDuration": 60, "maxDuration": 1800 },
-      { "name": "Garry Tan", "handle": "@GarryTan", "minDuration": 60, "maxDuration": 1800 },
-      { "name": "Startup Archive", "handle": "@startuparchive_", "minDuration": 60, "maxDuration": 1800 },
-      { "name": "EO", "handle": "@eoglobal", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "Honestly by Tanmay Bhat", "handle": "@HonestlybyTanmayBhat", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "Sahil Bloom", "handle": "@Sahil_Bloom", "minDuration": 60, "maxDuration": 1800 },
-      { "name": "Slidebean", "handle": "@slidebean", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "Company Man", "handle": "@companyman114", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "Noah Kagan", "handle": "@NoahKagan", "minDuration": 120, "maxDuration": 1500 }
+      { "name": "Y Combinator", "handle": "@ycombinator", "channelId": "UCcefcZRL2oaA_uBNeo5UOWg", "minDuration": 120, "maxDuration": 3600 },
+      { "name": "YC Root Access", "handle": "@ycrootaccess", "channelId": "UCxIJaCMEptJjxmmQgGFsnCg", "minDuration": 60, "maxDuration": 1800 },
+      { "name": "Garry Tan", "handle": "@GarryTan", "channelId": "UCIBgYfDjtWlbJhg--Z4sOgQ", "minDuration": 60, "maxDuration": 1800 },
+      { "name": "Startup Archive", "handle": "@startuparchive_", "channelId": "UCQrZfl1FeCN9c71yjOzWVRw", "minDuration": 60, "maxDuration": 1800 },
+      { "name": "EO", "handle": "@eoglobal", "channelId": "UClWTCPVi-AU9TeCN6FkGARg", "minDuration": 120, "maxDuration": 3600 },
+      { "name": "Honestly by Tanmay Bhat", "handle": "@HonestlybyTanmayBhat", "channelId": "UCneQdPbDLwZ__ZXP0YVwiag", "minDuration": 120, "maxDuration": 3600 },
+      { "name": "Sahil Bloom", "handle": "@Sahil_Bloom", "channelId": "UC0vZSXQHRGPNZMFAKPLJcww", "minDuration": 60, "maxDuration": 1800 },
+      { "name": "Slidebean", "handle": "@slidebean", "channelId": "UC4bq21IPPbpu0Qrsl7LW0sw", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "Company Man", "handle": "@companyman114", "channelId": "UCQMyhrt92_8XM0KgZH6VnRg", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "Noah Kagan", "handle": "@NoahKagan", "channelId": "UCF2v8v8te3_u4xhIQ8tGy1g", "minDuration": 120, "maxDuration": 1500 }
     ]
   },
   {
@@ -135,10 +135,10 @@
     "name": "Finance",
     "description": "Wall Street Millennial, The Plain Bagel, Jane Street, and more",
     "sources": [
-      { "name": "Wall Street Millennial", "handle": "@wallstreetmillennial", "minDuration": 120, "maxDuration": 2400 },
-      { "name": "Quant Prof", "handle": "@Quant_Prof", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "Jane Street", "handle": "@janestreet", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "The Plain Bagel", "handle": "@ThePlainBagel", "minDuration": 120, "maxDuration": 1800 }
+      { "name": "Wall Street Millennial", "handle": "@wallstreetmillennial", "channelId": "UCUyH4QfXX-5NOT0bULqG6lQ", "minDuration": 120, "maxDuration": 2400 },
+      { "name": "Quant Prof", "handle": "@Quant_Prof", "channelId": "UCvMTuKAUGriNrF6LsEScXFg", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "Jane Street", "handle": "@janestreet", "channelId": "UCDsVC_ewpcEW_AQcO-H-RDQ", "minDuration": 120, "maxDuration": 3600 },
+      { "name": "The Plain Bagel", "handle": "@ThePlainBagel", "channelId": "UCFCEuCsyWP0YkP3CZ3Mr01Q", "minDuration": 120, "maxDuration": 1800 }
     ]
   },
   {
@@ -146,14 +146,14 @@
     "name": "Philosophy",
     "description": "Exurb1a, Pursuit of Wonder, Einzelganger, Academy of Ideas, and more",
     "sources": [
-      { "name": "Exurb1a", "handle": "@Exurb1a", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "Pursuit of Wonder", "handle": "@pursuitofwonder", "minDuration": 120, "maxDuration": 900 },
-      { "name": "Einzelganger", "handle": "@einzelganger", "minDuration": 120, "maxDuration": 1500 },
-      { "name": "Academy of Ideas", "handle": "@academyofideas", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "Like Stories of Old", "handle": "@likestoriesofold", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "Sisyphus 55", "handle": "@sisyphus55", "minDuration": 120, "maxDuration": 600 },
-      { "name": "Freedom in Thought", "handle": "@FreedominThought", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "Sprouts", "handle": "@sprouts", "minDuration": 120, "maxDuration": 900 }
+      { "name": "Exurb1a", "handle": "@Exurb1a", "channelId": "UCimiUgDLbi6P17BdaCZpVbg", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "Pursuit of Wonder", "handle": "@pursuitofwonder", "channelId": "UC-tLyAaPbRZiYrOJxAGB7dQ", "minDuration": 120, "maxDuration": 900 },
+      { "name": "Einzelganger", "handle": "@einzelganger", "channelId": "UCybBViio_TH_uiFFDJuz5tg", "minDuration": 120, "maxDuration": 1500 },
+      { "name": "Academy of Ideas", "handle": "@academyofideas", "channelId": "UCiRiQGCHGjDLT9FQXFW0I3A", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "Like Stories of Old", "handle": "@likestoriesofold", "channelId": "UCs7nPQIEba0T3tGOWWsZpJQ", "minDuration": 120, "maxDuration": 3600 },
+      { "name": "Sisyphus 55", "handle": "@sisyphus55", "channelId": "UCDETFHKteb-C_EaXmRKvP4w", "minDuration": 120, "maxDuration": 600 },
+      { "name": "Freedom in Thought", "handle": "@FreedominThought", "channelId": "UCd6Za0CXVldhY8fK8eYoIuw", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "Sprouts", "handle": "@sprouts", "channelId": "UC-RKpEc4eE9PwJaupN91xYQ", "minDuration": 120, "maxDuration": 900 }
     ]
   },
   {
@@ -161,11 +161,11 @@
     "name": "Self-Improvement",
     "description": "Huberman, Charisma on Command, and more",
     "sources": [
-      { "name": "Improvement Pill", "handle": "@ImprovementPill", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "Charisma on Command", "handle": "@Charismaoncommand", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "Mark Manson", "handle": "@IAmMarkManson", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "Bryan Johnson", "handle": "@BryanJohnson", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "Huberman Lab Clips", "handle": "@HubermanLabClips", "minDuration": 120, "maxDuration": 1800 }
+      { "name": "Improvement Pill", "handle": "@ImprovementPill", "channelId": "UCBIt1VN5j37PVM8LLSuTTlw", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "Charisma on Command", "handle": "@Charismaoncommand", "channelId": "UCU_W0oE_ock8bWKjALiGs8Q", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "Mark Manson", "handle": "@IAmMarkManson", "channelId": "UC0TnW9acNxqeojxXDMbohcA", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "Bryan Johnson", "handle": "@BryanJohnson", "channelId": "UCnRVL1-HJnXWB_Xi2dAoTcg", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "Huberman Lab Clips", "handle": "@HubermanLabClips", "channelId": "UCkZjTZNvuxq1CYMS3cwZa1Q", "minDuration": 120, "maxDuration": 1800 }
     ]
   },
   {
@@ -173,13 +173,13 @@
     "name": "Math",
     "description": "3Blue1Brown, Numberphile, CGP Grey, and more",
     "sources": [
-      { "name": "3Blue1Brown", "handle": "@3blue1brown", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "Numberphile", "handle": "@Numberphile", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "standupmaths", "handle": "@standupmaths", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "2swap", "handle": "@twoswap", "minDuration": 60, "maxDuration": 1800 },
-      { "name": "PBS Infinite Series", "handle": "@pbsinfiniteseries", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "Primer", "handle": "@PrimerBlobs", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "CGP Grey", "handle": "@CGPGrey", "minDuration": 120, "maxDuration": 1800 }
+      { "name": "3Blue1Brown", "handle": "@3blue1brown", "channelId": "UCYO_jab_esuFRV4b17AJtAw", "minDuration": 120, "maxDuration": 3600 },
+      { "name": "Numberphile", "handle": "@Numberphile", "channelId": "UCoxcjq-8xIDTYp3uz647V5A", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "standupmaths", "handle": "@standupmaths", "channelId": "UCSju5G2aFaWMqn-_0YBtq5A", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "2swap", "handle": "@twoswap", "channelId": "UCiNLr9wX35KksK77mrQgxiw", "minDuration": 60, "maxDuration": 1800 },
+      { "name": "PBS Infinite Series", "handle": "@pbsinfiniteseries", "channelId": "UCs4aHmggTfFrpkPcWSaBN9g", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "Primer", "handle": "@PrimerBlobs", "channelId": "UCKzJFdi57J53Vr_BkTfN3uQ", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "CGP Grey", "handle": "@CGPGrey", "channelId": "UC2C_jShtL725hvbm1arSV9w", "minDuration": 120, "maxDuration": 1800 }
     ]
   },
   {
@@ -187,9 +187,9 @@
     "name": "Fitness",
     "description": "FitnessFAQs, Tom Merrick, Jeff Nippard",
     "sources": [
-      { "name": "FitnessFAQs", "handle": "@FitnessFAQs", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "Tom Merrick", "handle": "@BodyweightWarrior", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "Jeff Nippard", "handle": "@JeffNippard", "minDuration": 120, "maxDuration": 1800 }
+      { "name": "FitnessFAQs", "handle": "@FitnessFAQs", "channelId": "UC1CVzH-XVr3E-kTT6D8hhfg", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "Tom Merrick", "handle": "@BodyweightWarrior", "channelId": "UCU0DZhN-8KFLYO6beSaYljg", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "Jeff Nippard", "handle": "@JeffNippard", "channelId": "UC68TLK0mAEzUyHx5x5k-S1Q", "minDuration": 120, "maxDuration": 1800 }
     ]
   },
   {
@@ -197,7 +197,7 @@
     "name": "TED Talks",
     "description": "The best TED talks",
     "sources": [
-      { "name": "TED", "handle": "@TED", "minDuration": 300, "maxDuration": 1800 }
+      { "name": "TED", "handle": "@TED", "channelId": "UCAuUUnT6oDeKwE6v1NGQxug", "minDuration": 300, "maxDuration": 1800 }
     ]
   },
   {
@@ -205,10 +205,10 @@
     "name": "Design",
     "description": "Juxtopposed, The Futur, 30X40 Design Workshop, NNgroup",
     "sources": [
-      { "name": "Juxtopposed", "handle": "@juxtopposed", "minDuration": 60, "maxDuration": 900 },
-      { "name": "The Futur", "handle": "@thefutur", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "30X40 Design Workshop", "handle": "@30by40", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "NNgroup", "handle": "@NNgroup", "minDuration": 60, "maxDuration": 900 }
+      { "name": "Juxtopposed", "handle": "@juxtopposed", "channelId": "UCa8W2_uf81Ew6gYuw0VPSeA", "minDuration": 60, "maxDuration": 900 },
+      { "name": "The Futur", "handle": "@thefutur", "channelId": "UC-b3c7kxa5vU-bnmaROgvog", "minDuration": 120, "maxDuration": 3600 },
+      { "name": "30X40 Design Workshop", "handle": "@30by40", "channelId": "UCoc2ZM2cYas4DijNdaEJXUA", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "NNgroup", "handle": "@NNgroup", "channelId": "UC2oCugzU6W8-h95W7eBTUEg", "minDuration": 60, "maxDuration": 900 }
     ]
   },
   {
@@ -216,15 +216,15 @@
     "name": "Explainers",
     "description": "Wendover, RealLifeLore, Johnny Harris, PolyMatter, and more",
     "sources": [
-      { "name": "Wendover Productions", "handle": "@Wendoverproductions", "minDuration": 120, "maxDuration": 1500 },
-      { "name": "RealLifeLore", "handle": "@reallifelore", "minDuration": 120, "maxDuration": 2400 },
-      { "name": "Johnny Harris", "handle": "@johnnyharris", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "PolyMatter", "handle": "@polymatter", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "Half as Interesting", "handle": "@halfasinteresting", "minDuration": 60, "maxDuration": 600 },
-      { "name": "Economics Explained", "handle": "@EconomicsExplained", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "CaspianReport", "handle": "@CaspianReport", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "Vox", "handle": "@Vox", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "Neo", "handle": "@neoexplains", "minDuration": 120, "maxDuration": 1200 }
+      { "name": "Wendover Productions", "handle": "@Wendoverproductions", "channelId": "UC9RM-iSvTu1uPJb8X5yp3EQ", "minDuration": 120, "maxDuration": 1500 },
+      { "name": "RealLifeLore", "handle": "@reallifelore", "channelId": "UCP5tjEmvPItGyLhmjdwP7Ww", "minDuration": 120, "maxDuration": 2400 },
+      { "name": "Johnny Harris", "handle": "@johnnyharris", "channelId": "UCmGSJVG3mCRXVOP4yZrU1Dw", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "PolyMatter", "handle": "@polymatter", "channelId": "UCgNg3vwj3xt7QOrcIDaHdFg", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "Half as Interesting", "handle": "@halfasinteresting", "channelId": "UCuCkxoKLYO_EQ2GeFtbM_bw", "minDuration": 60, "maxDuration": 600 },
+      { "name": "Economics Explained", "handle": "@EconomicsExplained", "channelId": "UCZ4AMrDcNrfy3X6nsU8-rPg", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "CaspianReport", "handle": "@CaspianReport", "channelId": "UCwnKziETDbHJtx78nIkfYug", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "Vox", "handle": "@Vox", "channelId": "UCLXo7UDZvByw2ixzpQCufnA", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "Neo", "handle": "@neoexplains", "channelId": "UCtYKe7-XbaDjpUwcU5x0bLg", "minDuration": 120, "maxDuration": 1200 }
     ]
   },
   {
@@ -232,10 +232,10 @@
     "name": "Film & Video Essays",
     "description": "Nerdwriter, Every Frame a Painting, RocketJump, NITV Shorts",
     "sources": [
-      { "name": "Nerdwriter", "handle": "@Nerdwriter1", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "Every Frame a Painting", "handle": "@EveryFrameAPainting", "minDuration": 120, "maxDuration": 900 },
-      { "name": "RocketJump Film School", "handle": "@RJFilmSchool", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "NITV Shorts", "handle": "@NITVShorts", "minDuration": 60, "maxDuration": 1800 }
+      { "name": "Nerdwriter", "handle": "@Nerdwriter1", "channelId": "UCJkMlOu7faDgqh4PfzbpLdg", "minDuration": 120, "maxDuration": 1200 },
+      { "name": "Every Frame a Painting", "handle": "@EveryFrameAPainting", "channelId": "UCjFqcJQXGZ6T6sxyFB-5i6A", "minDuration": 120, "maxDuration": 900 },
+      { "name": "RocketJump Film School", "handle": "@RJFilmSchool", "channelId": "UC3KpzBeoM8lDvn85m4szzfA", "minDuration": 120, "maxDuration": 1800 },
+      { "name": "NITV Shorts", "handle": "@NITVShorts", "channelId": "UCO7DTCuYMvxMoctfQoRQW3Q", "minDuration": 60, "maxDuration": 1800 }
     ]
   }
 ]

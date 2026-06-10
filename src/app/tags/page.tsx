@@ -150,7 +150,7 @@ export default function TagsPage() {
             ))}
             {matches.length > 60 && (
               <li className="py-2 text-xs text-zinc-500">
-                +{matches.length - 60} more (refine in /{Object.keys(matches[0]?.stationId ?? {})[0] ?? ""})
+                +{matches.length - 60} more (refine in /{matches[0]?.stationId ?? ""})
               </li>
             )}
           </ul>

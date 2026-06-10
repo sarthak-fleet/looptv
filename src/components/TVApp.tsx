@@ -947,9 +947,13 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
                   onClick={() => {
                     const raw = window.prompt("Paste Smart Mix profile JSON");
                     if (!raw) return;
-                    const next = parseSmartMixProfile(raw);
-                    setSmartMixProfile(next);
-                    setSmartMixProfileRaw(serializeSmartMixProfile(next));
+                    try {
+                      const next = parseSmartMixProfile(raw);
+                      setSmartMixProfile(next);
+                      setSmartMixProfileRaw(serializeSmartMixProfile(next));
+                    } catch {
+                      setStatus("Invalid Smart Mix profile JSON");
+                    }
                   }}
                   className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition-colors"
                   title="Import Smart Mix profile"

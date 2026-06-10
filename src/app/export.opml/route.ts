@@ -12,6 +12,18 @@ function escapeXml(s: string): string {
 }
 
 /**
+ * YouTube's RSS endpoint only accepts `channel_id` (or legacy usernames —
+ * NOT @handles, which 404 for most channels). `channelId` is resolved once
+ * per source and committed in stations.json; the legacy `user=` URL is a
+ * best-effort fallback for any source that lacks one.
+ */
+function feedUrl(src: { handle: string; channelId?: string }): string {
+  return src.channelId
+    ? `https://www.youtube.com/feeds/videos.xml?channel_id=${encodeURIComponent(src.channelId)}`
+    : `https://www.youtube.com/feeds/videos.xml?user=${encodeURIComponent(src.handle.replace(/^@/, ""))}`;
+}
+
+/**
  * /export.opml — every station + channel as a hierarchical OPML 2.0
  * outline. Podcast / RSS readers consume this directly to subscribe to
  * each channel's YouTube RSS feed.
@@ -25,7 +37,7 @@ ${station.sources
     (src) => `      <outline type="rss"
                text="${escapeXml(src.name)}"
                title="${escapeXml(src.name)}"
-               xmlUrl="https://www.youtube.com/feeds/videos.xml?user=${encodeURIComponent(src.handle.replace(/^@/, ""))}"
+               xmlUrl="${feedUrl(src)}"
                htmlUrl="https://www.youtube.com/${escapeXml(src.handle)}" />`,
   )
   .join("\n")}

@@ -11,6 +11,7 @@ export interface Video {
 export interface YouTubeSource {
   name: string;
   handle: string; // @handle for yt-dlp
+  channelId?: string; // UC... id — needed for RSS feed URLs (handles don't work there)
   minDuration?: number;
   maxDuration?: number;
   topPercentile?: number; // keep only top N% by views (e.g., 25 = top 25%)
