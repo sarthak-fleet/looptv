@@ -35,10 +35,12 @@ export default function StationBuilder({ catalog, stations, visible, onClose }: 
   );
   const jsonSnippet = useMemo(() => createStationConfigSnippet(draft), [draft]);
   const prExport = useMemo(() => createStationPrExport(draft, preview), [draft, preview]);
+  const isValidDraft = draft.sources.length > 0 && draft.description.trim().length > 0;
 
   if (!visible) return null;
 
   const copyText = async (kind: "json" | "pr", text: string) => {
+    if (!isValidDraft) return;
     await navigator.clipboard.writeText(text);
     setCopied(kind);
     setTimeout(() => setCopied(null), 1800);
@@ -99,7 +101,7 @@ export default function StationBuilder({ catalog, stations, visible, onClose }: 
                   className="mt-2 w-full resize-none rounded-lg border border-white/10 bg-black px-3 py-2 font-mono text-sm text-white outline-none transition-colors placeholder:text-white/20 focus:border-white/30"
                 />
                 <span className="mt-2 block text-xs text-white/30">
-                  One source per line: <code>Name | @handle</code>. YouTube channel URLs also work.
+                  One source per line: <code>Name | @handle</code>. YouTube <code>@handle</code> URLs also work.
                 </span>
               </label>
 
@@ -136,6 +138,11 @@ export default function StationBuilder({ catalog, stations, visible, onClose }: 
                     {draft.sources.length} source{draft.sources.length === 1 ? "" : "s"}
                   </p>
                 </div>
+                {!isValidDraft && (
+                  <p className="mt-3 text-xs text-rose-300">
+                    Add at least one valid source and a non-empty description before exporting.
+                  </p>
+                )}
               </div>
             </div>
 
@@ -204,8 +211,9 @@ export default function StationBuilder({ catalog, stations, visible, onClose }: 
                   <div className="mb-2 flex items-center justify-between gap-3">
                     <h3 className="text-sm font-semibold text-white">stations.json entry</h3>
                     <button
+                      disabled={!isValidDraft}
                       onClick={() => copyText("json", jsonSnippet)}
-                      className="rounded-lg bg-white/10 px-3 py-1.5 text-xs text-white transition-colors hover:bg-white/15"
+                      className="rounded-lg bg-white/10 px-3 py-1.5 text-xs text-white transition-colors hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       {copied === "json" ? "Copied" : "Copy JSON"}
                     </button>
@@ -222,8 +230,9 @@ export default function StationBuilder({ catalog, stations, visible, onClose }: 
                   <div className="mb-2 flex items-center justify-between gap-3">
                     <h3 className="text-sm font-semibold text-white">PR Export</h3>
                     <button
+                      disabled={!isValidDraft}
                       onClick={() => copyText("pr", prExport)}
-                      className="rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-red-500"
+                      className="rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-red-500 disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       {copied === "pr" ? "Copied" : "Copy PR"}
                     </button>

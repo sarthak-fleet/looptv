@@ -15,6 +15,8 @@ describe("station builder", () => {
     expect(slugifyStationId("My New Station!")).toBe("my-new-station");
     expect(normalizeYouTubeHandle("https://www.youtube.com/@veritasium/videos")).toBe("@veritasium");
     expect(normalizeYouTubeHandle("kurzgesagt")).toBe("@kurzgesagt");
+    expect(normalizeYouTubeHandle("https://www.youtube.com/channel/UC1234567890abc")).toBe("");
+    expect(normalizeYouTubeHandle("https://www.youtube.com/c/GoogleDevelopers")).toBe("");
   });
 
   it("parses named source lines with default duration filters", () => {

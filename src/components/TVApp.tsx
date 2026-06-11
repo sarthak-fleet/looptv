@@ -51,9 +51,11 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const queueRef = useRef<Video[]>([]);
   const [queueCount, setQueueCount] = useState(0);
   const skippedRef = useRef(new Set<string>());
+  const blockedSourcesRef = useRef(new Set<string>());
   const historyRef = useRef<Video[]>([]);
   const [hasHistory, setHasHistory] = useState(false);
   const playerRef = useRef<PlayerHandle>(null);
+  const retryTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   // Defer time-dependent and localStorage-dependent state to after mount so
   // build-time SSR and the first client render produce identical HTML.
   const [mounted, setMounted] = useState(false);
@@ -79,7 +81,9 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
       setMounted(true);
       setLandingStats(getStats());
       setWatchedIds(getWatchedIds());
-      setBlockedSources(getBlockedSources());
+      const blocked = getBlockedSources();
+      blockedSourcesRef.current = blocked;
+      setBlockedSources(blocked);
       setWatchLaterIds(new Set(getWatchLater()));
       setSavedForPlaybackIds(new Set(getSavedForPlayback()));
       setEmbedHealth(getEmbedHealth());
@@ -130,6 +134,15 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   }, []);
 
   useEffect(() => {
+    blockedSourcesRef.current = blockedSources;
+  }, [blockedSources]);
+
+  const syncBlockedSources = useCallback((next: Set<string>) => {
+    blockedSourcesRef.current = next;
+    setBlockedSources(next);
+  }, []);
+
+  useEffect(() => {
     fetchCatalog();
   }, [fetchCatalog]);
 
@@ -156,6 +169,10 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const playNext = useCallback(
     (cat?: string) => {
       if (!catalog) return;
+      if (retryTimeoutRef.current) {
+        clearTimeout(retryTimeoutRef.current);
+        retryTimeoutRef.current = null;
+      }
 
       // Check queue first
       if (queueRef.current.length > 0) {
@@ -174,7 +191,7 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
         : getVideosForStation(catalog, activeStation, cat || activeCategory);
       // Filter out watched if enabled, plus skipped (embed errors)
       const available = videos.filter(
-        (v) => !skippedRef.current.has(v.id) && (!hideWatched || !watchedIds.has(v.id)) && (!v.source || !blockedSources.has(v.source)) && (!activeSources || !v.source || activeSources.has(v.source))
+        (v) => !skippedRef.current.has(v.id) && (!hideWatched || !watchedIds.has(v.id)) && (!v.source || !blockedSourcesRef.current.has(v.source)) && (!activeSources || !v.source || activeSources.has(v.source))
       );
 
       if (available.length < 5) {
@@ -188,7 +205,7 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
       const smartPick = isSmartMix
         ? pickSmartMixVideo(catalog, smartMixProfile, {
             watchedIds: hideWatched ? watchedIds : undefined,
-            blockedSources,
+            blockedSources: blockedSourcesRef.current,
             excludeId: currentVideo?.id,
             recentIds,
           })
@@ -206,10 +223,14 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
         setStatus("No unwatched videos in this category");
       }
     },
-    [catalog, activeStation, activeCategory, currentVideo, hideWatched, watchedIds, blockedSources, activeSources, maybeMarkWatched, isSmartMix, smartMixProfile]
+    [catalog, activeStation, activeCategory, currentVideo, hideWatched, watchedIds, activeSources, maybeMarkWatched, isSmartMix, smartMixProfile]
   );
 
   const playPrev = useCallback(() => {
+    if (retryTimeoutRef.current) {
+      clearTimeout(retryTimeoutRef.current);
+      retryTimeoutRef.current = null;
+    }
     maybeMarkWatched(currentVideo);
     const prev = historyRef.current.pop();
     if (prev) { setCurrentVideo(prev); setStatus(""); setPaused(false); }
@@ -243,16 +264,16 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const handleToggleBlock = useCallback((source: string) => {
     if (blockedSources.has(source)) {
       unblockSource(source);
-      setBlockedSources((prev) => {
-        const next = new Set(prev);
-        next.delete(source);
-        return next;
-      });
+      const next = new Set(blockedSourcesRef.current);
+      next.delete(source);
+      syncBlockedSources(next);
     } else {
       blockSource(source);
-      setBlockedSources((prev) => new Set([...prev, source]));
+      const next = new Set(blockedSourcesRef.current);
+      next.add(source);
+      syncBlockedSources(next);
     }
-  }, [blockedSources]);
+  }, [blockedSources, syncBlockedSources]);
 
   const handleCategoryChange = useCallback(
     (id: string) => {
@@ -355,9 +376,26 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
       if (currentVideo) skippedRef.current.add(currentVideo.id);
       setPlaybackIssue((prev) => ({ reason, skipped: (prev?.skipped ?? 0) + 1 }));
       setStatus(`Skipped: ${reason}. Trying next...`);
-      setTimeout(() => playNext(), 500);
+      if (retryTimeoutRef.current) {
+        clearTimeout(retryTimeoutRef.current);
+        retryTimeoutRef.current = null;
+      }
+      retryTimeoutRef.current = setTimeout(() => {
+        retryTimeoutRef.current = null;
+        playNext();
+      }, 500);
     },
     [currentVideo, playNext]
+  );
+
+  useEffect(
+    () => () => {
+      if (retryTimeoutRef.current) {
+        clearTimeout(retryTimeoutRef.current);
+        retryTimeoutRef.current = null;
+      }
+    },
+    [],
   );
 
   const allVideos = isPlayAll || isSmartMix
@@ -853,7 +891,9 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
                         onClick={(e) => {
                           e.stopPropagation();
                           blockSource(currentVideo.source!);
-                          setBlockedSources(new Set([...blockedSources, currentVideo.source!]));
+                          const next = new Set(blockedSourcesRef.current);
+                          next.add(currentVideo.source!);
+                          syncBlockedSources(next);
                           playNext();
                         }}
                         className="text-white/20 hover:text-red-400 transition-colors ml-0.5"

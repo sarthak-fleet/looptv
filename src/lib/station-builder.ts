@@ -40,8 +40,11 @@ export function normalizeYouTubeHandle(value: string): string {
 
   const withoutQuery = trimmed.split(/[?#]/)[0];
   const handleFromUrl = withoutQuery.match(/youtube\.com\/(@[^/]+)/i)?.[1];
-  const raw = handleFromUrl ?? withoutQuery.replace(/^https?:\/\/(www\.)?youtube\.com\//i, "");
-  const handle = raw.replace(/^@?/, "@").replace(/\/+$/g, "");
+  if (handleFromUrl) return handleFromUrl.replace(/\/+$/g, "");
+
+  if (/^https?:\/\//i.test(withoutQuery)) return "";
+
+  const handle = withoutQuery.replace(/^@?/, "@").replace(/\/+$/g, "");
   return handle.length > 1 ? handle : "";
 }
 
