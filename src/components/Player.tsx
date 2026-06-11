@@ -32,6 +32,7 @@ interface PlayerProps {
 let apiLoaded = false;
 let apiReady = false;
 let apiFailed = false;
+let apiLoadTimeout: ReturnType<typeof setTimeout> | null = null;
 const readyCallbacks: (() => void)[] = [];
 const failCallbacks: (() => void)[] = [];
 // YouTube's iframe_api normally fires onYouTubeIframeAPIReady within a few
@@ -63,7 +64,8 @@ function loadYTApi() {
     failCallbacks.length = 0;
   };
 
-  setTimeout(() => {
+  apiLoadTimeout = setTimeout(() => {
+    apiLoadTimeout = null;
     if (!apiReady) failApi();
   }, API_LOAD_TIMEOUT_MS);
 }
@@ -204,6 +206,10 @@ const Player = forwardRef<PlayerHandle, PlayerProps>(function Player(
   useEffect(() => {
     onApiReady(createPlayer, () => setApiUnavailable(true));
     return () => {
+      if (apiLoadTimeout) {
+        clearTimeout(apiLoadTimeout);
+        apiLoadTimeout = null;
+      }
       playerRef.current?.destroy();
       playerRef.current = null;
     };
