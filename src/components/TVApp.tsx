@@ -54,6 +54,7 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const historyRef = useRef<Video[]>([]);
   const [hasHistory, setHasHistory] = useState(false);
   const playerRef = useRef<PlayerHandle>(null);
+  const retryTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   // Defer time-dependent and localStorage-dependent state to after mount so
   // build-time SSR and the first client render produce identical HTML.
   const [mounted, setMounted] = useState(false);
@@ -156,6 +157,10 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const playNext = useCallback(
     (cat?: string) => {
       if (!catalog) return;
+      if (retryTimeoutRef.current) {
+        clearTimeout(retryTimeoutRef.current);
+        retryTimeoutRef.current = null;
+      }
 
       // Check queue first
       if (queueRef.current.length > 0) {
@@ -355,9 +360,25 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
       if (currentVideo) skippedRef.current.add(currentVideo.id);
       setPlaybackIssue((prev) => ({ reason, skipped: (prev?.skipped ?? 0) + 1 }));
       setStatus(`Skipped: ${reason}. Trying next...`);
-      setTimeout(() => playNext(), 500);
+      if (retryTimeoutRef.current) {
+        clearTimeout(retryTimeoutRef.current);
+      }
+      retryTimeoutRef.current = setTimeout(() => {
+        retryTimeoutRef.current = null;
+        playNext();
+      }, 500);
     },
     [currentVideo, playNext]
+  );
+
+  useEffect(
+    () => () => {
+      if (retryTimeoutRef.current) {
+        clearTimeout(retryTimeoutRef.current);
+        retryTimeoutRef.current = null;
+      }
+    },
+    [],
   );
 
   const allVideos = isPlayAll || isSmartMix
