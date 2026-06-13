@@ -66,6 +66,11 @@ describe("getWatchedIds", () => {
     const ids = getWatchedIds();
     expect(ids.has("vid1")).toBe(true);
   });
+
+  it("falls back to an empty set when stored data is malformed", () => {
+    store.looptv_watched = "{}";
+    expect(getWatchedIds().size).toBe(0);
+  });
 });
 
 describe("markWatched", () => {
@@ -178,6 +183,11 @@ describe("watch later", () => {
     expect(getWatchLater()).toEqual(["v1"]);
   });
 
+  it("falls back to an empty list when stored data is malformed", () => {
+    store.looptv_watch_later = "{}";
+    expect(getWatchLater()).toEqual([]);
+  });
+
   it("removes a specific id without disturbing others", () => {
     addWatchLater("v1");
     addWatchLater("v2");
@@ -196,6 +206,11 @@ describe("saved for playback", () => {
     addSavedForPlayback("v1");
     addSavedForPlayback("v1");
     expect(getSavedForPlayback()).toEqual(["v1"]);
+  });
+
+  it("falls back to an empty list when stored data is malformed", () => {
+    store.looptv_saved_for_playback = "{}";
+    expect(getSavedForPlayback()).toEqual([]);
   });
 
   it("removes a specific id without disturbing others", () => {

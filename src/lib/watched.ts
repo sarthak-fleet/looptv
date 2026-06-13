@@ -27,7 +27,8 @@ export function getWatchedIds(): Set<string> {
   if (typeof window === "undefined") return new Set();
   try {
     const raw = localStorage.getItem(WATCHED_KEY);
-    return raw ? new Set(JSON.parse(raw)) : new Set();
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? new Set(parsed) : new Set();
   } catch {
     return new Set();
   }
@@ -101,7 +102,8 @@ export function getWatchLater(): string[] {
   if (typeof window === "undefined") return [];
   try {
     const raw = localStorage.getItem(WATCH_LATER_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
   } catch {
     return [];
   }
@@ -126,7 +128,8 @@ export function getSavedForPlayback(): string[] {
   if (typeof window === "undefined") return [];
   try {
     const raw = localStorage.getItem(SAVED_FOR_PLAYBACK_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
   } catch {
     return [];
   }

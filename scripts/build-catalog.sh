@@ -56,9 +56,17 @@ for handle in $HANDLES; do
     yt-dlp --flat-playlist --dump-json --no-warnings \
       "https://www.youtube.com/$handle/videos" > "$TEMP_DIR/${SAFE}.jsonl" 2>/dev/null || true
     COUNT=$(wc -l < "$TEMP_DIR/${SAFE}.jsonl" | tr -d ' ')
-    printf " %s videos\n" "$COUNT"
-    # Save to cache
-    cp "$TEMP_DIR/${SAFE}.jsonl" "$CACHED"
+    if [ "$COUNT" -gt 0 ]; then
+      printf " %s videos\n" "$COUNT"
+      # Save successful fetches to cache.
+      cp "$TEMP_DIR/${SAFE}.jsonl" "$CACHED"
+    elif [ -f "$CACHED" ] && [ -s "$CACHED" ]; then
+      CACHED_COUNT=$(wc -l < "$CACHED" | tr -d ' ')
+      printf " fetch failed, keeping cached %s videos\n" "$CACHED_COUNT"
+      cp "$CACHED" "$TEMP_DIR/${SAFE}.jsonl"
+    else
+      printf " fetch failed, no cache available\n"
+    fi
   fi
 done
 
