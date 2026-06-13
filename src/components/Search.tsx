@@ -74,6 +74,15 @@ export default function Search({ videos, onSelect, onQueue, onClose, visible, wa
     setSelectedIndex(0);
   };
 
+  const activateResult = (video: Video) => onSelect(video);
+
+  const handleRowKeyDown = (e: React.KeyboardEvent, video: Video) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      activateResult(video);
+    }
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
       case "ArrowDown":
@@ -137,14 +146,17 @@ export default function Search({ videos, onSelect, onQueue, onClose, visible, wa
           {results.length > 0 && (
             <div className="max-h-[50vh] overflow-y-auto">
               {results.map((video, i) => (
-                <button
+                <div
                   key={video.id}
-                  onClick={() => onSelect(video)}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => activateResult(video)}
+                  onKeyDown={(e) => handleRowKeyDown(e, video)}
                   onMouseEnter={() => setSelectedIndex(i)}
                   className={`w-full text-left px-4 py-3 flex items-center gap-3 transition-colors ${
                     i === selectedIndex
                       ? "bg-white/10"
-                      : "hover:bg-white/5"
+                      : "cursor-pointer hover:bg-white/5"
                   }`}
                 >
                   <div className="min-w-0 flex-1">
@@ -184,7 +196,7 @@ export default function Search({ videos, onSelect, onQueue, onClose, visible, wa
                       </kbd>
                     )}
                   </div>
-                </button>
+                </div>
               ))}
             </div>
           )}
@@ -202,10 +214,13 @@ export default function Search({ videos, onSelect, onQueue, onClose, visible, wa
                 <p className="px-4 pt-3 pb-1 text-white/30 text-xs font-medium uppercase tracking-wider">Watch Later</p>
                 <div className="max-h-[50vh] overflow-y-auto">
                   {wlVideos.map((video) => (
-                    <button
+                    <div
                       key={video.id}
-                      onClick={() => onSelect(video)}
-                      className="w-full text-left px-4 py-3 flex items-center gap-3 hover:bg-white/5 transition-colors"
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => activateResult(video)}
+                      onKeyDown={(e) => handleRowKeyDown(e, video)}
+                      className="w-full text-left px-4 py-3 flex items-center gap-3 cursor-pointer hover:bg-white/5 transition-colors"
                     >
                       <div className="min-w-0 flex-1">
                         <p className="text-white text-sm truncate">{video.title}</p>
@@ -222,7 +237,7 @@ export default function Search({ videos, onSelect, onQueue, onClose, visible, wa
                           <svg className="w-4 h-4" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" /></svg>
                         </button>
                       )}
-                    </button>
+                    </div>
                   ))}
                 </div>
               </div>
