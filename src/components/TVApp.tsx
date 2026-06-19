@@ -366,7 +366,6 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
       setStatus(`Skipped: ${reason}. Trying next...`);
       if (retryTimeoutRef.current) {
         clearTimeout(retryTimeoutRef.current);
-        retryTimeoutRef.current = null;
       }
       retryTimeoutRef.current = setTimeout(() => {
         retryTimeoutRef.current = null;
