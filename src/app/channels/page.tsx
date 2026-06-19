@@ -28,7 +28,9 @@ export default function ChannelsPage() {
         {stations.map((s) => (
           <section key={s.id}>
             <h2 className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">
-              {s.name}
+              <Link href={`/${s.id}`} className="hover:text-amber-400">
+                {s.name}
+              </Link>
             </h2>
             <p className="mt-1 text-xs text-zinc-500">{s.description}</p>
             <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1 text-sm md:grid-cols-3">
