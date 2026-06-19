@@ -3,21 +3,19 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import type { Catalog, CatalogSummary, Video } from "@/lib/types";
 import { loadCatalog, loadCatalogSummary, getVideosForStation, pickRandom, formatDuration, getCatalogFreshness, getSourceFreshness } from "@/lib/catalog";
-import { getWatchedIds, markWatched, getStats, getBlockedSources, blockSource, unblockSource, getWatchLater, addWatchLater, removeWatchLater, getSavedForPlayback, addSavedForPlayback, removeSavedForPlayback, getSmartMixProfileRaw, setSmartMixProfileRaw, resetSmartMixProfile, getEmbedHealth, type EmbedHealthRecord } from "@/lib/watched";
+import { getWatchedIds, markWatched, getBlockedSources, blockSource, unblockSource, getWatchLater, addWatchLater, removeWatchLater, getSavedForPlayback, addSavedForPlayback, removeSavedForPlayback, getSmartMixProfileRaw, setSmartMixProfileRaw, resetSmartMixProfile, getEmbedHealth, type EmbedHealthRecord } from "@/lib/watched";
 import { applyPreference, createSmartMixProfile, parseSmartMixProfile, pickSmartMixVideo, serializeSmartMixProfile, type SmartMixProfile } from "@/lib/smartmix";
 import { ytErrorReason } from "@/lib/yt-errors";
 import { trackActivated, trackCoreAction } from "@/lib/analytics";
 import Link from "next/link";
 import Player, { type PlayerHandle } from "./Player";
 import Search from "./Search";
-import StationBuilder from "./StationBuilder";
 import ChannelHealth from "./ChannelHealth";
 import stations from "../../channels.config";
 import bundledCatalogSummary from "../../public/catalog-summary.json";
 
 const SMART_MIX_ID = "smart-mix";
 const INITIAL_CATALOG_SUMMARY = bundledCatalogSummary as CatalogSummary;
-const EMPTY_STATS = { totalWatched: 0, totalSeconds: 0 };
 
 export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const [catalog, setCatalog] = useState<Catalog | null>(null);
@@ -26,11 +24,13 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const [activeCategory, setActiveCategory] = useState("all");
   const [currentVideo, setCurrentVideo] = useState<Video | null>(null);
   const [status, setStatus] = useState<string>("Loading...");
-  const [mode, setMode] = useState<"landing" | "lobby" | "playing">(initialChannel ? "lobby" : "landing");
+  // TVApp is only ever mounted with an initialChannel (via [channel]/page.tsx),
+  // so playback always starts in the lobby. The standalone "landing" picker
+  // lives in app/page.tsx instead.
+  const [mode, setMode] = useState<"lobby" | "playing">("lobby");
   const [paused, setPaused] = useState(false);
   const [muted, setMuted] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [stationBuilderOpen, setStationBuilderOpen] = useState(false);
   const [hideWatched, setHideWatched] = useState(true);
   const [watchedIds, setWatchedIds] = useState<Set<string>>(() => new Set());
   const [blockedSources, setBlockedSources] = useState<Set<string>>(() => new Set());
@@ -46,8 +46,6 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const [smartMixReason, setSmartMixReason] = useState("");
   const [playbackIssue, setPlaybackIssue] = useState<{ reason: string; skipped: number } | null>(null);
   const [embedHealth, setEmbedHealth] = useState<Record<string, EmbedHealthRecord>>(() => ({}));
-  const [catalogError, setCatalogError] = useState(false);
-  const [catalogRetrying, setCatalogRetrying] = useState(false);
   const queueRef = useRef<Video[]>([]);
   const [queueCount, setQueueCount] = useState(0);
   const skippedRef = useRef(new Set<string>());
@@ -59,7 +57,6 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   // Defer time-dependent and localStorage-dependent state to after mount so
   // build-time SSR and the first client render produce identical HTML.
   const [mounted, setMounted] = useState(false);
-  const [landingStats, setLandingStats] = useState(EMPTY_STATS);
 
   const isPlayAll = activeStation === "all";
   const isSmartMix = activeStation === SMART_MIX_ID;
@@ -79,7 +76,6 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
     queueMicrotask(() => {
       if (cancelled) return;
       setMounted(true);
-      setLandingStats(getStats());
       setWatchedIds(getWatchedIds());
       const blocked = getBlockedSources();
       blockedSourcesRef.current = blocked;
@@ -104,17 +100,13 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   }, []);
 
   const fetchCatalog = useCallback(() => {
-    queueMicrotask(() => {
-      setCatalogError(false);
-      setCatalogRetrying(true);
-    });
     loadCatalogSummary()
       .then(setCatalogSummary)
       .catch(() => {
         // The full catalog still powers playback; summary only improves first paint.
       });
     loadCatalog()
-      .then((c) => { setCatalog(c); setStatus(""); setCatalogError(false); })
+      .then((c) => { setCatalog(c); setStatus(""); })
       .catch((err) => {
         console.error("TVApp: catalog load failed after retries", err);
         const isDev =
@@ -124,12 +116,8 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
         setStatus(
           isDev
             ? "No catalog found. Run: pnpm run build:catalog"
-            : "Catalog couldn't load. Showing sample channels — tap retry when you're back online.",
+            : "Catalog couldn't load. Reload the page when you're back online.",
         );
-        setCatalogError(true);
-      })
-      .finally(() => {
-        setCatalogRetrying(false);
       });
   }, []);
 
@@ -414,29 +402,6 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
       ? `Channel catalog may be stale - ${catalogFreshness.label}`
       : catalogFreshness.label;
 
-  // "Up next on Play All" preview: three random videos that prove the
-  // catalog is loaded and what playback will actually look like. Picked in
-  // an effect (not render) so the random draw stays out of React's pure
-  // render path.
-  const [previewQueue, setPreviewQueue] = useState<Video[]>([]);
-  useEffect(() => {
-    if (!catalog) return;
-    const pool = Object.values(catalog.stations).flatMap((s) => s.videos);
-    if (pool.length === 0) return;
-    const picks: Video[] = [];
-    const seen = new Set<string>();
-    const max = Math.min(3, pool.length);
-    let guard = 0;
-    while (picks.length < max && guard < 50) {
-      guard += 1;
-      const v = pool[Math.floor(Math.random() * pool.length)];
-      if (seen.has(v.id)) continue;
-      seen.add(v.id);
-      picks.push(v);
-    }
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setPreviewQueue(picks);
-  }, [catalog]);
   const totalCatalogVideos =
     (catalog && Object.values(catalog.stations).reduce((n, s) => n + s.videos.length, 0)) ||
     catalogSummary?.totalVideos ||
@@ -449,236 +414,6 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
     setSmartMixProfileRaw(serializeSmartMixProfile(next));
     if (preference === "dislike") playNext();
   }, [currentVideo, playNext, smartMixProfile]);
-
-  // ── Landing: channel picker with stats ──
-  if (mode === "landing") {
-    const stats = landingStats;
-    const totalHours = Math.floor(stats.totalSeconds / 3600);
-    const totalMins = Math.floor((stats.totalSeconds % 3600) / 60);
-
-    return (
-      <div className="min-h-screen bg-black flex flex-col items-center px-6 py-16 overflow-y-auto">
-        <div className="text-center mb-10">
-          <h1 className="text-white text-5xl font-bold tracking-tight mb-2">LoopTV</h1>
-          <p className="text-white/40 text-base">Pick a channel. Random clips play nonstop.</p>
-          <div
-            className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs"
-            data-testid="reliability-strip"
-          >
-            <span
-              className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 ${
-                catalogFreshness.state === "stale"
-                  ? "bg-yellow-400/10 text-yellow-300 border border-yellow-400/30"
-                  : catalogFreshness.state === "loading"
-                  ? "bg-white/5 text-white/40 border border-white/10"
-                  : "bg-emerald-400/10 text-emerald-300 border border-emerald-400/25"
-              }`}
-            >
-              <span
-                className={`h-1.5 w-1.5 rounded-full ${
-                  catalogFreshness.state === "stale"
-                    ? "bg-yellow-300"
-                    : catalogFreshness.state === "loading"
-                    ? "bg-white/30"
-                    : "bg-emerald-300"
-                }`}
-              />
-              {catalogFreshnessLabel}
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/5 text-white/55 border border-white/10 px-2.5 py-1">
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-              Auto-skips unplayable clips
-            </span>
-            {totalCatalogVideos > 0 && (
-              <span className="inline-flex items-center rounded-full bg-white/5 text-white/55 border border-white/10 px-2.5 py-1">
-                {totalCatalogVideos.toLocaleString()} videos ready
-              </span>
-            )}
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-3 mt-5">
-            <button
-              onClick={() => { setActiveStation("all"); setMode("playing"); }}
-              className="bg-red-600 hover:bg-red-500 text-white text-sm font-semibold px-5 py-3 min-h-11 rounded-xl transition-colors flex items-center gap-2"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-              Play All
-            </button>
-            <button
-              onClick={() => {
-                const rand = stations[Math.floor(Math.random() * stations.length)];
-                setActiveStation(rand.id);
-                setMode("playing");
-              }}
-              className="bg-white/10 hover:bg-white/15 text-white text-sm px-5 py-3 min-h-11 rounded-xl transition-colors flex items-center gap-2"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-              Shuffle
-            </button>
-            <button
-              onClick={() => { setActiveStation(SMART_MIX_ID); setMode("playing"); }}
-              className="bg-white text-black hover:bg-white/90 text-sm font-semibold px-5 py-3 min-h-11 rounded-xl transition-colors flex items-center gap-2"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4h2m-1 0v16m-7-5h14M5 9h14" /></svg>
-              Smart Mix
-            </button>
-            <button
-              onClick={() => setStationBuilderOpen(true)}
-              className="bg-white/10 hover:bg-white/15 text-white text-sm px-5 py-3 min-h-11 rounded-xl transition-colors flex items-center gap-2"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v14m7-7H5" />
-              </svg>
-              Build Station
-            </button>
-            <button
-              onClick={() => setShowHealth(true)}
-              className="bg-white/10 hover:bg-white/15 text-white text-sm px-5 py-3 min-h-11 rounded-xl transition-colors flex items-center gap-2"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
-              Channel Health
-            </button>
-          </div>
-          {stats.totalWatched > 0 && (
-            <p className="text-white/20 text-sm mt-4">
-              {stats.totalWatched.toLocaleString()} watched
-              {totalHours > 0 ? ` · ${totalHours}h ${totalMins}m` : totalMins > 0 ? ` · ${totalMins}m` : ""}
-            </p>
-          )}
-        </div>
-
-        <div className="w-full max-w-4xl mb-8" data-testid="up-next">
-          <div className="flex items-center justify-between mb-3 px-1">
-            <p className="text-white/40 text-xs uppercase tracking-wider">
-              Up next on Play All
-            </p>
-            <p className="text-white/25 text-xs">
-              {catalogLoaded ? "Random shuffle · skips embeds that won't load" : "Loading queue..."}
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {(catalogLoaded ? previewQueue : Array.from({ length: 3 })).map((entry, idx) => {
-              const video = catalogLoaded ? (entry as Video) : null;
-              return (
-                <button
-                  key={video?.id ?? `skeleton-${idx}`}
-                  onClick={() => {
-                    if (!video) return;
-                    setActiveStation("all");
-                    setCurrentVideo(video);
-                    setMode("playing");
-                  }}
-                  disabled={!video}
-                  className="group relative overflow-hidden rounded-lg border border-white/10 bg-white/5 text-left transition-colors enabled:hover:bg-white/10 enabled:hover:border-white/20 disabled:cursor-default"
-                >
-                  <div className="relative aspect-video w-full bg-zinc-900">
-                    {video && (
-                      // YouTube thumb served straight from i.ytimg.com; static export means
-                      // next/image's optimizer is disabled anyway, so a plain <img> is fine.
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={`https://i.ytimg.com/vi/${video.id}/mqdefault.jpg`}
-                        alt=""
-                        loading="lazy"
-                        className="h-full w-full object-cover opacity-90 transition-opacity group-hover:opacity-100"
-                      />
-                    )}
-                    {video && (
-                      <span className="absolute bottom-1.5 right-1.5 rounded bg-black/80 px-1.5 py-0.5 text-[10px] font-mono text-white/85">
-                        {formatDuration(video.duration)}
-                      </span>
-                    )}
-                  </div>
-                  <div className="p-3">
-                    {video ? (
-                      <>
-                        <p className="text-white text-sm font-medium line-clamp-2">{video.title}</p>
-                        <p className="text-white/40 text-xs mt-1 truncate">
-                          {video.source || "LoopTV"}
-                        </p>
-                      </>
-                    ) : (
-                      <>
-                        <div className="h-3.5 w-4/5 rounded bg-white/10" />
-                        <div className="h-3 w-1/3 mt-2 rounded bg-white/5" />
-                      </>
-                    )}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {catalogError && (
-          <div
-            data-testid="catalog-offline-banner"
-            className="w-full max-w-4xl mb-6 rounded-xl border border-yellow-400/30 bg-yellow-400/10 px-5 py-4 text-sm text-yellow-100"
-          >
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="font-semibold text-yellow-100">Catalog unavailable — showing sample channels</p>
-                <p className="mt-1 text-yellow-100/70">
-                  We couldn&apos;t reach <code className="rounded bg-black/30 px-1 py-0.5 text-xs">catalog.json</code>.
-                  Browse the {stations.length} channels below, then retry once your connection is back.
-                </p>
-              </div>
-              <button
-                onClick={fetchCatalog}
-                disabled={catalogRetrying}
-                className="self-start rounded-lg bg-yellow-300/20 px-4 py-2 font-medium text-yellow-100 transition-colors hover:bg-yellow-300/30 disabled:cursor-wait disabled:opacity-60 sm:self-auto"
-              >
-                {catalogRetrying ? "Retrying..." : "Retry"}
-              </button>
-            </div>
-          </div>
-        )}
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-4xl">
-          {stations.map((st) => {
-            const count =
-              catalog?.stations?.[st.id]?.videos?.length ??
-              catalogSummary?.stations?.[st.id]?.videoCount ??
-              0;
-            return (
-              <Link
-                key={st.id}
-                href={`/${st.id}`}
-                className="text-left p-5 rounded-xl border transition-all border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 hover:scale-[1.02] block no-underline"
-              >
-                <h2 className="text-white text-lg font-semibold">{st.name}</h2>
-                <p className="text-white/40 text-sm mt-1">{st.description}</p>
-                <p className="text-white/30 text-xs mt-2">
-                  {count ? `${count.toLocaleString()} videos` : catalogLoaded ? "No videos" : "Loading..."}
-                </p>
-                {catalogFreshness.state === "stale" && (
-                  <p className="text-xs mt-1 text-yellow-400/80">{catalogFreshnessLabel}</p>
-                )}
-              </Link>
-            );
-          })}
-        </div>
-        <StationBuilder
-          catalog={catalog}
-          stations={stations}
-          visible={stationBuilderOpen}
-          onClose={() => setStationBuilderOpen(false)}
-        />
-        <ChannelHealth
-          visible={showHealth}
-          onClose={() => setShowHealth(false)}
-          stations={stations}
-          catalog={catalog}
-          embedHealth={embedHealth}
-          blockedSources={blockedSources}
-          onToggleBlock={handleToggleBlock}
-        />
-      </div>
-    );
-  }
 
   // ── Lobby: channel selected ──
   if (mode === "lobby") {
