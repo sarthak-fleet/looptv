@@ -8,6 +8,9 @@
     "start": "wrangler pages dev out",
     "test": "vitest run",
     "lint": "eslint",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "check": "biome check .",
     "typecheck": "tsc --noEmit",
     "build:catalog": "bash scripts/build-catalog.sh",
     "build:ner": "python3 scripts/extract-tags.py",
@@ -16,9 +19,7 @@
     "deploy": "pnpm cf:build && wrangler pages deploy out --project-name=looptv"
   },
   "dependencies": {
-    "@saas-maker/changelog-widget": "^0.2.1",
     "@saas-maker/feedback": "^0.2.1",
-    "@saas-maker/testimonials": "^0.2.1",
     "next": "16.2.4",
     "react": "19.2.5",
     "react-dom": "19.2.5",
@@ -26,11 +27,8 @@
     "posthog-js": "^1.372.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.5.0",
     "@playwright/test": "1.59.1",
-    "@saas-maker/eslint-config": "^1.0.2",
-    "@saas-maker/prettier-config": "^1.0.0",
-    "@saas-maker/test-config": "^0.1.0",
-    "@saas-maker/tsconfig": "^1.0.0",
     "@tailwindcss/postcss": "4",
     "@types/node": "25.6.0",
     "@types/react": "19",
@@ -43,6 +41,5 @@
     "typescript": "6.0.3",
     "vitest": "4.1.5",
     "wrangler": "4.85.0"
-  },
-  "prettier": "@saas-maker/prettier-config"
+  }
 }

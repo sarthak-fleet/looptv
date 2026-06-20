@@ -8,13 +8,7 @@ importers:
 
   .:
     dependencies:
-      '@saas-maker/changelog-widget':
-        specifier: ^0.2.1
-        version: 0.2.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@saas-maker/feedback':
-        specifier: ^0.2.1
-        version: 0.2.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      '@saas-maker/testimonials':
         specifier: ^0.2.1
         version: 0.2.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       next:
@@ -33,21 +27,12 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3
     devDependencies:
+      '@biomejs/biome':
+        specifier: 2.5.0
+        version: 2.5.0
       '@playwright/test':
         specifier: 1.59.1
         version: 1.59.1
-      '@saas-maker/eslint-config':
-        specifier: ^1.0.2
-        version: 1.0.2(@typescript-eslint/parser@8.59.0(eslint@10.2.1(jiti@2.6.1))(typescript@6.0.3))(eslint@10.2.1(jiti@2.6.1))(typescript@6.0.3)
-      '@saas-maker/prettier-config':
-        specifier: ^1.0.0
-        version: 1.0.0
-      '@saas-maker/test-config':
-        specifier: ^0.1.0
-        version: 0.1.0(@playwright/test@1.59.1)(vitest@4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.0)(vite@8.0.3(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@25.6.0)(esbuild@0.27.3)(jiti@2.6.1)))
-      '@saas-maker/tsconfig':
-        specifier: ^1.0.0
-        version: 1.0.0
       '@tailwindcss/postcss':
         specifier: '4'
         version: 4.2.4
@@ -157,6 +142,63 @@ packages:
   '@babel/types@7.29.0':
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
     engines: {node: '>=6.9.0'}
+
+  '@biomejs/biome@2.5.0':
+    resolution: {integrity: sha512-4kURkd9hAPrdDM3C9n82ycYgx8hvQcW6MjKTEejruj8rK0N8P3OPpdy8BvI8kt3KWY4ycF5XtDOrktetEfhfuw==}
+    engines: {node: '>=14.21.3'}
+    hasBin: true
+
+  '@biomejs/cli-darwin-arm64@2.5.0':
+    resolution: {integrity: sha512-Mn3Fwi3SA5fgmfCPqmzpWF2DLZnms3BVAhM088nTnGrTZmHS3wwIjcoZPqpXeNgd3DrrLH6xp8vTLIBuJoZiXw==}
+    engines: {node: '>=14.21.3'}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@biomejs/cli-darwin-x64@2.5.0':
+    resolution: {integrity: sha512-rg3VPL5P8mYro6pqlXYXuJWph21slVp3SZtAqWSrkZs40d2gTzYmHF8E/X1iTID25btmNKltNDJ926sqVBp7DQ==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@biomejs/cli-linux-arm64-musl@2.5.0':
+    resolution: {integrity: sha512-vQdM4oSGaf7ZNeGO9w5+Y8SBtyser9M6znxYbm7Ec8wInxJu1WiKxFYZW5Auj2d80bcVvefuGGRxoFOE0eee8g==}
+    engines: {node: '>=14.21.3'}
+    cpu: [arm64]
+    os: [linux]
+    libc: [musl]
+
+  '@biomejs/cli-linux-arm64@2.5.0':
+    resolution: {integrity: sha512-tl+LW8fdD96/xdeWtWwc82LIOc5CoY7N2AsogLTp5R4ECErYt+8Jl/N68ezN9vzSiqPTxw6vjcihoLPYKZHrlw==}
+    engines: {node: '>=14.21.3'}
+    cpu: [arm64]
+    os: [linux]
+    libc: [glibc]
+
+  '@biomejs/cli-linux-x64-musl@2.5.0':
+    resolution: {integrity: sha512-+9hIcMngJ+yGUahXqZuZ8CoWKJE9SAZsFsM3QDvXpNsLbXZ9lqVzgBhOk/jTSYkOA0GLP9eu3teukqpLUojHMg==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [linux]
+    libc: [musl]
+
+  '@biomejs/cli-linux-x64@2.5.0':
+    resolution: {integrity: sha512-zpEGf4RQbFEh8Vt7OmavLyyOzRbtcE9osCqrS1kfvt8jDvxwhKXLSf7n0ebr/ov0RJ9ssP+lhs6C8a9WwFvrQA==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+
+  '@biomejs/cli-win32-arm64@2.5.0':
+    resolution: {integrity: sha512-jB0wAvTLI4itx5VidqVUejPQFhRUxiZ9l9FvZ26D5fl6t3qme+ZB4PD3bTSeL1vZ8NI2Rx/zj6H9zcESuGHKGw==}
+    engines: {node: '>=14.21.3'}
+    cpu: [arm64]
+    os: [win32]
+
+  '@biomejs/cli-win32-x64@2.5.0':
+    resolution: {integrity: sha512-VT/lF+GId+67j8aDfLkxdxNoVApsPSTbyAtB3jJq0IWTrY77WXfbPfpngxq0bA6JCEv/7k8C9qWjDRKRznDlyw==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [win32]
 
   '@cloudflare/kv-asset-handler@0.4.2':
     resolution: {integrity: sha512-SIOD2DxrRRwQ+jgzlXCqoEFiKOFqaPjhnNTGKXSRLvp1HiOvapLaFG2kEr9dYQTYe8rKrd9uvDUzmAITeNyaHQ==}
@@ -391,10 +433,6 @@ packages:
   '@eslint/core@1.2.1':
     resolution: {integrity: sha512-MwcE1P+AZ4C6DWlpin/OmOA54mmIZ/+xZuJiQd4SyB29oAJjN30UW9wkKNptW2ctp4cEsvhlLY/CsQ1uoHDloQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
-
-  '@eslint/js@9.39.4':
-    resolution: {integrity: sha512-nE7DEIchvtiFTwBw4Lfbu59PG+kCofhjsKaCWzxTpt4lfRjRMqG6uMBzKXuEcyXhOHoUp9riAm7/aWYGhXZ9cw==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/object-schema@3.0.5':
     resolution: {integrity: sha512-vqTaUEgxzm+YDSdElad6PiRoX4t8VGDjCtt05zn4nU810UIx/uNEV7/lZJ6KwFThKZOzOxzXy48da+No7HZaMw==}
@@ -908,48 +946,11 @@ packages:
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
 
-  '@saas-maker/changelog-widget@0.2.1':
-    resolution: {integrity: sha512-tAQb6hr5mOzbyQxKUNWePlllsdNDquHW0G2FG7u9Um2BzgNNi8WF94M5Khz/SlvVoSYvKl1yMFX6sxnj07kynw==}
-    peerDependencies:
-      react: '>=18'
-      react-dom: '>=18'
-
-  '@saas-maker/eslint-config@1.0.2':
-    resolution: {integrity: sha512-kHCz6sY8obhwVLUsVqTr1C7f++vMPwh3k4hTufwIBoai49FoYG3lOb6cNyGhapAtyOB3DgeBdDV3zE/PAxRYXw==}
-    peerDependencies:
-      eslint: '>=9.0.0'
-
   '@saas-maker/feedback@0.2.1':
     resolution: {integrity: sha512-ajtrH7t/hhzxrNzX2BU0i5nfGpXNu7w4EQCFBajsuFn255O29trRCu3VNL1NoQhWwypjEEdeaK4DqoEY4zd7rw==}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
-
-  '@saas-maker/prettier-config@1.0.0':
-    resolution: {integrity: sha512-SIEj/4cwEOGnWj6aQzvIQh+BuHZ3DWo4YVYtplgpCIgP9IW01h+x+8Lh648L9boRfGwBDsJq5D0oHly7Ckmjqg==}
-
-  '@saas-maker/test-config@0.1.0':
-    resolution: {integrity: sha512-Ds64cdEsXLwnP8ljenQhVzisI34MUjYQNJyF6JeTIc7R3vr7bG6YVVt0eLL0YqyQ0uc2ndKMBXxul5VHlckR7A==}
-    peerDependencies:
-      '@axe-core/playwright': '>=4'
-      '@playwright/test': '>=1'
-      vitest: '>=2'
-    peerDependenciesMeta:
-      '@axe-core/playwright':
-        optional: true
-      '@playwright/test':
-        optional: true
-      vitest:
-        optional: true
-
-  '@saas-maker/testimonials@0.2.1':
-    resolution: {integrity: sha512-mioGG90lztefuWFKCFPDyv8fmL0+Na2eniHlKuc2Ug35sahIgGqdWsjjTFsVIvuY59gaVyj+iJMV4KmVTeTwBA==}
-    peerDependencies:
-      react: '>=18'
-      react-dom: '>=18'
-
-  '@saas-maker/tsconfig@1.0.0':
-    resolution: {integrity: sha512-23PwZHje/WL6cBOQlZJ3IFxQaWmHvs8FMBPshDCBdCEZLfpLMD7Jpga/D1z42eVpF2X6d9sz1MwdTV5hOE2X+w==}
 
   '@sindresorhus/is@7.2.0':
     resolution: {integrity: sha512-P1Cz1dWaFfR4IR+U13mqqiGsLFf1KbayybWwdd2vfctdV6hDpUkgCY0nKOLLTMSoRd/jJNjtbqzf13K8DCCXQw==}
@@ -1571,12 +1572,6 @@ packages:
       typescript:
         optional: true
 
-  eslint-config-prettier@10.1.8:
-    resolution: {integrity: sha512-82GZUjRS0p/jganf6q1rEO25VSoHH0hKPCTrgillPjdI/3bgBhAE1QzHrHTizjpRvy6pGAvKjDJtk2pF9NDq8w==}
-    hasBin: true
-    peerDependencies:
-      eslint: '>=7.0.0'
-
   eslint-import-resolver-node@0.3.10:
     resolution: {integrity: sha512-tRrKqFyCaKict5hOd244sL6EQFNycnMQnBe+j8uqGNXYzsImGbGUU4ibtoaBmv5FLwJwcFJNeg1GeVjQfbMrDQ==}
 
@@ -1630,33 +1625,17 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9
 
-  eslint-plugin-promise@7.2.1:
-    resolution: {integrity: sha512-SWKjd+EuvWkYaS+uN2csvj0KoP43YTu7+phKQ5v+xw6+A0gutVX2yqCeCkC3uLCJFiPfR2dD8Es5L7yUsmvEaA==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-    peerDependencies:
-      eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
-
   eslint-plugin-react-hooks@7.1.1:
     resolution: {integrity: sha512-f2I7Gw6JbvCexzIInuSbZpfdQ44D7iqdWX01FKLvrPgqxoE7oMj8clOfto8U6vYiz4yd5oKu39rRSVOe1zRu0g==}
     engines: {node: '>=18'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0 || ^10.0.0
 
-  eslint-plugin-react-refresh@0.4.26:
-    resolution: {integrity: sha512-1RETEylht2O6FM/MvgnyvT+8K21wLqDNg4qD51Zj3guhjt433XbnnkVttHMyaVyAFD03QSV4LPS5iE3VQmO7XQ==}
-    peerDependencies:
-      eslint: '>=8.40'
-
   eslint-plugin-react@7.37.5:
     resolution: {integrity: sha512-Qteup0SqU15kdocexFNAJMvCJEfa2xUKNV4CC1xsVMrIIqEy3SQ/rqyxCWNzfrd3/ldy6HMlD2e0JDVpDg2qIA==}
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
-
-  eslint-plugin-simple-import-sort@13.0.0:
-    resolution: {integrity: sha512-McAc+/Nlvcg4byY/CABGH8kqnefWBj8s3JA2okEtz8ixbECQgU46p0HkTUKa4YS7wvgGceimlc34p1nXqbWqtA==}
-    peerDependencies:
-      eslint: '>=5.0.0'
 
   eslint-scope@9.1.2:
     resolution: {integrity: sha512-xS90H51cKw0jltxmvmHy2Iai1LIqrfbw57b79w/J7MfvDfkIkFZ+kj6zC3BjtUwh150HsSSdxXZcsuv72miDFQ==}
@@ -1808,10 +1787,6 @@ packages:
   glob-parent@6.0.2:
     resolution: {integrity: sha512-XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==}
     engines: {node: '>=10.13.0'}
-
-  globals@15.15.0:
-    resolution: {integrity: sha512-7ACyT3wmyp3I61S4fG682L0VA2RGD9otkqGJIwNUMF1SWUombIIk+af1unuDYgMm082aHYwD+mzJvv9Iu8dsgg==}
-    engines: {node: '>=18'}
 
   globals@16.4.0:
     resolution: {integrity: sha512-ob/2LcVVaVGCYN+r14cnwnoDPUufjiYgSqRhiFD0Q1iI4Odora5RE8Iv1D24hAz5oMophRGkGz+yuvQmmUMnMw==}
@@ -2869,6 +2844,41 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
+  '@biomejs/biome@2.5.0':
+    optionalDependencies:
+      '@biomejs/cli-darwin-arm64': 2.5.0
+      '@biomejs/cli-darwin-x64': 2.5.0
+      '@biomejs/cli-linux-arm64': 2.5.0
+      '@biomejs/cli-linux-arm64-musl': 2.5.0
+      '@biomejs/cli-linux-x64': 2.5.0
+      '@biomejs/cli-linux-x64-musl': 2.5.0
+      '@biomejs/cli-win32-arm64': 2.5.0
+      '@biomejs/cli-win32-x64': 2.5.0
+
+  '@biomejs/cli-darwin-arm64@2.5.0':
+    optional: true
+
+  '@biomejs/cli-darwin-x64@2.5.0':
+    optional: true
+
+  '@biomejs/cli-linux-arm64-musl@2.5.0':
+    optional: true
+
+  '@biomejs/cli-linux-arm64@2.5.0':
+    optional: true
+
+  '@biomejs/cli-linux-x64-musl@2.5.0':
+    optional: true
+
+  '@biomejs/cli-linux-x64@2.5.0':
+    optional: true
+
+  '@biomejs/cli-win32-arm64@2.5.0':
+    optional: true
+
+  '@biomejs/cli-win32-x64@2.5.0':
+    optional: true
+
   '@cloudflare/kv-asset-handler@0.4.2': {}
 
   '@cloudflare/unenv-preset@2.16.1(unenv@2.0.0-rc.24)(workerd@1.20260424.1)':
@@ -3012,8 +3022,6 @@ snapshots:
   '@eslint/core@1.2.1':
     dependencies:
       '@types/json-schema': 7.0.15
-
-  '@eslint/js@9.39.4': {}
 
   '@eslint/object-schema@3.0.5': {}
 
@@ -3395,48 +3403,10 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
-  '@saas-maker/changelog-widget@0.2.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
-    dependencies:
-      react: 19.2.5
-      react-dom: 19.2.5(react@19.2.5)
-
-  '@saas-maker/eslint-config@1.0.2(@typescript-eslint/parser@8.59.0(eslint@10.2.1(jiti@2.6.1))(typescript@6.0.3))(eslint@10.2.1(jiti@2.6.1))(typescript@6.0.3)':
-    dependencies:
-      '@eslint/js': 9.39.4
-      eslint: 10.2.1(jiti@2.6.1)
-      eslint-config-prettier: 10.1.8(eslint@10.2.1(jiti@2.6.1))
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.59.0(eslint@10.2.1(jiti@2.6.1))(typescript@6.0.3))(eslint-import-resolver-typescript@3.10.1)(eslint@10.2.1(jiti@2.6.1))
-      eslint-plugin-promise: 7.2.1(eslint@10.2.1(jiti@2.6.1))
-      eslint-plugin-react-hooks: 7.1.1(eslint@10.2.1(jiti@2.6.1))
-      eslint-plugin-react-refresh: 0.4.26(eslint@10.2.1(jiti@2.6.1))
-      eslint-plugin-simple-import-sort: 13.0.0(eslint@10.2.1(jiti@2.6.1))
-      globals: 15.15.0
-      typescript-eslint: 8.59.0(eslint@10.2.1(jiti@2.6.1))(typescript@6.0.3)
-    transitivePeerDependencies:
-      - '@typescript-eslint/parser'
-      - eslint-import-resolver-typescript
-      - eslint-import-resolver-webpack
-      - supports-color
-      - typescript
-
   '@saas-maker/feedback@0.2.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
-
-  '@saas-maker/prettier-config@1.0.0': {}
-
-  '@saas-maker/test-config@0.1.0(@playwright/test@1.59.1)(vitest@4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.0)(vite@8.0.3(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@25.6.0)(esbuild@0.27.3)(jiti@2.6.1)))':
-    optionalDependencies:
-      '@playwright/test': 1.59.1
-      vitest: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.0)(vite@8.0.3(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@25.6.0)(esbuild@0.27.3)(jiti@2.6.1))
-
-  '@saas-maker/testimonials@0.2.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
-    dependencies:
-      react: 19.2.5
-      react-dom: 19.2.5(react@19.2.5)
-
-  '@saas-maker/tsconfig@1.0.0': {}
 
   '@sindresorhus/is@7.2.0': {}
 
@@ -4139,10 +4109,6 @@ snapshots:
       - eslint-plugin-import-x
       - supports-color
 
-  eslint-config-prettier@10.1.8(eslint@10.2.1(jiti@2.6.1)):
-    dependencies:
-      eslint: 10.2.1(jiti@2.6.1)
-
   eslint-import-resolver-node@0.3.10:
     dependencies:
       debug: 3.2.7
@@ -4225,11 +4191,6 @@ snapshots:
       safe-regex-test: 1.1.0
       string.prototype.includes: 2.0.1
 
-  eslint-plugin-promise@7.2.1(eslint@10.2.1(jiti@2.6.1)):
-    dependencies:
-      '@eslint-community/eslint-utils': 4.9.1(eslint@10.2.1(jiti@2.6.1))
-      eslint: 10.2.1(jiti@2.6.1)
-
   eslint-plugin-react-hooks@7.1.1(eslint@10.2.1(jiti@2.6.1)):
     dependencies:
       '@babel/core': 7.29.0
@@ -4240,10 +4201,6 @@ snapshots:
       zod-validation-error: 4.0.2(zod@4.3.6)
     transitivePeerDependencies:
       - supports-color
-
-  eslint-plugin-react-refresh@0.4.26(eslint@10.2.1(jiti@2.6.1)):
-    dependencies:
-      eslint: 10.2.1(jiti@2.6.1)
 
   eslint-plugin-react@7.37.5(eslint@10.2.1(jiti@2.6.1)):
     dependencies:
@@ -4266,10 +4223,6 @@ snapshots:
       semver: 6.3.1
       string.prototype.matchall: 4.0.12
       string.prototype.repeat: 1.0.0
-
-  eslint-plugin-simple-import-sort@13.0.0(eslint@10.2.1(jiti@2.6.1)):
-    dependencies:
-      eslint: 10.2.1(jiti@2.6.1)
 
   eslint-scope@9.1.2:
     dependencies:
@@ -4449,8 +4402,6 @@ snapshots:
   glob-parent@6.0.2:
     dependencies:
       is-glob: 4.0.3
-
-  globals@15.15.0: {}
 
   globals@16.4.0: {}
 

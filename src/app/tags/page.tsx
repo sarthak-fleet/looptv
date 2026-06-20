@@ -28,7 +28,7 @@ export default function TagsPage() {
     loadCatalog()
       .then((cat) => {
         if (cancelled) return;
-        // eslint-disable-next-line react-hooks/set-state-in-effect
+         
         setCatalog(cat);
         const counts = new Map<string, TagSummary>();
         for (const [stationId, station] of Object.entries(cat.stations)) {
