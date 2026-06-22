@@ -13,6 +13,7 @@
     "check": "biome check .",
     "typecheck": "tsc --noEmit",
     "build:catalog": "bash scripts/fetch-sources.sh && bash scripts/build-catalog.sh --process-only",
+    "seed:local": "bash scripts/seed-local.sh",
     "build:ner": "python3 scripts/extract-tags.py",
     "fetch:all": "bash scripts/fetch-all-sources.sh",
     "cf:build": "pnpm build",

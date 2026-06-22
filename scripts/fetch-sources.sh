@@ -46,14 +46,9 @@ echo "Fetch scope: $SHARD_LABEL ($HANDLE_COUNT channels)"
 echo "Concurrency: $FETCH_CONCURRENCY"
 echo ""
 
-fetch_one() {
-  node scripts/fetch-channel.mjs "$1" $FRESH_FLAG || true
-}
-
-export -f fetch_one
 export FRESH_FLAG
 
-echo "$HANDLES" | sed '/^$/d' | xargs -P "$FETCH_CONCURRENCY" -I {} bash -c 'fetch_one "$@"' _ {} || true
+echo "$HANDLES" | sed '/^$/d' | xargs -P "$FETCH_CONCURRENCY" -I {} bash -c 'echo "[$(date -u +%H:%M:%S)] $1"; node scripts/fetch-channel.mjs "$1" '"$FRESH_FLAG"' || true' _ {} || true
 
 MISSING=0
 RETRIED=0

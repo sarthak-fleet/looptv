@@ -86,8 +86,9 @@ function cacheIsFresh(filePath) {
   return ageDays <= CACHE_MAX_AGE_DAYS;
 }
 
-function matchFilter(minDur, maxDur) {
-  return ["--match-filter", `view_count >= 10000 & duration >= ${minDur} & duration <= ${maxDur}`];
+/** Duration-only at fetch time; view-count + top-N applied in process-catalog.mjs */
+function durationMatchFilter(minDur, maxDur) {
+  return ["--match-filter", `duration >= ${minDur} & duration <= ${maxDur}`];
 }
 
 function parseJsonLines(stdout) {
@@ -167,7 +168,7 @@ function enrichPlaylist(channelUrl, playlistEnd, minDur, maxDur) {
     "--ignore-errors",
     "--playlist-end",
     String(playlistEnd),
-    ...matchFilter(minDur, maxDur),
+    ...durationMatchFilter(minDur, maxDur),
     channelUrl,
   ]);
 }
