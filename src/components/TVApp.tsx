@@ -469,7 +469,7 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
       .flatMap((st) => st.sources)
       .find((s) => s.name === currentVideo.source)?.handle.replace("@", "");
     return getSourceFreshness(handle ? catalog.sourceMeta?.[handle] : undefined);
-  }, [catalog, currentVideo?.source]);
+  }, [catalog, currentVideo]);
 
   const playbackDiagnostic = useMemo(
     () =>
@@ -493,7 +493,7 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
       catalogLoaded,
       catalogLoadFailed,
       catalogFreshness,
-      currentVideo?.source,
+      currentVideo,
       currentSourceFreshness,
       embedHealth,
       quarantinedSources,

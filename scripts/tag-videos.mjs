@@ -69,7 +69,7 @@ async function callModel(model, stationId, videos, retries = 2) {
       }
 
       return tags;
-    } catch (err) {
+    } catch {
       if (attempt < retries) {
         await sleep(2000);
         continue;
