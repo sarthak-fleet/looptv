@@ -40,8 +40,10 @@ jobs:
         env:
           SHARD_INDEX: ${{ matrix.shard }}
           SHARD_TOTAL: 4
-          FETCH_CONCURRENCY: "8"
+          FETCH_CONCURRENCY: "2"
           CACHE_MAX_AGE_DAYS: "13"
+          YT_DLP_SLEEP_INTERVAL: "2"
+          RETRY_SLEEP_SECONDS: "15"
         run: bash scripts/fetch-sources.sh
 
       - name: Upload shard artifact

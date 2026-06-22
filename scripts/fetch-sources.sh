@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -uo pipefail
 
 # Fetch yt-dlp JSONL metadata for LoopTV sources into data/sources/
 #
 # Fast path per channel:
 #   1) flat-playlist listing (seconds)
-#   2) full metadata for small channels, or a bounded popular sample for mega channels
+#   2) one bounded playlist enrich call (avoids bot-triggering URL batches)
 #
 # Usage:
 #   ./scripts/fetch-sources.sh              # all handles (respect cache)
@@ -16,9 +16,10 @@ set -euo pipefail
 
 DATA_DIR="data/sources"
 FRESH="${1:-}"
-FETCH_CONCURRENCY="${FETCH_CONCURRENCY:-8}"
+FETCH_CONCURRENCY="${FETCH_CONCURRENCY:-3}"
 SHARD_INDEX="${SHARD_INDEX:-}"
 SHARD_TOTAL="${SHARD_TOTAL:-}"
+RETRY_SLEEP_SECONDS="${RETRY_SLEEP_SECONDS:-12}"
 
 mkdir -p "$DATA_DIR"
 
@@ -46,12 +47,50 @@ echo "Concurrency: $FETCH_CONCURRENCY"
 echo ""
 
 fetch_one() {
-  node scripts/fetch-channel.mjs "$1" $FRESH_FLAG
+  node scripts/fetch-channel.mjs "$1" $FRESH_FLAG || true
 }
 
 export -f fetch_one
 export FRESH_FLAG
 
-echo "$HANDLES" | sed '/^$/d' | xargs -P "$FETCH_CONCURRENCY" -I {} bash -c 'fetch_one "$@"' _ {}
+echo "$HANDLES" | sed '/^$/d' | xargs -P "$FETCH_CONCURRENCY" -I {} bash -c 'fetch_one "$@"' _ {} || true
 
-echo "Fetch done."
+MISSING=0
+RETRIED=0
+while IFS= read -r handle; do
+  [ -z "$handle" ] && continue
+  safe=$(echo "$handle" | tr -d '@')
+  file="$DATA_DIR/${safe}.jsonl"
+  if [ ! -s "$file" ]; then
+    MISSING=$((MISSING + 1))
+    echo "Retrying missing @${safe} sequentially..."
+    sleep "$RETRY_SLEEP_SECONDS"
+    export YT_DLP_SLEEP_INTERVAL="${YT_DLP_SLEEP_INTERVAL:-2}"
+    node scripts/fetch-channel.mjs "$handle" $FRESH_FLAG || true
+    RETRIED=$((RETRIED + 1))
+    if [ ! -s "$file" ]; then
+      echo "WARN: @${safe} still missing after retry"
+    fi
+  fi
+done <<< "$HANDLES"
+
+OK=0
+while IFS= read -r handle; do
+  [ -z "$handle" ] && continue
+  safe=$(echo "$handle" | tr -d '@')
+  if [ -s "$DATA_DIR/${safe}.jsonl" ]; then
+    OK=$((OK + 1))
+  fi
+done <<< "$HANDLES"
+
+echo ""
+echo "Fetch done: ${OK}/${HANDLE_COUNT} channels have source JSONL (missing=${MISSING}, retried=${RETRIED})."
+
+if [ "$OK" -eq 0 ]; then
+  echo "ERROR: no source files produced for this shard."
+  exit 1
+fi
+
+if [ "$OK" -lt "$HANDLE_COUNT" ]; then
+  echo "WARN: shard incomplete — build may fail if handles stay missing after merge."
+fi

@@ -3,6 +3,8 @@ import {
   computeEnrichBudget,
   filterFlatByDuration,
   findSourceByHandle,
+  isBotDetectionError,
+  ytDlpBaseArgs,
 } from "../fetch-channel.mjs";
 
 describe("fetch-channel", () => {
@@ -25,5 +27,14 @@ describe("fetch-channel", () => {
     expect(budget).toBeGreaterThanOrEqual(250);
     expect(budget).toBeLessThan(9000);
     expect(budget).toBeLessThanOrEqual(500);
+  });
+
+  it("detects YouTube bot wall errors", () => {
+    expect(isBotDetectionError("Sign in to confirm you're not a bot")).toBe(true);
+    expect(isBotDetectionError("network timeout")).toBe(false);
+  });
+
+  it("uses android/web player client for CI resilience", () => {
+    expect(ytDlpBaseArgs()).toContain("youtube:player_client=android,web");
   });
 });
