@@ -1,0 +1,14 @@
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/catalog-summary.json
+  Cache-Control: public, max-age=3600
+
+/stations.json
+  Cache-Control: public, max-age=3600
+
+/tags.json
+  Cache-Control: public, max-age=3600
+
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate
