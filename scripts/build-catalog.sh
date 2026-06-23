@@ -23,5 +23,5 @@ if [ ! -d "$DATA_DIR" ] || [ -z "$(find "$DATA_DIR" -maxdepth 1 -name '*.jsonl' 
   exit 1
 fi
 
-node scripts/process-catalog.mjs "$DATA_DIR" "$OUTPUT"
+NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=24576}" node scripts/process-catalog.mjs "$DATA_DIR" "$OUTPUT"
 echo "Done! Wrote $OUTPUT"
