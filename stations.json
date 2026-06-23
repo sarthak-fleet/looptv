@@ -91,35 +91,6 @@
     ]
   },
   {
-    "id": "cs",
-    "name": "CS Deep Dive",
-    "description": "Computerphile, ArjanCodes, javidx9, GOTO, Corey Schafer, and more",
-    "sources": [
-      { "name": "Computerphile", "handle": "@Computerphile", "channelId": "UC9-y-6csu5WGm29I7JiwpnA", "minDuration": 120, "maxDuration": 2400 },
-      { "name": "The Coding Train", "handle": "@TheCodingTrain", "channelId": "UCvjgXvBlbQiydffZU7m1_aw", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "Hussein Nasser", "handle": "@hnasr", "channelId": "UC_ML5xP23TOWKUcc-oAE_Eg", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "ByteByteGo", "handle": "@ByteByteGo", "channelId": "UCZgt6AzoyjslHTC9dz0UoTw", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "William Fiset", "handle": "@WilliamFiset-videos", "channelId": "UCD8yeTczadqdARzQUp29PJw", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "Michael Sambol", "handle": "@MichaelSambol", "channelId": "UCzDJwLWoYCUQowF_nG3m5OQ", "minDuration": 30, "maxDuration": 600 },
-      { "name": "Spanning Tree", "handle": "@SpanningTree", "channelId": "UCDzVUXiTr3hClI-zzCWbYzg", "minDuration": 120, "maxDuration": 1200 },
-      { "name": "Defog Tech", "handle": "@DefogTech", "channelId": "UCiz26UeGvcTy4_M3Zhgk7FQ", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "Arpit Bhayani", "handle": "@AsliEngineering", "channelId": "UC_b1GUJv_2QiMP4BxC9-Dxg", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "StatQuest", "handle": "@statquest", "channelId": "UCtYLUTtgS3k1Fg4y5tAhLbw", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "TechWorld with Nana", "handle": "@TechWorldwithNana", "channelId": "UCdngmbVKX1Tgre699-XLlUA", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "Steve (Builder.io)", "handle": "@Steve8708", "channelId": "UCGmR6lhKMlCkvrvb39vPtdA", "minDuration": 60, "maxDuration": 1800 },
-      { "name": "ArjanCodes", "handle": "@ArjanCodes", "channelId": "UCVhQ2NnY5Rskt6UjCUkJ_DA", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "javidx9", "handle": "@javidx9", "channelId": "UC77N7im6bfUPvR3PkRKaVGQ", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "The Cherno", "handle": "@TheCherno", "channelId": "UCwE6vJXm1I3XmMA6g92HXxw", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "GOTO Conferences", "handle": "@GOTO-", "channelId": "UCT-nPlVzJI-ccQXlxjSvJmw", "minDuration": 120, "maxDuration": 3600, "topPercentile": 3 },
-      { "name": "InfoQ", "handle": "@infoq", "channelId": "UCkQX1tChV7Z7l1LFF4L9j_g", "minDuration": 120, "maxDuration": 3600, "topPercentile": 3 },
-      { "name": "Corey Schafer", "handle": "@coreyms", "channelId": "UCmY91yfYo5DPqVt4TGkRNJA", "minDuration": 120, "maxDuration": 3600 },
-      { "name": "Dreams of Code", "handle": "@dreamsofcode", "channelId": "UCEEVcDuBRDiwxfXAgQjLGug", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "CS Dojo", "handle": "@CSDojo", "channelId": "UCxX9wt5FWQUAAz4UrysqK9A", "minDuration": 120, "maxDuration": 1800 },
-      { "name": "Gaurav Sen", "handle": "@gkcs", "channelId": "UCRPMAqdtSgd0Ipeef7iFsKw", "minDuration": 120, "maxDuration": 2400 },
-      { "name": "Creel", "handle": "@WhatsACreel", "channelId": "UC2nWRGqPL6O-Lm8mexWhISQ", "minDuration": 120, "maxDuration": 2400 }
-    ]
-  },
-  {
     "id": "ai",
     "name": "AI / ML",
     "description": "Karpathy, OpenAI, Yannic Kilcher, Two Minute Papers, and more",
