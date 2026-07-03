@@ -60,6 +60,7 @@ describe('source-health', () => {
   });
 
   it('counts sources by resolved health state', () => {
+    const recent = new Date(Date.now() - 86_400_000).toISOString(); // 1 day ago
     const counts = countSourcesByHealth(
       [
         { name: 'Fresh', handle: '@fresh' },
@@ -67,13 +68,13 @@ describe('source-health', () => {
       ],
       {
         fresh: {
-          fetchedAt: '2026-06-18T00:00:00.000Z',
-          lastSuccessfulFetch: '2026-06-18T00:00:00.000Z',
+          fetchedAt: recent,
+          lastSuccessfulFetch: recent,
           videoCount: 10,
         },
         bad: {
-          fetchedAt: '2026-06-18T00:00:00.000Z',
-          lastSuccessfulFetch: '2026-06-18T00:00:00.000Z',
+          fetchedAt: recent,
+          lastSuccessfulFetch: recent,
           videoCount: 10,
         },
       },
