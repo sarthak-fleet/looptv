@@ -1,0 +1,28 @@
+{
+  "$comment": "Catalog audit baselines. Auto-rebaselined by CI after each passing audit (validate-catalog-manifest.mjs --update). See docs/catalog-auditability.md for thresholds and overrides.",
+  "generatedAt": "2026-07-03T14:35:39.580Z",
+  "thresholds": {
+    "maxStationDropPct": 30,
+    "minStationDropAbs": 5,
+    "maxTotalDropPct": 20
+  },
+  "totalVideos": 4543,
+  "stations": {
+    "ai": 255,
+    "comedy": 401,
+    "design": 69,
+    "explainers": 238,
+    "film": 119,
+    "finance": 61,
+    "fitness": 168,
+    "math": 162,
+    "mindset": 256,
+    "philosophy": 197,
+    "science": 850,
+    "snl": 41,
+    "space": 347,
+    "startups": 218,
+    "talks": 17,
+    "tech": 1144
+  }
+}

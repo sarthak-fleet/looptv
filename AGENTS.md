@@ -78,6 +78,7 @@ python3 scripts/extract-tags.py
 - **Catalog pipeline**: `stations.json` → yt-dlp → JSONL → `process-catalog.mjs` (merge + dedup, preserves NER tags) → `extract-tags.py` (NER on untagged only) → `public/catalog.json`.
 - **Embed error handling**: YouTube errors 101/150 (embedding blocked) caught by `Player.tsx` → auto-skip.
 - **Quality filters**: per-source `minDuration`/`maxDuration` in `stations.json`; global 10K views minimum in `process-catalog.mjs` (requires full yt-dlp metadata, not `--flat-playlist`); top-N% + 200-video cap per source in `scripts/catalog-quality.mjs`.
+- **Catalog audit**: `scripts/validate-catalog-manifest.mjs` compares generated catalog against checked-in `catalog-manifest.json` baselines and hard-fails CI on suspicious station drops — see `docs/catalog-auditability.md` for thresholds and overrides.
 - **Adding a station**: add entry to `stations.json`, run `pnpm run build:catalog`, commit updated `catalog.json`.
 - **webpack** used (`next build --webpack`) — Turbopack is not enabled.
 - No env vars required.

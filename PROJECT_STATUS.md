@@ -1,6 +1,6 @@
 # looptv — PROJECT STATUS
 
-Last updated: 2026-06-28
+Last updated: 2026-07-03
 
 ## Why/What
 
@@ -114,13 +114,13 @@ stations.json → build-catalog.sh (yt-dlp metadata)
 
 - Fork-friendly: edit `stations.json` and deploy.
 - **Top-content policy:** global 10K-view minimum (requires full yt-dlp metadata — no `--flat-playlist`); per-source duration filters; top-N% by views per channel plus 200-video cap (`scripts/catalog-quality.mjs`); catalog build refuses output below threshold; playback picks from top-12 view band (same as Smart Mix).
+- **Catalog audit (2026-07-03):** `catalog-manifest.json` baselines + `scripts/validate-catalog-manifest.mjs` hard-fail the Build Catalog workflow on suspicious swings (station disappearing/empty, per-station drop > max(30%, 5), total drop > 20%); per-station +/- diff lands in job summary and commit message; `override_audit` dispatch input / `CATALOG_AUDIT_OVERRIDE=1` for intentional changes. See `docs/catalog-auditability.md`.
 
 ## Todo / Planned / Deferred / Blocked
 
 ### Planned
 
-1. Catalog generation auditability — expected video-count deltas and station diffs spec (document thresholds for weekly CI commits).
-2. Optional catalog diff summary in GitHub Action commit message for maintainer review.
+(none — catalog auditability + CI diff summary shipped 2026-07-03; see Quality & maintenance)
 
 ### Deferred
 

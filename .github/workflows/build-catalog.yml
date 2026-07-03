@@ -5,6 +5,11 @@ on:
     workflows: [Fetch Catalog Sources]
     types: [completed]
   workflow_dispatch:
+    inputs:
+      override_audit:
+        description: "Bypass catalog audit thresholds (intentional big change — see docs/catalog-auditability.md)"
+        type: boolean
+        default: false
 
 concurrency:
   group: catalog-build
@@ -91,6 +96,11 @@ jobs:
           FAGW_PROJECT_ID: looptv
         run: node scripts/tag-videos.mjs
 
+      - name: Audit catalog against manifest
+        env:
+          CATALOG_AUDIT_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.override_audit && '1' || '' }}
+        run: node scripts/validate-catalog-manifest.mjs --update --diff-file "$RUNNER_TEMP/catalog-diff.txt"
+
       - name: Save source cache
         uses: actions/cache/save@v4
         with:
@@ -100,18 +110,17 @@ jobs:
       - name: Check for changes
         id: diff
         run: |
-          git diff --stat public/catalog.json
-          echo "changed=$(git diff --name-only public/catalog.json | wc -l | tr -d ' ')" >> $GITHUB_OUTPUT
+          git diff --stat public/catalog.json catalog-manifest.json
+          echo "changed=$(git diff --name-only public/catalog.json catalog-manifest.json | wc -l | tr -d ' ')" >> $GITHUB_OUTPUT
 
       - name: Commit and push
         if: steps.diff.outputs.changed != '0'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/catalog.json
+          git add public/catalog.json catalog-manifest.json
           NEW_COUNT=$(node -e "const d=JSON.parse(require('fs').readFileSync('public/catalog.json','utf8')); console.log(Object.values(d.stations).reduce((s,st) => s + st.videos.length, 0))")
-          git commit -m "Update catalog: ${NEW_COUNT} videos
-
-          Automated bi-weekly catalog refresh.
-          "
+          git commit -m "Update catalog: ${NEW_COUNT} videos" \
+            -m "$(cat "$RUNNER_TEMP/catalog-diff.txt")" \
+            -m "Automated bi-weekly catalog refresh."
           git push
