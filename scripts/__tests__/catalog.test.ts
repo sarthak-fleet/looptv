@@ -20,7 +20,7 @@ describe('catalog.json validation', () => {
   const stationEntries = Object.entries(catalog.stations) as [
     string,
     {
-      videos: { id: string; title: string; duration: number; tags: string[] }[];
+      videos: { id: string; title: string; duration: number; tags: string[]; viewCount?: number }[];
       categoryVideoIds: Record<string, string[]>;
     },
   ][];
