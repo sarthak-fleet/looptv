@@ -1,30 +1,30 @@
 {
   "$comment": "Catalog audit baselines. Auto-rebaselined by CI after each passing audit (validate-catalog-manifest.mjs --update). See docs/catalog-auditability.md for thresholds and overrides.",
-  "generatedAt": "2026-07-03T15:55:41.192Z",
+  "generatedAt": "2026-07-10T20:13:14.384Z",
   "thresholds": {
     "maxStationDropPct": 30,
     "minStationDropAbs": 5,
     "maxTotalDropPct": 20,
     "maxVideoChurnPct": 50
   },
-  "totalVideos": 4543,
+  "totalVideos": 4548,
   "stations": {
     "ai": 255,
     "comedy": 401,
     "design": 69,
-    "explainers": 238,
+    "explainers": 239,
     "film": 119,
     "finance": 61,
     "fitness": 168,
     "math": 162,
     "mindset": 256,
     "philosophy": 197,
-    "science": 850,
+    "science": 851,
     "snl": 41,
-    "space": 347,
-    "startups": 218,
+    "space": 348,
+    "startups": 219,
     "talks": 17,
-    "tech": 1144
+    "tech": 1145
   },
   "videos": {
     "ai": {
@@ -2993,6 +2993,10 @@
       "3PWWtqfwacQ": {
         "t": "Why Cities Are Where They Are",
         "d": 944
+      },
+      "41sgRP0G6y4": {
+        "t": "Why Saudi Arabia Is Building a Linear City",
+        "d": 921
       },
       "4ZX9T0kWb4Y": {
         "t": "I rode the world's fastest train.",
@@ -10848,6 +10852,10 @@
         "t": "Singing plates - Standing Waves on Chladni plates",
         "d": 260
       },
+      "WzIBKfDVYwc": {
+        "t": "Fatal Flight audiobook: Chapter Five: Problems with the Cloth Cover (7/14)",
+        "d": 1184
+      },
       "X3o71W4uNHc": {
         "t": "Prince Rupert's Drop EXPLODING in Epoxy Resin at 456,522 fps - Smarter Every Day 273",
         "d": 1284
@@ -12472,6 +12480,10 @@
         "t": "Have We Really Found Life on Mars?",
         "d": 1271
       },
+      "Uq6EgZ836iE": {
+        "t": "Sending Solar Power To Earth",
+        "d": 327
+      },
       "US7fEkBsy4A": {
         "t": "Why Did Quantum Entanglement Win the Nobel Prize in Physics?",
         "d": 1233
@@ -12897,6 +12909,10 @@
       "9Rcbt6Ydk0U": {
         "t": "I made $3.3M last year... here’s how",
         "d": 841
+      },
+      "A5c2ho3YQBg": {
+        "t": "The Vinod Khosla Podcast",
+        "d": 3127
       },
       "aaLuPz_8kXo": {
         "t": "The Decline of Sprint...What Happened?",
@@ -18145,6 +18161,10 @@
       "Z9Mwi3Yf-OI": {
         "t": "What is UFS 4.0?",
         "d": 474
+      },
+      "ZBa3BK4Efcw": {
+        "t": "Savepoint: A CLI for TDD",
+        "d": 423
       },
       "zbqrNg4C98U": {
         "t": "Network Topologies (Star, Bus, Ring, Mesh, Ad hoc, Infrastructure, & Wireless Mesh Topology)",
