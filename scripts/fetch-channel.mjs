@@ -53,6 +53,11 @@ export function isBotDetectionError(message) {
   return BOT_ERROR.test(message || '');
 }
 
+export function ytDlpTimeoutMs(env = process.env) {
+  const timeout = Number(env.YT_DLP_TIMEOUT_MS || 0);
+  return Number.isFinite(timeout) && timeout > 0 ? timeout : undefined;
+}
+
 /** Shared yt-dlp flags for CI resilience (single-process playlist fetches). */
 export function ytDlpBaseArgs() {
   const args = [
@@ -111,13 +116,19 @@ export function runYtDlpLines(args, { retries = YT_DLP_RETRIES } = {}) {
       sleepSeconds(delay);
     }
 
+    const timeout = ytDlpTimeoutMs();
     const result = spawnSync('yt-dlp', args, {
       encoding: 'utf8',
       maxBuffer: 256 * 1024 * 1024,
+      timeout,
     });
 
     if (result.error) {
-      lastError = result.error;
+      lastError =
+        result.error.code === 'ETIMEDOUT'
+          ? new Error(`yt-dlp timed out after ${timeout}ms`)
+          : result.error;
+      if (result.error.code === 'ETIMEDOUT') break;
       continue;
     }
 

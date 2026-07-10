@@ -20,6 +20,7 @@ FETCH_CONCURRENCY="${FETCH_CONCURRENCY:-3}"
 SHARD_INDEX="${SHARD_INDEX:-}"
 SHARD_TOTAL="${SHARD_TOTAL:-}"
 RETRY_SLEEP_SECONDS="${RETRY_SLEEP_SECONDS:-12}"
+RETRY_MISSING="${RETRY_MISSING:-true}"
 
 mkdir -p "$DATA_DIR"
 
@@ -58,13 +59,15 @@ while IFS= read -r handle; do
   file="$DATA_DIR/${safe}.jsonl"
   if [ ! -s "$file" ]; then
     MISSING=$((MISSING + 1))
-    echo "Retrying missing @${safe} sequentially..."
-    sleep "$RETRY_SLEEP_SECONDS"
-    export YT_DLP_SLEEP_INTERVAL="${YT_DLP_SLEEP_INTERVAL:-2}"
-    node scripts/fetch-channel.mjs "$handle" $FRESH_FLAG || true
-    RETRIED=$((RETRIED + 1))
+    if [ "$RETRY_MISSING" = "true" ]; then
+      echo "Retrying missing @${safe} sequentially..."
+      sleep "$RETRY_SLEEP_SECONDS"
+      export YT_DLP_SLEEP_INTERVAL="${YT_DLP_SLEEP_INTERVAL:-2}"
+      node scripts/fetch-channel.mjs "$handle" $FRESH_FLAG || true
+      RETRIED=$((RETRIED + 1))
+    fi
     if [ ! -s "$file" ]; then
-      echo "WARN: @${safe} still missing after retry"
+      echo "WARN: @${safe} still missing after fetch"
     fi
   fi
 done <<< "$HANDLES"

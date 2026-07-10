@@ -9,6 +9,7 @@ export function computeEnrichBudget(
   source: Record<string, unknown> | undefined
 ): number;
 export function isBotDetectionError(message: string): boolean;
+export function ytDlpTimeoutMs(env?: Record<string, string | undefined>): number | undefined;
 export function ytDlpBaseArgs(): string[];
 export function runYtDlpLines(args: string[], options?: { retries?: number }): unknown;
 export function fetchChannel(handle: string, options?: { fresh?: boolean }): Promise<unknown>;

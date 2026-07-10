@@ -5,6 +5,7 @@ import {
   findSourceByHandle,
   isBotDetectionError,
   ytDlpBaseArgs,
+  ytDlpTimeoutMs,
 } from '../fetch-channel.mjs';
 
 describe('fetch-channel', () => {
@@ -36,5 +37,11 @@ describe('fetch-channel', () => {
 
   it('uses android/web player client for CI resilience', () => {
     expect(ytDlpBaseArgs()).toContain('youtube:player_client=android,web');
+  });
+
+  it('bounds yt-dlp only when a positive timeout is configured', () => {
+    expect(ytDlpTimeoutMs({})).toBeUndefined();
+    expect(ytDlpTimeoutMs({ YT_DLP_TIMEOUT_MS: '600000' })).toBe(600000);
+    expect(ytDlpTimeoutMs({ YT_DLP_TIMEOUT_MS: 'invalid' })).toBeUndefined();
   });
 });

@@ -16,11 +16,11 @@ permissions:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
-        shard: [0, 1, 2, 3]
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
 
     steps:
       - uses: actions/checkout@v6
@@ -39,17 +39,19 @@ jobs:
       - name: Fetch source shard
         env:
           SHARD_INDEX: ${{ matrix.shard }}
-          SHARD_TOTAL: 4
+          SHARD_TOTAL: 8
           FETCH_CONCURRENCY: "2"
           CACHE_MAX_AGE_DAYS: "13"
-          YT_DLP_SLEEP_INTERVAL: "2"
+          YT_DLP_RETRIES: "2"
+          YT_DLP_TIMEOUT_MS: "600000"
+          RETRY_MISSING: "false"
           RETRY_SLEEP_SECONDS: "15"
         run: bash scripts/fetch-sources.sh
 
       - name: Upload shard artifact
         env:
           SHARD_INDEX: ${{ matrix.shard }}
-          SHARD_TOTAL: 4
+          SHARD_TOTAL: 8
         run: |
           mkdir -p shard-out
           node scripts/shard-handles.mjs "$SHARD_INDEX" "$SHARD_TOTAL" | while read -r handle; do
