@@ -4,6 +4,7 @@ import {
   MIN_VIEW_COUNT,
   applySourceQualityFilter,
   calcPercentile,
+  hasViewCountsInJsonl,
   qualifiesRawVideo,
   resolveTopPercentile,
   validateCatalog,
@@ -40,6 +41,15 @@ describe('catalog quality', () => {
     expect(qualifiesRawVideo({ duration: 300 }, 60, 3600)).toBe(false);
     expect(qualifiesRawVideo({ duration: 300, view_count: 9_999 }, 60, 3600)).toBe(false);
     expect(qualifiesRawVideo({ duration: 300, view_count: 10_000 }, 60, 3600)).toBe(true);
+  });
+
+  it('does not trust catalog fallback rows as a fresh live cache', () => {
+    const fakeFs = {
+      readFileSync: () =>
+        `${JSON.stringify({ view_count: 42_000, _looptvCatalogFallback: true })}\n`,
+    };
+
+    expect(hasViewCountsInJsonl('fallback.jsonl', fakeFs)).toBe(false);
   });
 
   it('caps each source after percentile filtering', () => {

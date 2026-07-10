@@ -37,6 +37,7 @@ for (const station of Object.values(existing.stations || {})) {
 // First pass: parse and cache qualifying videos per source (avoids reading files twice)
 const sourceCache = new Map(); // handle → videos[]
 const sourceMeta = {}; // handle → { fetchedAt, lastSuccessfulFetch, videoCount }
+let hasLiveSourceData = false;
 for (const station of stationsConfig) {
   for (const src of station.sources) {
     const handle = src.handle.replace('@', '');
@@ -60,6 +61,7 @@ for (const station of stationsConfig) {
     const prevMeta = existing.sourceMeta?.[handle];
     const isCatalogFallback =
       videos.length > 0 && videos.every((video) => video._looptvCatalogFallback === true);
+    if (videos.length > 0 && !isCatalogFallback) hasLiveSourceData = true;
     sourceMeta[handle] = isCatalogFallback
       ? {
           fetchedAt: prevMeta?.fetchedAt ?? '',
@@ -128,7 +130,7 @@ for (const station of stationsConfig) {
   console.log(`${station.id}: ${allVideos.length} videos (${sourceNames}), ${newInStation} new`);
 }
 
-catalog.lastUpdated = new Date().toISOString();
+catalog.lastUpdated = hasLiveSourceData ? new Date().toISOString() : (existing.lastUpdated ?? '');
 catalog.sourceMeta = sourceMeta;
 
 try {

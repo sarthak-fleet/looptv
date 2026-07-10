@@ -68,6 +68,7 @@ describe('process-catalog', () => {
     expect(result.status, result.stderr).toBe(0);
 
     const catalog = JSON.parse(readFileSync(outputPath, 'utf8'));
+    expect(catalog.lastUpdated).toBe('2026-06-01T00:00:00.000Z');
     expect(catalog.sourceMeta.known).toEqual(previousMeta);
     expect(catalog.stations.science.videos.map((video: { id: string }) => video.id)).toEqual([
       'known-video',

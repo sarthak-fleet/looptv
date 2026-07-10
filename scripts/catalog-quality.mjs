@@ -30,7 +30,11 @@ export function hasViewCountsInJsonl(filePath, fs) {
     const sample = fs.readFileSync(filePath, 'utf-8').split('\n').find(Boolean);
     if (!sample) return false;
     const raw = JSON.parse(sample);
-    return typeof raw.view_count === 'number' && raw.view_count >= 0;
+    return (
+      typeof raw.view_count === 'number' &&
+      raw.view_count >= 0 &&
+      raw._looptvCatalogFallback !== true
+    );
   } catch {
     return false;
   }
