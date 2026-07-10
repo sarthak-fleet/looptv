@@ -134,6 +134,7 @@ stations.json → build-catalog.sh (yt-dlp metadata)
 
 - Catalog freshness depends on weekly GitHub Action — stale catalog shows diagnostics banner but no push notification.
 - GitHub-hosted runners can hit YouTube bot detection; the catalog fallback preserves shipped sources but cannot discover videos for a source until a live fetch succeeds.
-- NER tagging requires Python + HuggingFace in CI; local rebuild needs `requirements-ner.txt`.
+- AI catalog tagging is currently blocked in CI by an invalid `FAGW_API_KEY` (gateway 401). Fetch artifacts are audited and cached, but the build refuses to commit while any videos still need tags.
+- Legacy local NER rebuilds require `requirements-ner.txt`; scheduled CI tagging uses the free-AI gateway.
 - Blocked/quarantined state is per-browser — not portable across devices.
 - Production: `looptv.pages.dev` via Cloudflare Pages static export.
