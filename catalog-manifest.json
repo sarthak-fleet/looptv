@@ -1,13 +1,13 @@
 {
   "$comment": "Catalog audit baselines. Auto-rebaselined by CI after each passing audit (validate-catalog-manifest.mjs --update). See docs/catalog-auditability.md for thresholds and overrides.",
-  "generatedAt": "2026-07-10T17:04:53.994Z",
+  "generatedAt": "2026-07-03T15:55:41.192Z",
   "thresholds": {
     "maxStationDropPct": 30,
     "minStationDropAbs": 5,
     "maxTotalDropPct": 20,
     "maxVideoChurnPct": 50
   },
-  "totalVideos": 4402,
+  "totalVideos": 4543,
   "stations": {
     "ai": 255,
     "comedy": 401,
@@ -19,12 +19,12 @@
     "math": 162,
     "mindset": 256,
     "philosophy": 197,
-    "science": 822,
+    "science": 850,
     "snl": 41,
-    "space": 311,
-    "startups": 203,
+    "space": 347,
+    "startups": 218,
     "talks": 17,
-    "tech": 1082
+    "tech": 1144
   },
   "videos": {
     "ai": {
@@ -7784,6 +7784,10 @@
         "t": "Handheld TESLA COIL GUN at 28,000fps - Smarter Every Day 162",
         "d": 679
       },
+      "_ivqWN4L3zU": {
+        "t": "Building a Cathedral without Science or Mathematics: The Engineering Method Explained",
+        "d": 714
+      },
       "_k9egfWvb7Y": {
         "t": "World's Heaviest Weight",
         "d": 345
@@ -7896,6 +7900,10 @@
         "t": "How to Escape from a Car Window (SLOW MOTION) - Smarter Every Day 144",
         "d": 455
       },
+      "0MwMkBET_5I": {
+        "t": "Fiber optic cables: How they work",
+        "d": 335
+      },
       "0onncd0_0-o": {
         "t": "Tensegrity Explained",
         "d": 666
@@ -7967,6 +7975,10 @@
       "1o8ktldjcog": {
         "t": "Light sucking flames look like magic",
         "d": 1085
+      },
+      "1pM6uD8nePo": {
+        "t": "How a quartz watch works",
+        "d": 213
       },
       "1tOx_Vh5diE": {
         "t": "2021's Breakthroughs in Neuroscience and Other Biology",
@@ -8092,6 +8104,10 @@
         "t": "When Is Now?",
         "d": 1261
       },
+      "3ZhVOy-ytJY": {
+        "t": "Anodizing (Or the beauty of corrosion)",
+        "d": 256
+      },
       "4_aOIA-vyBo": {
         "t": "Three Ways to Destroy the Universe",
         "d": 376
@@ -8119,6 +8135,10 @@
       "4I-p8vjQ95s": {
         "t": "Trying to Catch a 1,000 MPH Baseball - Smarter Every Day 247",
         "d": 1075
+      },
+      "4j4Q_YBRJEI": {
+        "t": "Coffee Maker: Pumping water with almost no moving parts",
+        "d": 159
       },
       "4mX0uPQFLDU": {
         "t": "Text Files in Python || Python Tutorial || Learn Python Programming",
@@ -8564,6 +8584,10 @@
         "t": "I Accidentally Photographed Something Unknown During the Eclipse - Smarter Every Day 298",
         "d": 1421
       },
+      "bRCNenhcvpw": {
+        "t": "IBM Selectric Typewriter & its digital to analogue converter",
+        "d": 185
+      },
       "BtN-goy9VOY": {
         "t": "The Coronavirus Explained & What You Should Do",
         "d": 514
@@ -8651,6 +8675,10 @@
       "cm74QYZS7uA": {
         "t": "All About Baseball | How It's Made | Science Channel",
         "d": 1207
+      },
+      "COty6_oDEkk": {
+        "t": "How a Wind Up Music Box Works",
+        "d": 483
       },
       "cp5gdUHFGIQ": {
         "t": "AK-47 Underwater at 27,450 frames per second (Part 2) - Smarter Every Day 97",
@@ -8768,6 +8796,10 @@
         "t": "ROBOFORMING: The Future of Metalworking? (I Had NO IDEA This Was Possible) - Smarter Every Day 290",
         "d": 1787
       },
+      "ddYZITaxlTQ": {
+        "t": "How Sony's Betamax lost to JVC's VHS Cassette Recorder",
+        "d": 229
+      },
       "dFCbJmgeHmA": {
         "t": "The Day the Dinosaurs Died – Minute by Minute",
         "d": 721
@@ -8787,6 +8819,10 @@
       "dI7SbZx_Qiw": {
         "t": "The Impossible Hugeness of Deep Time",
         "d": 548
+      },
+      "DIGqBb3iZPo": {
+        "t": "Light bulb filament",
+        "d": 218
       },
       "DjcS1kRkc6M": {
         "t": "Why are there giant concrete tunnels in the desert?",
@@ -8844,6 +8880,10 @@
         "t": "The Surprising Ways Mars is Hostile to Life",
         "d": 641
       },
+      "E-F2QQuZZGk": {
+        "t": "The Engineering of Duct Tape",
+        "d": 644
+      },
       "e-P5IFTqB98": {
         "t": "Black Holes Explained – From Birth to Death",
         "d": 356
@@ -8875,6 +8915,10 @@
       "el-S8iroORQ": {
         "t": "How to Love Reading  - Study Tips - Make Reading a Habit",
         "d": 565
+      },
+      "En__V0oEJsU": {
+        "t": "How a Film Projector Works",
+        "d": 529
       },
       "ERgwVm9qWKA": {
         "t": "Special Relativity and the Twin Paradox",
@@ -8916,6 +8960,10 @@
         "t": "If, Then, Else in Python  ||  Python Tutorial  ||  Learn Python Programming",
         "d": 412
       },
+      "F5Ri_HhziI0": {
+        "t": "Why the other line is likely to move faster",
+        "d": 222
+      },
       "F64xcPKKES8": {
         "t": "Singing this Note is IMPOSSIBLE!",
         "d": 449
@@ -8955,6 +9003,10 @@
       "fH4MaSJ8gXU": {
         "t": "The Fascinating Map of Board Games",
         "d": 1260
+      },
+      "fHmgF4ibmuk": {
+        "t": "RMS Titanic: Fascinating Engineering Facts",
+        "d": 687
       },
       "FkKPsLxgpuY": {
         "t": "I took an IQ test to explain what's wrong with them",
@@ -9200,6 +9252,10 @@
         "t": "How is power divided in the United States government? - Belinda Stutzman",
         "d": 230
       },
+      "hUhisi2FBuw": {
+        "t": "The Ingenious Design of the Aluminum Beverage Can",
+        "d": 699
+      },
       "hZjFYFWZJe4": {
         "t": "What happened to my face",
         "d": 223
@@ -9380,6 +9436,10 @@
         "t": "Why Is Our Skeleton On the Inside?",
         "d": 530
       },
+      "jiejNAUwcQ8": {
+        "t": "LCD Monitor Teardown",
+        "d": 292
+      },
       "jijuG9tyoR0": {
         "t": "7 Scientific Urban Legends Debunked!",
         "d": 803
@@ -9504,6 +9564,10 @@
         "t": "How to Read Math",
         "d": 404
       },
+      "kp33ZprO0Ck": {
+        "t": "How a Microwave Oven Works",
+        "d": 311
+      },
       "kpsu9_ql0-M": {
         "t": "How Two Physicists Unlocked the Secrets of Two Dimensions",
         "d": 460
@@ -9519,6 +9583,10 @@
       "kTXTPe3wahc": {
         "t": "Why Parallel Universes Are Probably Real",
         "d": 1199
+      },
+      "kU_gH36GG58": {
+        "t": "The masterful design of the two-liter plastic soda bottle",
+        "d": 775
       },
       "kUfF2MTnqAw": {
         "t": "Why You Should Put YOUR MASK On First (My Brain Without Oxygen) - Smarter Every Day 157",
@@ -9539,6 +9607,10 @@
       "KZeIEiBrT_w": {
         "t": "The Strange Math That Predicts (Almost) Anything",
         "d": 1952
+      },
+      "KZVgKu6v808": {
+        "t": "How a Smartphone Knows Up from Down (accelerometer)",
+        "d": 264
       },
       "L4zFS0RPP7c": {
         "t": "Why You See Faces in Things",
@@ -9687,6 +9759,10 @@
       "mHmIVw9etns": {
         "t": "The BIGGEST problem with clean energy",
         "d": 819
+      },
+      "MhVw-MHGv4s": {
+        "t": "How a Retractable Ballpoint Pen Works",
+        "d": 283
       },
       "MiUHjLxm3V0": {
         "t": "The World's Most Important Machine",
@@ -9864,6 +9940,10 @@
         "t": "How Modern Light Bulbs Work",
         "d": 143
       },
+      "OcgKDSwINOA": {
+        "t": "What Keeps Nuclear Weapons from Proliferating: The hardest step in making a nuclear bomb",
+        "d": 278
+      },
       "oCK5oGmRtxQ": {
         "t": "What Is The Shape of Space? (ft. PhD Comics)",
         "d": 219
@@ -9915,6 +9995,10 @@
       "otjvUz7qKXc": {
         "t": "The Boy Who Cried \"FREE ENERGY\"",
         "d": 694
+      },
+      "oUEbMjtWc-A": {
+        "t": "How a Laser Works",
+        "d": 293
       },
       "ovJcsL7vyrk": {
         "t": "This equation will change how you see the world (the logistic map)",
@@ -9971,6 +10055,10 @@
       "P1Q8tS-9hYo": {
         "t": "The Big Bang is Probably Not What You Think It Is",
         "d": 411
+      },
+      "p2BxAu6WZI8": {
+        "t": "How an atomic clock works, and its use in the global positioning system (GPS)",
+        "d": 272
       },
       "p3-o0pxDrL0": {
         "t": "How to use Flash Cards - Study Tips -  Spaced Repetition",
@@ -10087,6 +10175,10 @@
       "Qa2sc6-u59I": {
         "t": "The Drill we sent to Mars - Smarter Every Day 143",
         "d": 735
+      },
+      "qCxco6227xo": {
+        "t": "NERF Blaster:  Air Restriction Mechanism",
+        "d": 171
       },
       "qd3dIGJqRDU": {
         "t": "Kepler’s Second Law of Motion - Equal Area in Equal Time  (Astronomy)",
@@ -10212,6 +10304,10 @@
         "t": "The Biggest Myth In Education",
         "d": 867
       },
+      "rhIRD5YVNbs": {
+        "t": "How a lead-acid battery works",
+        "d": 296
+      },
       "RIqVnFtOSr4": {
         "t": "When Physics Fails: The Problem of Space-Time",
         "d": 1182
@@ -10239,6 +10335,10 @@
       "rM0Gy2WavUg": {
         "t": "Talking with Arcs to Celebrate 2 Million Subs",
         "d": 613
+      },
+      "RMjtmsr3CqA": {
+        "t": "Plastic Injection Molding",
+        "d": 577
       },
       "rmx3FBPzDuk": {
         "t": "How a Group of Amateurs Solved an Impossible Math Problem",
@@ -10459,6 +10559,10 @@
       "UA-ELAIE-NE": {
         "t": "How Luxury Chocolate and Lipstick is Made | How It's Made | Science Channel",
         "d": 615
+      },
+      "UCKC-QVcVn0": {
+        "t": "The Engineering of the Drinking Bird",
+        "d": 628
       },
       "udFxKZRyQt4": {
         "t": "Neutron Stars – The Most Extreme Things that are not Black Holes",
@@ -10692,6 +10796,14 @@
         "t": "Proof Without Words: The Circle",
         "d": 80
       },
+      "wI-qAxKJoSU": {
+        "t": "Nitinol: The Shape Memory Effect and Superelasticity",
+        "d": 582
+      },
+      "Wiy_eHdj8kg": {
+        "t": "Hard drive teardown",
+        "d": 304
+      },
       "WM25pUsrODk": {
         "t": "Arcs change shape in my vacuum! RIP Tesla Coil :(",
         "d": 604
@@ -10735,10 +10847,6 @@
       "wYoxOJDrZzw": {
         "t": "Singing plates - Standing Waves on Chladni plates",
         "d": 260
-      },
-      "WzIBKfDVYwc": {
-        "t": "Fatal Flight audiobook: Chapter Five: Problems with the Cloth Cover (7/14)",
-        "d": 1184
       },
       "X3o71W4uNHc": {
         "t": "Prince Rupert's Drop EXPLODING in Epoxy Resin at 456,522 fps - Smarter Every Day 273",
@@ -11004,6 +11112,10 @@
         "t": "The Fastest Maze-Solving Competition On Earth",
         "d": 1522
       },
+      "ZnUBl90tayI": {
+        "t": "Why the Dvorak keyboard didn't take over the world",
+        "d": 229
+      },
       "ZNzoTGv_XiQ": {
         "t": "The experiment that revealed the atomic world: Brownian Motion",
         "d": 746
@@ -11208,6 +11320,10 @@
       }
     },
     "space": {
+      "_CPxe8yql0Q": {
+        "t": "Voyager's 15 Billion Mile Software Update",
+        "d": 500
+      },
       "_P1xKh_kZFU": {
         "t": "The Andromeda-Milky Way Collision",
         "d": 722
@@ -11244,6 +11360,10 @@
         "t": "The Phantom Singularity | Space Time",
         "d": 1084
       },
+      "0h8vAGCiRX0": {
+        "t": "How IKEA Mastered Furniture",
+        "d": 595
+      },
       "0HrF2OR0-Sc": {
         "t": "A MILLION MPH",
         "d": 1550
@@ -11275,6 +11395,10 @@
       "1Ou1MckZHTA": {
         "t": "Neutron Stars: The Most Extreme Objects in the Universe",
         "d": 854
+      },
+      "1pPoB8be1G0": {
+        "t": "How Investigators Find the Source of a Fire",
+        "d": 535
       },
       "1YFrISfN7jo": {
         "t": "The Geometry of Causality",
@@ -11320,6 +11444,10 @@
         "t": "What If Alien Life Were Silicon-Based?",
         "d": 1316
       },
+      "4Aco5ckCni4": {
+        "t": "The Largest Rocket Never Launched",
+        "d": 303
+      },
       "4I51F8xYr44": {
         "t": "What If Intelligence Re-Emerges?",
         "d": 1546
@@ -11356,6 +11484,10 @@
         "t": "The Final Parsec Problem: do SUPERMASSIVE black holes ever MERGE?",
         "d": 970
       },
+      "77omYd0JOeA": {
+        "t": "The Crazy Engineering of Venice",
+        "d": 568
+      },
       "7e5-0t0pTF0": {
         "t": "MONSTERS OF THE COSMOS - Symphony of Science",
         "d": 205
@@ -11375,6 +11507,10 @@
       "7UwigY4SjKY": {
         "t": "Quantum Theory's Most Incredible Prediction | Space Time",
         "d": 990
+      },
+      "89zdHsb2pWU": {
+        "t": "NASA's Most Off Limits Room",
+        "d": 525
       },
       "8aR77s9RLck": {
         "t": "What If Gravity is NOT Quantum?",
@@ -11415,6 +11551,10 @@
       "A6HhDFskbXs": {
         "t": "The Preciousness of Time: A Stephen Hawking Tribute",
         "d": 155
+      },
+      "aalfNIvQaJ4": {
+        "t": "How far can Voyager 1 go before we lose contact?",
+        "d": 288
       },
       "aativXKru1M": {
         "t": "An ULTRAMASSIVE black hole has been discovered in A BRAND NEW WAY",
@@ -11472,6 +11612,10 @@
         "t": "Artificial Gravity",
         "d": 1908
       },
+      "bD6vWcNj1j4": {
+        "t": "Hubble's 13 Billion Year Old Photo",
+        "d": 375
+      },
       "BDByivmrVuM": {
         "t": "What Did SpaceX Change & Upgrade For Starship's 3rd Flight Test?",
         "d": 531
@@ -11516,6 +11660,10 @@
         "t": "What the Earth Will Look Like in 1 Billion Years",
         "d": 1382
       },
+      "BZkJH_rn7TI": {
+        "t": "The Most Wanted Shipwreck",
+        "d": 631
+      },
       "C4VHfmiwuv4": {
         "t": "How Much Do Rockets Pollute? Are They Bad For Our Air?",
         "d": 3345
@@ -11544,6 +11692,10 @@
         "t": "We've Never Seen a Supernova Explode Until Now",
         "d": 1406
       },
+      "CP8Hbr2jL_c": {
+        "t": "How SpaceX Mastered Starship’s Welding",
+        "d": 483
+      },
       "cPouwOKMS2s": {
         "t": "Why the Earth exists because of Saturn | Migration of Planets",
         "d": 1111
@@ -11559,6 +11711,10 @@
       "cVO02Abfs84": {
         "t": "First JWST TRAPPIST-1 results! Not what we expected for TRAPPIST-1c",
         "d": 1171
+      },
+      "d_z2-9rRpU4": {
+        "t": "Why doesn't the sound of a rocket launch kill you?",
+        "d": 314
       },
       "DK9LBK3FABs": {
         "t": "The First Civilization to Emerge in the Galaxy",
@@ -11595,6 +11751,10 @@
       "ElulEJruhRQ": {
         "t": "Thorium and the Future of Nuclear Energy",
         "d": 1122
+      },
+      "emp8sxbRpSQ": {
+        "t": "How SpaceX Mastered Space Suits",
+        "d": 526
       },
       "EOMcfZ7yDJo": {
         "t": "Astrophysicist reacts to funny SPACE MEMES | Part 3",
@@ -11652,6 +11812,10 @@
         "t": "We Finally Found Out Why Charon Is Broken",
         "d": 1461
       },
+      "FYU-N2RWfso": {
+        "t": "What will SpaceX do when they get to Mars?",
+        "d": 303
+      },
       "G0Q4UAiKacw": {
         "t": "How the Higgs Mechanism Give Things Mass",
         "d": 1084
@@ -11676,13 +11840,25 @@
         "t": "Should We Colonize Venus Instead of Mars?",
         "d": 457
       },
+      "gol_p2aWrJg": {
+        "t": "The Underground Clocks of Paris",
+        "d": 511
+      },
       "gSKzgpt4HBU": {
         "t": "The True Nature of Matter and Mass | Space Time | PBS Digital Studios",
         "d": 647
       },
+      "h0ZMhhquL8c": {
+        "t": "The Greatest Art Heist In History",
+        "d": 566
+      },
       "HA5YuwvJkpQ": {
         "t": "Why You're Probably Not a Simulation",
         "d": 2074
+      },
+      "hDs5Abg0M9A": {
+        "t": "When will Starman return to Earth?",
+        "d": 304
       },
       "he_BL6Q5u1Y": {
         "t": "Why don't rocket engines melt? How engineers keep engines cool",
@@ -11691,6 +11867,10 @@
       "HEpNiOM6lto": {
         "t": "Becoming a Kardashev Type I Civilization",
         "d": 991
+      },
+      "hH75bVG7HBo": {
+        "t": "Why does the SpaceX droneship camera cut out?",
+        "d": 315
       },
       "hIPLmZK3C1Y": {
         "t": "Elon Musk Explains SpaceX's Merlin Engine!",
@@ -11852,6 +12032,10 @@
         "t": "Should We Build a Dyson Sphere? | Space Time | PBS Digital Studios",
         "d": 870
       },
+      "K4ZNgremZ4U": {
+        "t": "Why SpaceX Bought An Entire Village",
+        "d": 345
+      },
       "k6TWO-ESC6A": {
         "t": "What are the Strings in String Theory?",
         "d": 998
@@ -11872,6 +12056,10 @@
         "t": "How Time Becomes Space Inside a Black Hole | Space Time",
         "d": 928
       },
+      "kH0Yw0R84i0": {
+        "t": "The Hidden Engineering of Mount Rushmore",
+        "d": 531
+      },
       "kixAljyfdqU": {
         "t": "The Higgs Mechanism Explained | Space Time | PBS Digital Studios",
         "d": 572
@@ -11883,6 +12071,10 @@
       "klsiOwLGTXs": {
         "t": "The Strangest Idea in Science: Quantum Immortality",
         "d": 2187
+      },
+      "kUYzuAJeg3M": {
+        "t": "The Self Balancing Monorail",
+        "d": 513
       },
       "kxAkK8oCewM": {
         "t": "Blue Origin VS Virgin Galactic // How do they compare?",
@@ -11952,9 +12144,17 @@
         "t": "The Final Barrier to (Nearly) Infinite Energy",
         "d": 1294
       },
+      "Nb1PrONDHhk": {
+        "t": "How This Pen Changed The World",
+        "d": 557
+      },
       "NblR01hHK6U": {
         "t": "Is Gravity An Illusion?",
         "d": 752
+      },
+      "NbsHgE89qO4": {
+        "t": "How Voyager 2 Threaded The Needle Through Space",
+        "d": 627
       },
       "NCYSVmSPM7E": {
         "t": "Starship Test Flight 1 // 4K Slow Mo Supercut w/ Tracking and Incredible Audio",
@@ -11984,6 +12184,10 @@
         "t": "The Sounds of Space:  A sonic adventure to other worlds",
         "d": 1223
       },
+      "oUDes_wpGvg": {
+        "t": "How Does SpaceX Transport the Falcon 9?",
+        "d": 423
+      },
       "OvgZqGxF3eo": {
         "t": "Absolute Cold | Space Time",
         "d": 641
@@ -11995,6 +12199,10 @@
       "p-MNSLsjjdo": {
         "t": "The Quantum Experiment that Broke Reality | Space Time | PBS Digital Studios",
         "d": 812
+      },
+      "p2mTssl35Qg": {
+        "t": "China's Space Station Ban",
+        "d": 330
       },
       "p4ZLysa9Qqg": {
         "t": "Talking to Elon Musk and Jim Bridenstine about SpaceX fly astronauts for the 1st time! #DM2",
@@ -12116,6 +12324,10 @@
         "t": "Pilot Wave Theory and Quantum Realism | Space Time | PBS Digital Studios",
         "d": 992
       },
+      "rMGUA77z80E": {
+        "t": "Surviving Venus in the 1970s",
+        "d": 523
+      },
       "RMvt13PtV5I": {
         "t": "THE DRAGONS DAUGHTER - Game of Thrones Tribute Remix",
         "d": 187
@@ -12212,6 +12424,10 @@
         "t": "First Ever Images from the Vera Rubin Telescope",
         "d": 1133
       },
+      "TunR4zCQ5Fk": {
+        "t": "The Insane VFX of Old Movies",
+        "d": 684
+      },
       "u2HEWS3zBNk": {
         "t": "Why is this KILONOVA SPHERICAL (and not donut shaped)?!",
         "d": 868
@@ -12236,6 +12452,10 @@
         "t": "NASA’s Perseverance Mars Rover VS Curiosity - What's New? What's Improved?",
         "d": 1560
       },
+      "UeuA4QO7L3k": {
+        "t": "The Hidden Engineering of Gas Stations",
+        "d": 516
+      },
       "UgQlcEF9BOM": {
         "t": "The Question That Keeps Me Awake At Night",
         "d": 1207
@@ -12251,10 +12471,6 @@
       "uNix0UImPpo": {
         "t": "Have We Really Found Life on Mars?",
         "d": 1271
-      },
-      "Uq6EgZ836iE": {
-        "t": "Sending Solar Power To Earth",
-        "d": 327
       },
       "US7fEkBsy4A": {
         "t": "Why Did Quantum Entanglement Win the Nobel Prize in Physics?",
@@ -12280,6 +12496,10 @@
         "t": "This New Type of Black Hole Is Actually the Most Terrifying",
         "d": 1043
       },
+      "v5mkZIy-TI4": {
+        "t": "Why This Building Makes So Much Money",
+        "d": 716
+      },
       "v6lPMFgZU5Q": {
         "t": "Why won’t Starship have an abort system? Should it?!",
         "d": 2924
@@ -12303,6 +12523,10 @@
       "Vk5bxHetL4s": {
         "t": "The NEW Warp Drive Possibilities",
         "d": 1133
+      },
+      "vLefsklLkqQ": {
+        "t": "The Mysterious 30 Year Journey of Apollo 12",
+        "d": 499
       },
       "vNaEBbFbvcY": {
         "t": "Do Events Inside Black Holes Happen?",
@@ -12348,6 +12572,10 @@
         "t": "Symphony of Science - The Greatest Show on Earth!  A music video about Evolution",
         "d": 201
       },
+      "wyTOYEk_Z2Y": {
+        "t": "Why Ancient Ruins Are Underground",
+        "d": 512
+      },
       "WZfmG_h5Oyg": {
         "t": "What Happens Inside a Proton?",
         "d": 1216
@@ -12355,6 +12583,10 @@
       "X0SvgT9Lc2M": {
         "t": "Why I Don’t Buy The Dark Forest Hypothesis",
         "d": 1404
+      },
+      "x4XBSAAjztU": {
+        "t": "Why Blue Paint Caused Problems For Concorde",
+        "d": 359
       },
       "X5rAGfjPSWE": {
         "t": "The Nature of Nothing | Space Time",
@@ -12372,9 +12604,21 @@
         "t": "Symphony of Science - 'We Are All Connected' (ft. Sagan, Feynman, deGrasse Tyson & Bill Nye)",
         "d": 252
       },
+      "xjdPtBofH7s": {
+        "t": "The Search for Apollo 10’s Lunar Module",
+        "d": 486
+      },
+      "xLaLpMeOyHk": {
+        "t": "The Ancient City That Mastered Water",
+        "d": 549
+      },
       "Xo232kyTsO0": {
         "t": "The Real Meaning of E=mc²",
         "d": 624
+      },
+      "Xosn4ManeD4": {
+        "t": "The Robot Chess Player Scam",
+        "d": 595
       },
       "XP5k3ZzPf_0": {
         "t": "Go up SpaceX's Starship-catching robotic launch tower with Elon Musk!",
@@ -12396,6 +12640,10 @@
         "t": "We Found the Most Powerful Object in the Universe",
         "d": 1587
       },
+      "yCkM6XEsrRo": {
+        "t": "What If We Turned On Voyager 1’s Camera?",
+        "d": 575
+      },
       "YNEBhwimJWs": {
         "t": "Quantum Gravity and the Hardest Problem in Physics | Space Time",
         "d": 1000
@@ -12412,6 +12660,10 @@
         "t": "Are Space and Time An Illusion?",
         "d": 534
       },
+      "YyhzgNdSnbQ": {
+        "t": "The Greatest Double Agent Ever",
+        "d": 779
+      },
       "z4odQd8q3xY": {
         "t": "How The Penrose Singularity Theorem Predicts The End of Space Time",
         "d": 1019
@@ -12419,6 +12671,10 @@
       "ZevUW__aMZE": {
         "t": "Interstellar Highway System",
         "d": 1853
+      },
+      "zouFjgkE_4Y": {
+        "t": "The Discovery of King Richard III",
+        "d": 557
       },
       "zSgiXGELjbc": {
         "t": "Carl Sagan - 'A Glorious Dawn'  ft Stephen Hawking (Symphony of Science)",
@@ -12502,6 +12758,10 @@
         "t": "The Decline of Carvana...What Happened?",
         "d": 674
       },
+      "0iV--jRWBig": {
+        "t": "I Spent 21 Days Working in Apple Vision Pro - My Honest Review",
+        "d": 1151
+      },
       "0zr_46Eh4dA": {
         "t": "Asking Supercar Owners How To Make $1,000,000",
         "d": 487
@@ -12513,6 +12773,10 @@
       "2gccAOuGRdU": {
         "t": "Should you work on that startup idea?",
         "d": 430
+      },
+      "2kS_yZhFKXY": {
+        "t": "How I Eat for 10% Body Fat",
+        "d": 908
       },
       "2MrNSjJFBBI": {
         "t": "Design Masterclass with the best designer I’ve ever met (Raphael Schaad with Cron Calendar)",
@@ -12622,6 +12886,10 @@
         "t": "YOU can beat Google the way Amazon does. Here’s how.",
         "d": 805
       },
+      "9JpbWkZPh5c": {
+        "t": "My 8-hour focus routine (no burnout, no BS)",
+        "d": 249
+      },
       "9NYrsE_yW64": {
         "t": "The founder mindset you need - (Bill Gates’s lesson on time frame)",
         "d": 510
@@ -12650,6 +12918,10 @@
         "t": "Asking Luxury Real Estate Agents How To Make $1,000,000 (ft. Ryan Serhant)",
         "d": 494
       },
+      "B2IPxfoHwp8": {
+        "t": "Phone Addict? (Start this tonight)",
+        "d": 215
+      },
       "B8fZ9V9m7n8": {
         "t": "Asking College Dropout Millionaires How To Make $1,000,000",
         "d": 499
@@ -12661,6 +12933,10 @@
       "BJo_7-Rn1wc": {
         "t": "How to sell your startup for millions",
         "d": 1190
+      },
+      "BprdYajoPj0": {
+        "t": "I Almost Died - Testing My VO2 Max & The Workout To Improve Yours By 13%",
+        "d": 976
       },
       "BTOHpoC-XsE": {
         "t": "I wish I knew this in my 20s",
@@ -12742,9 +13018,17 @@
         "t": "How To Start A $1,000,000 Business With 0 Employees",
         "d": 607
       },
+      "FHapRshjAdE": {
+        "t": "4 Elements of a Perfect Saturday (And My Life Changing Protein Ice Cream Recipe)",
+        "d": 1092
+      },
       "Fk8Skx4xUDo": {
         "t": "Asking An NFT Expert How To Make $1,000,000",
         "d": 515
+      },
+      "FmC6-7uU8Mg": {
+        "t": "3 Days in Hong Kong with Ali Abdaal",
+        "d": 1711
       },
       "fNwXS3oS5VA": {
         "t": "5 Post COVID Business Ideas To Start in 2021",
@@ -12814,6 +13098,14 @@
         "t": "White Castle - Why They're Successful",
         "d": 725
       },
+      "iVcgDKGbK8I": {
+        "t": "What I Eat In A Day - 5 Rules To Get Ripped, Run Fast, & Lift Heavy",
+        "d": 1613
+      },
+      "iW3xrh8L8ag": {
+        "t": "15 Hard-Earned Life Lessons (That Could Make You Millions)",
+        "d": 1423
+      },
       "J3aes0D8n9U": {
         "t": "A Day In The Life Of A CEO Running A $100M Company (From Home)",
         "d": 1070
@@ -12878,6 +13170,10 @@
         "t": "Start a Million-Dollar Business This Weekend",
         "d": 1266
       },
+      "kkGr2Er7cEQ": {
+        "t": "Feel Behind? (Do This For 30 Days)",
+        "d": 195
+      },
       "KLgIrxXvb44": {
         "t": "The SECRET To Becoming A PRODUCTIVITY MASTER (Never Be Lazy Again) | Noah Kagan",
         "d": 624
@@ -12906,6 +13202,10 @@
         "t": "Meet The Billionaire that Works a Normal Job",
         "d": 700
       },
+      "LCBdKzfS578": {
+        "t": "9 habits to unf*ck your life",
+        "d": 160
+      },
       "lhkq2f1fJn0": {
         "t": "The Decline of Atari...What Happened?",
         "d": 817
@@ -12913,6 +13213,10 @@
       "LioyyxLgfXQ": {
         "t": "Why now? The key to million dollar startup ideas",
         "d": 1035
+      },
+      "Low5siEiFWg": {
+        "t": "The Morning Routine That Changed My Life | Get Ahead of 99% of People",
+        "d": 817
       },
       "Lz8qWI1ixGs": {
         "t": "I Started A $1,000,000 Business In 24 Hours",
@@ -12981,6 +13285,10 @@
       "oW-AyP0la9w": {
         "t": "MONEY TIPS I WISH SOMEBODY TOLD ME EARLIER - Clueless Conversation #5",
         "d": 825
+      },
+      "OZYgQ_gpsXM": {
+        "t": "I Just Flew First Class On The Emirates Airlines A380 – Was It Worth It?",
+        "d": 1230
       },
       "pef26wZ8P-4": {
         "t": "I Helped a Subscriber Start a $1,000,000 Business In 48 Hours",
@@ -13121,6 +13429,14 @@
       "tnenj6YaUtU": {
         "t": "NEUROSCIENCE OF WORKING OUT @aishmrj @Sidwarrier @rohanjoshi8016",
         "d": 3392
+      },
+      "UbQ4SUjxOG4": {
+        "t": "My 4am Morning Routine - 5 Principles To Win The Day",
+        "d": 1028
+      },
+      "uS1IJBRMaEE": {
+        "t": "4 Principles to 10x Your Results - How I Manage My Day",
+        "d": 950
       },
       "Ux8_zmLSnNk": {
         "t": "Pepsi - Bigger Than You Know",
@@ -13546,6 +13862,10 @@
         "t": "Microsoft Linux is Here!",
         "d": 412
       },
+      "0rJ94rbdteE": {
+        "t": "Rust makes you feel like a GENIUS",
+        "d": 648
+      },
       "0uejy9aCNbI": {
         "t": "HOW FRCKN' HARD IS IT TO UNDERSTAND A URL?! - uXSS CVE-2018-6128",
         "d": 947
@@ -13573,6 +13893,10 @@
       "14B85quRQhw": {
         "t": "Why Everyone Loves Zustand",
         "d": 1767
+      },
+      "14jlIxVrcvo": {
+        "t": "5 Things I Hate About JavaScript",
+        "d": 437
       },
       "16gB2BDXwTo": {
         "t": "What exactly is the goop inside a lava lamp?",
@@ -13678,6 +14002,10 @@
         "t": "Personal \"air conditioners\" aren't what they seem",
         "d": 1623
       },
+      "2hXNd6x9sZs": {
+        "t": "How to Learn Rust",
+        "d": 636
+      },
       "2iURr3NBprc": {
         "t": "Installing the world’s worst video card",
         "d": 1512
@@ -13706,6 +14034,10 @@
         "t": "The Secret step-by-step Guide to learn Hacking",
         "d": 881
       },
+      "2uEqYw-N8uE": {
+        "t": "Git's Best And Most Unknown Feature",
+        "d": 494
+      },
       "2ybLD6_2gKM": {
         "t": "you will never ask about pointers again after watching this video",
         "d": 483
@@ -13733,6 +14065,14 @@
       "3CccfnRpPtM": {
         "t": "Theranos – Silicon Valley’s Greatest Disaster",
         "d": 1478
+      },
+      "3e-nauaCkgo": {
+        "t": "Rust is the New C",
+        "d": 652
+      },
+      "3f9tbqSIm-E": {
+        "t": "1000 Players - One Game of Doom",
+        "d": 941
       },
       "3HfJj5S_tbk": {
         "t": "this virtual box escape exploit is absolutely nuts",
@@ -13854,6 +14194,10 @@
         "t": "Some bad code just broke a billion Windows machines",
         "d": 239
       },
+      "4YU_r70yGjQ": {
+        "t": "Rust is not a faster horse",
+        "d": 697
+      },
       "53zkBvL4ZB4": {
         "t": "How (not) to ask a technical question",
         "d": 466
@@ -13881,6 +14225,10 @@
       "5hycyr-8EKs": {
         "t": "you need to learn Ansible RIGHT NOW!! (Linux Automation)",
         "d": 1281
+      },
+      "5JGVtttuDQA": {
+        "t": "Vim As Your Editor - Horizontal",
+        "d": 635
       },
       "5md3d2hDKdM": {
         "t": "HTC Phones - From Biggest Smartphone Maker to Nothing!",
@@ -13946,6 +14294,10 @@
         "t": "Air fryers are simpler than you think, but still pretty neat",
         "d": 1179
       },
+      "6jPiuOXmxEc": {
+        "t": "What You Need To Learn 2023 (as a software engineer)",
+        "d": 224
+      },
       "6jSKldt7Eqs": {
         "t": "How a CPU works and Introduction to Assembler - bin 0x04",
         "d": 712
@@ -13953,6 +14305,10 @@
       "6lU11IHfJgo": {
         "t": "how Google writes gorgeous C++",
         "d": 460
+      },
+      "6Lxk9NMeWHg": {
+        "t": "AI Is Not Designed for You",
+        "d": 509
       },
       "6S5KRJv-7RU": {
         "t": "you can learn assembly in 10 minutes (try it RIGHT NOW)",
@@ -14130,6 +14486,10 @@
         "t": "Raspberry Pi 5",
         "d": 1207
       },
+      "9K20e7jlQPA": {
+        "t": "You're doing agile wrong",
+        "d": 505
+      },
       "9KNhHThIU84": {
         "t": "The Real Reason Windows is Free - And what that costs you!",
         "d": 1087
@@ -14246,6 +14606,10 @@
         "t": "The RS-232 protocol",
         "d": 1570
       },
+      "AiSl4vf40WU": {
+        "t": "Async Isn't Real & Cannot Hurt You",
+        "d": 642
+      },
       "ajy1PHWYeyQ": {
         "t": "Writing a simple Program in Python - bin 0x03",
         "d": 587
@@ -14306,6 +14670,10 @@
         "t": "5 Alternatives to Windows 11 - including Chrome OS, macOS, and Linux",
         "d": 507
       },
+      "B0yAy2j-9V0": {
+        "t": "Obsidian.md: The Good Parts [Part 2]",
+        "d": 647
+      },
       "b2pd3Y6aBag": {
         "t": "Motherboards Explained",
         "d": 388
@@ -14334,13 +14702,25 @@
         "t": "Using an EEPROM to replace combinational logic",
         "d": 1522
       },
+      "bdNJgUYeYPk": {
+        "t": "Is ADHD Bad For Programming?",
+        "d": 350
+      },
       "bdNS0K4Bt8U": {
         "t": "Layer 2 vs Layer 3 Switches",
         "d": 361
       },
+      "bdumjiHabhQ": {
+        "t": "My Developer Workflow - How I use i3, tmux, and vim",
+        "d": 561
+      },
       "bj89ips4aNg": {
         "t": "Ladybird browser update (July 2023)",
         "d": 1550
+      },
+      "bJQj1uKtnus": {
+        "t": "The Cult of Done",
+        "d": 549
       },
       "bknybcgfjAk": {
         "t": "Why Hackers Love the Number 1,094,795,585",
@@ -14366,9 +14746,17 @@
         "t": "The Most Realistic Humanoid Robot Yet (Ameca)",
         "d": 875
       },
+      "bq9O99TgFv4": {
+        "t": "The Unreasonable Effectiveness of Linux Workstations",
+        "d": 767
+      },
       "bqtqltqcQhw": {
         "t": "Coding Adventure: Boids",
         "d": 515
+      },
+      "br3GIIQeefY": {
+        "t": "Rust for the impatient",
+        "d": 642
       },
       "BR6F0EdyulA": {
         "t": "MS-DOS has been Open-Sourced!  We Build and Run it!",
@@ -14474,9 +14862,17 @@
         "t": "researchers find an unfixable bug in EVERY ARM cpu",
         "d": 588
       },
+      "CJtvnepMVAU": {
+        "t": "Rust Is Easy",
+        "d": 538
+      },
       "CJwPb_76jqU": {
         "t": "Notifications",
         "d": 143
+      },
+      "Ck9FMtIGVxQ": {
+        "t": "ADHD: A Left-handed Brain",
+        "d": 1176
       },
       "clJCDHml2cA": {
         "t": "I built a DeepSeek R1 powered VS Code extension…",
@@ -14542,6 +14938,10 @@
         "t": "How I deploy serverless containers for free",
         "d": 393
       },
+      "CwfKlX3rA6E": {
+        "t": "NixOS: Everything Everywhere All At Once",
+        "d": 909
+      },
       "cWpFZbjtSQg": {
         "t": "Coding Adventure: Portals",
         "d": 966
@@ -14574,13 +14974,25 @@
         "t": "Windows XP Gaming Monitor Doesn't Disappoint",
         "d": 1113
       },
+      "D4YTJ2W5q4Y": {
+        "t": "Why I use Vim in 2022",
+        "d": 392
+      },
       "D82C7JS_2iw": {
         "t": "Docker vs VM:  What's the Difference, and Why You Care!",
         "d": 820
       },
+      "DbsAQSIKQXk": {
+        "t": "Hack your brain with Obsidian.md [Part 1]",
+        "d": 712
+      },
       "DdVC1eVfZUI": {
         "t": "I Reverse Engineered a Dangerous Virus and Found Something WEIRD (ESXiargs ransomware deep dive)",
         "d": 761
+      },
+      "dFkGNe4oaKk": {
+        "t": "Oxidise your Command Line",
+        "d": 608
       },
       "dGj0rVZGfuk": {
         "t": "Microsoft Windows 10: Your Old PC is Now Trash!",
@@ -14749,6 +15161,10 @@
       "e6-TaH5bkjo": {
         "t": "DHCP Explained - Dynamic Host Configuration Protocol",
         "d": 609
+      },
+      "E8cM12jRH7k": {
+        "t": "How To Learn A New Programming Language",
+        "d": 384
       },
       "E9avjD9ugXc": {
         "t": "Coffee Percolators: An Explanation and Roast",
@@ -14954,6 +15370,10 @@
         "t": "Recreating Splatoon's Ink System | Mix and Jam",
         "d": 480
       },
+      "FrMRyXtiJkc": {
+        "t": "How to Vim in 2023: Tips and Tricks",
+        "d": 952
+      },
       "FSh8eusFYL4": {
         "t": "How The Biggest Banks Get Away With Fraud",
         "d": 1515
@@ -15114,9 +15534,17 @@
         "t": "access EVERYTHING from your web browser!! (Linux and Windows Desktop, SSH) // Guacamole Install",
         "d": 1790
       },
+      "gutR_LNoZw0": {
+        "t": "Rust Foundation IS DOING WHAT????",
+        "d": 497
+      },
       "gVrdE6g_fa8": {
         "t": "How did Masato find the Google Search XSS?",
         "d": 603
+      },
+      "GwcFxTuMYmU": {
+        "t": "I Went To DEFCON!",
+        "d": 984
       },
       "gwUz3E9AW0w": {
         "t": "you need a website RIGHT NOW!! (create a website for FREE)",
@@ -15161,6 +15589,10 @@
       "h7gf5M04hdg": {
         "t": "TempleOS in 100 Seconds",
         "d": 152
+      },
+      "h7UEwBaGoVo": {
+        "t": "Is TypeScript (NodeJS) Faster than Go?? |  A server comparison",
+        "d": 594
       },
       "H91aqUHn8sE": {
         "t": "How to Setup Node.js with TypeScript in 2023",
@@ -15346,6 +15778,10 @@
         "t": "How I made steel toe crocs with wood",
         "d": 1454
       },
+      "ifaLk5v3W90": {
+        "t": "Build your Rust lightsaber",
+        "d": 711
+      },
       "iFO3EiQbNJ8": {
         "t": "HDMI, DisplayPort, DVI, VGA, Thunderbolt - Video Port Comparison",
         "d": 456
@@ -15385,6 +15821,10 @@
       "INLq9RPAYUw": {
         "t": "Why is every React site so slow?",
         "d": 832
+      },
+      "ip51Y5v3WLk": {
+        "t": "How I Made JavaScript BLAZINGLY FAST",
+        "d": 610
       },
       "Iq_r7IcNmUk": {
         "t": "25 crazy software bugs explained",
@@ -15493,6 +15933,10 @@
       "JIbIYCM48to": {
         "t": "Top 50+ AWS Services Explained in 10 Minutes",
         "d": 705
+      },
+      "JjHFubUPLV0": {
+        "t": "From Meth To Netflix",
+        "d": 630
       },
       "JlvUT6ZWTe8": {
         "t": "Hacker's Gave me a Game and I Found a Virus",
@@ -15758,6 +16202,10 @@
         "t": "Nintendo Switch (NVIDIA Tegra X1) - BootROM Vulnerability",
         "d": 968
       },
+      "L576AckqIZg": {
+        "t": "Should you use RUST as your FIRST programming language?",
+        "d": 388
+      },
       "l9AzO1FMgM8": {
         "t": "Java in 100 Seconds",
         "d": 145
@@ -15765,6 +16213,10 @@
       "l9YxTXDiiFY": {
         "t": "EVERYONE needs to learn LINUX - ft. Raspberry Pi 4",
         "d": 1277
+      },
+      "LbmvbXPj8Fs": {
+        "t": "Rust or Go for my next project? WHAT TO CHOOSE? (as a senior intern engineer)",
+        "d": 190
       },
       "lctXaT9pxA0": {
         "t": "Coding Adventure: Procedural Moons and Planets",
@@ -15958,6 +16410,10 @@
         "t": "how to build a HACKING lab (to become a hacker)",
         "d": 988
       },
+      "MWRPYBoCEaY": {
+        "t": "Rust's Witchcraft",
+        "d": 557
+      },
       "MXUgQCRNPVA": {
         "t": "128 Core Armv9 Processors are Coming - Arm Neoverse N2",
         "d": 462
@@ -16062,6 +16518,10 @@
         "t": "Windows 98 20th Anniversary All New PC Build",
         "d": 817
       },
+      "nmhX3_m84Is": {
+        "t": "How am I suppose to get a job as a software engineer?",
+        "d": 251
+      },
       "nNBktKw9Is4": {
         "t": "Hardware Wallet Hack: Ledger Nano S - f00dbabe",
         "d": 934
@@ -16097,6 +16557,10 @@
       "nUCpt6F5q-s": {
         "t": "SerenityOS update (July 2021)",
         "d": 2002
+      },
+      "Nusg5dUjR0A": {
+        "t": "The biggest lie about programming?  REACTING to tech twitter",
+        "d": 1010
       },
       "NuyzuNBFWxQ": {
         "t": "7 Cryptography Concepts EVERY Developer Should Know",
@@ -16210,6 +16674,14 @@
         "t": "How Apple Just Changed the Entire Industry (M1 Chip)",
         "d": 1588
       },
+      "OuizzRCALCU": {
+        "t": "Hack Your Brain with Polyphasic Sleep",
+        "d": 662
+      },
+      "OUK4qNvP0Dc": {
+        "t": "Programming on TikTok",
+        "d": 368
+      },
       "oVhSPeGkfaI": {
         "t": "Apple M5 Deep Dive - Apple Adds GPU Compute and PCIe 5.0 NVMe",
         "d": 644
@@ -16226,6 +16698,10 @@
         "t": "Wireless Access Point vs Wi-Fi Router",
         "d": 386
       },
+      "oY0XwMOSzq4": {
+        "t": "Rust Is Boring",
+        "d": 637
+      },
       "Oy5HGvrxM4o": {
         "t": "How to Build a Discord Bot",
         "d": 280
@@ -16234,6 +16710,10 @@
         "t": "Why You Need a Pocket Router: Hotels, Airports, Airplanes, Cruise Ships - Stay Connected Anywhere!",
         "d": 855
       },
+      "p0Q3oDY9A5s": {
+        "t": "I am done with vim",
+        "d": 280
+      },
       "P2CyB8iMe5w": {
         "t": "SerenityOS update (May 2024)",
         "d": 1456
@@ -16241,6 +16721,10 @@
       "P4dT-lW9260": {
         "t": "How Did YouTube Start?",
         "d": 705
+      },
+      "P4LMfkFLRsI": {
+        "t": "Rust & Wasm",
+        "d": 578
       },
       "P8KaTrGpGg0": {
         "t": "Videochat",
@@ -16350,9 +16834,17 @@
         "t": "Windows Game Hacking with Ghidra and Cheat Engine",
         "d": 932
       },
+      "PuMXWc0xrK0": {
+        "t": "Rust: Turtles all the way down",
+        "d": 680
+      },
       "Puo6Vgcbxps": {
         "t": "Explosive Bat: crushing MLB records. Ft: Smarter Every Day",
         "d": 1470
+      },
+      "pvBHyip4peo": {
+        "t": "YOU DONT UNIT TEST??? DevHour #1 Theo",
+        "d": 2737
       },
       "pWFLLLUWrMQ": {
         "t": "SerenityOS update (February 2024)",
@@ -16437,6 +16929,10 @@
       "QHQTzeve7OM": {
         "t": "WeWork - The $47 Billion Disaster",
         "d": 1198
+      },
+      "QIyc6NKS5J0": {
+        "t": "If I could give advice to myself when starting as a software engineer",
+        "d": 355
       },
       "Qj7JX-LkOrA": {
         "t": "ReactOS: Open Source Windows OS",
@@ -16534,6 +17030,10 @@
         "t": "Coding Adventure: Ray Tracing",
         "d": 2278
       },
+      "qZO9A5F6BZs": {
+        "t": "Vim As You Editor - Advanced Motions P1",
+        "d": 584
+      },
       "qZuR-772cks": {
         "t": "Microscopes can See Video on a LaserDisc - Andonstar AD246S-P",
         "d": 1800
@@ -16586,6 +17086,10 @@
         "t": "Pushing Unity To The Limit - Hyperbolica Devlog #6",
         "d": 401
       },
+      "RDd71IUIgpg": {
+        "t": "CoPilot Review: My Thoughts After 6 Months",
+        "d": 584
+      },
       "RDkWagIW6gw": {
         "t": "WorldGuard Bypass",
         "d": 1169
@@ -16625,6 +17129,10 @@
       "rmgla4yeCXw": {
         "t": "How Computers BOOT: From Startup to Viruses",
         "d": 915
+      },
+      "rNsWTWvm8uw": {
+        "t": "Does Your Editor Matter?",
+        "d": 272
       },
       "RPa3_AD1_Vs": {
         "t": "This UI component library is mind-blowing",
@@ -16706,6 +17214,10 @@
         "t": "I can't believe nobody's done this before...",
         "d": 1135
       },
+      "sH0_LJoMJd4": {
+        "t": "STOP LYING, The truth about Software Engineering",
+        "d": 270
+      },
       "shChBhapdTo": {
         "t": "Boot and Install Raspberry Pi Over Internet - No SD Card Needed!",
         "d": 363
@@ -16713,6 +17225,10 @@
       "ShcR4Zfc6Dw": {
         "t": "Why so many distros? The Weird History of Linux",
         "d": 502
+      },
+      "slL7AW9q8Fc": {
+        "t": "Why I Quit Netflix",
+        "d": 431
       },
       "sLqXFF8mlEU": {
         "t": "I Tried Creating a Game Using Real-World Geographic Data",
@@ -16737,6 +17253,10 @@
       "SPwyp2NG-bE": {
         "t": "you need to learn BASH Scripting RIGHT NOW!! // EP 1",
         "d": 733
+      },
+      "sqm4-B07LsE": {
+        "t": "Writing at the Speed of Thought",
+        "d": 777
       },
       "SR8ESCmUYLY": {
         "t": "Hidden Code: How Slot Machines Actually Work - The Computer Inside",
@@ -16938,6 +17458,10 @@
         "t": "Electric cars prove we need to rethink brake lights",
         "d": 1783
       },
+      "U16RnpV48KQ": {
+        "t": "This Algorithm is 1,606,240% FASTER",
+        "d": 810
+      },
       "U1dpWiZoiJU": {
         "t": "How the 2008 Financial Crisis Still Affects You",
         "d": 2329
@@ -17038,6 +17562,10 @@
         "t": "i created malware with Python (it's SCARY easy!!)",
         "d": 1517
       },
+      "UWb1dw_kbvo": {
+        "t": "This Is Goodbye",
+        "d": 260
+      },
       "uwoD5YsGACg": {
         "t": "TCP vs UDP Comparison",
         "d": 277
@@ -17073,6 +17601,10 @@
       "v4H2fTgHGuc": {
         "t": "The amazing, but unsettling future of technology...",
         "d": 550
+      },
+      "v6RxJsk8otY": {
+        "t": "What Makes Rust Different?",
+        "d": 757
       },
       "v7yyZZjF1z4": {
         "t": "[Unity] Procedural Cave Generation (E01. Cellular Automata)",
@@ -17202,6 +17734,10 @@
         "t": "Adding NVMe Storage to your Raspberry Pi 5 - No more SD cards!!!",
         "d": 565
       },
+      "w7i4amO_zaE": {
+        "t": "0 to LSP : Neovim RC From Scratch",
+        "d": 1847
+      },
       "w85QTDPp-4Q": {
         "t": "Rock 5B: Powerful RK3588 SBC",
         "d": 1315
@@ -17221,6 +17757,10 @@
       "WCwJNnx36Rk": {
         "t": "Bistable 555 - 8-bit computer clock - part 3",
         "d": 630
+      },
+      "WgV6M1LyfNY": {
+        "t": "The Unreasonable Effectiveness Of Plain Text",
+        "d": 877
       },
       "wh4aWZRtTwU": {
         "t": "Brown; color is weird",
@@ -17330,6 +17870,10 @@
         "t": "Fixing a WPT timeout in Window.postMessage()",
         "d": 1969
       },
+      "X6AR2RMB5tE": {
+        "t": "Vim As Your Editor - Introduction",
+        "d": 744
+      },
       "x7X9w_GIm1s": {
         "t": "Python in 100 Seconds",
         "d": 143
@@ -17425,6 +17969,10 @@
       "XUwSOfQ1D3c": {
         "t": "Sony's Clever but Flawed PlayStation Copy Protection--And How They Might Have Fixed It",
         "d": 855
+      },
+      "XUZ9VATeF_4": {
+        "t": "Hack Your Brain With Elaborate Coping Mechanisms",
+        "d": 702
       },
       "Y-4WHf0of6Y": {
         "t": "Smashing the Stack for Fun and Profit - setuid, ssh and exploit.education - bin 0x0B",
@@ -17554,6 +18102,10 @@
         "t": "Particle Life - A Game of Life Made of Particles",
         "d": 210
       },
+      "z-0-bbc80JM": {
+        "t": "Rust Data Modelling Without Classes",
+        "d": 684
+      },
       "z-iA_9U3WTc": {
         "t": "I Bought a $200K VAX on eBay – Now It Runs My Smart Lights!",
         "d": 771
@@ -17566,9 +18118,17 @@
         "t": "LCCS: The LCD / CRT Hybrid from JVC",
         "d": 735
       },
+      "Z0GX2mTUtfo": {
+        "t": "Go is faster than Rust??!  Go vs Rust vs TypeScript Servers (as a scientist)",
+        "d": 518
+      },
       "Z3mzOP_GyH8": {
         "t": "0x0020 - Era Linux on The 98 Machine with Druaga1",
         "d": 1418
+      },
+      "Z3xPIYHKSoI": {
+        "t": "Stop writing Rust",
+        "d": 580
       },
       "z4_oqTZJqCo": {
         "t": "how to HACK a password // password cracking with Kali Linux and HashCat",
@@ -17586,10 +18146,6 @@
         "t": "What is UFS 4.0?",
         "d": 474
       },
-      "ZBa3BK4Efcw": {
-        "t": "Savepoint: A CLI for TDD",
-        "d": 423
-      },
       "zbqrNg4C98U": {
         "t": "Network Topologies (Star, Bus, Ring, Mesh, Ad hoc, Infrastructure, & Wireless Mesh Topology)",
         "d": 538
@@ -17601,6 +18157,10 @@
       "zGcKURD_osM": {
         "t": "The Sackler Family – A Secretive Billion Dollar Opioid Empire",
         "d": 1658
+      },
+      "ZH3iKbEiks0": {
+        "t": "I was wrong btw",
+        "d": 1079
       },
       "ZHrayP-Y71Q": {
         "t": "CrowdStrike Update: Latest News, Lessons Learned from a Retired Microsoft Engineer",
@@ -17629,6 +18189,10 @@
       "ZMsHCCyBqEQ": {
         "t": "You need a NAS RIGHT NOW!! (How I run my Hybrid-Cloud YouTube business)",
         "d": 1362
+      },
+      "ZNFdkTIzdXM": {
+        "t": "Rust for TypeScript devs : Borrow Checker",
+        "d": 529
       },
       "ZPX3A7YS-6Q": {
         "t": "Renewed i5 Mini PC: HP EliteDesk 800 G2",
