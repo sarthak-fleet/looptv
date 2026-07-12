@@ -50,6 +50,28 @@ describe('full catalog quality rebaseline', () => {
     };
     expect(checkpointQualifies([row], source)).toBe(true);
     expect(checkpointQualifies([row], { ...source, topPercentile: 3 })).toBe(false);
+    expect(checkpointQualifies([row], { ...source, maxVideos: 1_000 })).toBe(false);
+  });
+
+  it('selects up to a source-specific cap', () => {
+    const rows = Array.from({ length: 4_000 }, (_, index) => ({
+      id: `eligible-${index}`,
+      duration: 300,
+      view_count: 10_000_000 - index,
+      playable_in_embed: true,
+    }));
+    const result = selectFullHistoryRows(
+      rows,
+      { ...source, maxVideos: 1_000 },
+      {
+        auditedAt: '2026-07-12T00:00:00Z',
+        publicUploadCount: 4_000,
+      }
+    );
+
+    expect(result.selected).toHaveLength(1_000);
+    expect(result.selected.at(-1)?.id).toBe('eligible-999');
+    expect(result.selected[0]._looptvQualityPolicy).toBe('60:1800:30:10000:1000');
   });
 
   it('refuses an over-budget request and throttles accepted requests', async () => {

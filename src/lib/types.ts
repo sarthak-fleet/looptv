@@ -15,6 +15,7 @@ export interface YouTubeSource {
   minDuration?: number;
   maxDuration?: number;
   topPercentile?: number; // keep only top N% by views (e.g., 25 = top 25%)
+  maxVideos?: number; // override the default 200-video source cap
 }
 
 export interface StationConfig {

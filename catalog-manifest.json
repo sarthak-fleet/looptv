@@ -1,13 +1,13 @@
 {
   "$comment": "Catalog audit baselines. Auto-rebaselined by CI after each passing audit (validate-catalog-manifest.mjs --update). See docs/catalog-auditability.md for thresholds and overrides.",
-  "generatedAt": "2026-07-12T09:08:10.819Z",
+  "generatedAt": "2026-07-12T10:44:21.741Z",
   "thresholds": {
     "maxStationDropPct": 30,
     "minStationDropAbs": 5,
     "maxTotalDropPct": 20,
     "maxVideoChurnPct": 50
   },
-  "totalVideos": 7960,
+  "totalVideos": 8760,
   "stations": {
     "ai": 443,
     "comedy": 764,
@@ -20,7 +20,7 @@
     "mindset": 360,
     "philosophy": 452,
     "science": 1004,
-    "snl": 200,
+    "snl": 1000,
     "space": 470,
     "startups": 566,
     "talks": 200,
@@ -20122,25 +20122,97 @@
         "t": "Airport Security Check - Saturday Night Live",
         "d": 362
       },
+      "_9BjJkqybz8": {
+        "t": "Toilet Death Ejector - SNL",
+        "d": 134
+      },
       "_d2XfUXn0kY": {
         "t": "Jacuzzi Lifeguard - SNL",
         "d": 361
+      },
+      "_iyIbbxVzrU": {
+        "t": "VP Debate: Sarah Palin and Joe Biden - SNL",
+        "d": 733
+      },
+      "_jOENrSbths": {
+        "t": "Mile High Burger Challenge - SNL",
+        "d": 345
+      },
+      "_JpSXnJ-SuA": {
+        "t": "Kevin Hart's Son - SNL",
+        "d": 246
+      },
+      "_L2fazw5Y9k": {
+        "t": "Father Daughter Ad - SNL",
+        "d": 114
+      },
+      "_L5Xkb78KxY": {
+        "t": "The Christmas Candle (Emma Stone) - SNL",
+        "d": 187
+      },
+      "_ngbuYanRh8": {
+        "t": "Youngblood - SNL",
+        "d": 217
+      },
+      "_RvfzFv3c6Y": {
+        "t": "Easter Message from Sean Spicer (Melissa McCarthy) - SNL",
+        "d": 262
+      },
+      "_tj5ye2r8RI": {
+        "t": "McDonald's Firing - Saturday Night Live",
+        "d": 344
+      },
+      "_xd1hHKYmvo": {
+        "t": "always check your bill before checkout",
+        "d": 179
+      },
+      "_yyq5C4Hu8Y": {
+        "t": "Airplane Baby - SNL",
+        "d": 248
+      },
+      "_ZW-AZ2mNeA": {
+        "t": "Sarcasm 101 - SNL",
+        "d": 284
       },
       "--IS0XiNdpk": {
         "t": "Dave Chappelle Stand-Up Monologue - SNL",
         "d": 697
       },
+      "-1uC5tBGlNg": {
+        "t": "Weekend Update: Colin Jost and Michael Che Swap Jokes for Season 50 Finale",
+        "d": 345
+      },
       "-A0iftflme4": {
         "t": "Natalie Raps - SNL Digital Short",
         "d": 177
+      },
+      "-ARFzXso3Ns": {
+        "t": "A Journey Through Time - SNL",
+        "d": 377
+      },
+      "-B-dg6hEEmA": {
+        "t": "The Kim Kardashian Fairytale Divorce Special on E! - SNL",
+        "d": 198
+      },
+      "-CeWjLyqx48": {
+        "t": "New Annie - Saturday Night Live",
+        "d": 239
       },
       "-GyES-BNlUY": {
         "t": "Target Lady: Meets Her First Lesbian - SNL",
         "d": 353
       },
+      "-jaqg-NMz9A": {
+        "t": "Tenement Museum - SNL",
+        "d": 297
+      },
       "-kjyltrKZSY": {
         "t": "Donald Trump vs. Hillary Clinton Third Debate Cold Open - SNL",
         "d": 590
+      },
+      "-mSGwndFMp8": {
+        "t": "John Mulaney Stand-Up Monologue - SNL",
+        "d": 462
       },
       "-nQGBZQrtT0": {
         "t": "Donald Trump vs. Hillary Clinton Debate Cold Open - SNL",
@@ -20154,29 +20226,77 @@
         "t": "Star Wars Auditions - SNL",
         "d": 250
       },
+      "-uEa9C6ucO4": {
+        "t": "Celebrity Jeopardy: Sean Connery, Anne Heche, Chris Tucker - SNL",
+        "d": 420
+      },
+      "-UggNH1YeRY": {
+        "t": "Cut For Time: Supermarket Spree (Melissa McCarthy) - SNL",
+        "d": 190
+      },
+      "-vcQdcaYPA0": {
+        "t": "Game of Thrones: Jon Snow - SNL",
+        "d": 239
+      },
+      "-XRfDZYHrBc": {
+        "t": "Girls Try on New York Funky Style Clothes - SNL",
+        "d": 306
+      },
+      "-zTNyeSv_jo": {
+        "t": "weekend update!",
+        "d": 178
+      },
       "02S8t0F1inc": {
         "t": "Spelling Bee - SNL",
         "d": 333
+      },
+      "09gaY7i9sVM": {
+        "t": "Secret Word with Emma Stone - SNL",
+        "d": 394
       },
       "0BEBO5BdAM8": {
         "t": "Avatar Sex Gone Wild - SNL",
         "d": 227
       },
+      "0D-PRJuUDoc": {
+        "t": "Deal or No Deal Cold Open - SNL",
+        "d": 492
+      },
       "0EqINqnEa-Y": {
         "t": "New Girlfriend - SNL",
         "d": 356
+      },
+      "0pinZNYxQeo": {
+        "t": "Palin Endorsement Cold Open - SNL",
+        "d": 310
       },
       "0X5xql1G4QY": {
         "t": "The Sensitive Drill Sergeant - SNL",
         "d": 309
       },
+      "0XhwQUqm_Hw": {
+        "t": "Principal Frye: Prom - SNL",
+        "d": 233
+      },
       "0xZ52mG1yIo": {
         "t": "Puppet Class with Seth MacFarlane - SNL",
         "d": 344
       },
+      "0Y3sotWAwv4": {
+        "t": "Expedition - SNL",
+        "d": 306
+      },
       "1_glHa8F7fA": {
         "t": "Irish Dating Show - SNL",
         "d": 296
+      },
+      "142DfJ4Ch1U": {
+        "t": "PBS Democratic Debate Cold Open - SNL",
+        "d": 589
+      },
+      "1AtrI9PoiBQ": {
+        "t": "Office Hours - SNL",
+        "d": 213
       },
       "1d-EyX5r_lk": {
         "t": "Where'd Your Money Go? - SNL",
@@ -20186,33 +20306,213 @@
         "t": "E-Meth - SNL",
         "d": 133
       },
+      "1H_MAY9ZK6c": {
+        "t": "Best Buy Firing - SNL",
+        "d": 285
+      },
+      "1hZA0mMxaNs": {
+        "t": "The Cat In The Hat and Linda - SNL",
+        "d": 241
+      },
+      "1iCm8tYX-Vw": {
+        "t": "Donald Trump Baltic States Cold Open - SNL",
+        "d": 444
+      },
       "1l26UFQ06eQ": {
         "t": "Welcome to Hell - SNL",
         "d": 200
+      },
+      "1LmFVEi5Jd0": {
+        "t": "Weekend Update: Rudy Giuliani on Trump's Election Lawsuits - SNL",
+        "d": 283
+      },
+      "1LyqPdZjQTY": {
+        "t": "Matt Foley: A Scary Story on Halloween - SNL",
+        "d": 355
       },
       "1OJ7aW3Df5U": {
         "t": "Stu - SNL",
         "d": 260
       },
+      "1Se8PVZdfPg": {
+        "t": "President Barbie - SNL",
+        "d": 110
+      },
       "21Ki96Lsxhc": {
         "t": "Please Don’t Destroy - Three Sad Virgins (ft. Taylor Swift) - SNL",
         "d": 251
+      },
+      "25IOsvWPQGQ": {
+        "t": "Chris Farley Song - SNL",
+        "d": 285
+      },
+      "2aqd5VQqSRc": {
+        "t": "Dress Rehearsal: Renaldo and Alexi - Saturday Night Live",
+        "d": 411
+      },
+      "2Dzae7_80fg": {
+        "t": "Auditions - SNL 40th Anniversary Special",
+        "d": 300
+      },
+      "2EVI7wIV7tk": {
+        "t": "Medical Breakthrough - SNL",
+        "d": 269
+      },
+      "2hekDuCBxCc": {
+        "t": "Boomers Got the Vax - SNL",
+        "d": 210
+      },
+      "2hvVhKHqlgI": {
+        "t": "Hotel Ad - SNL",
+        "d": 266
+      },
+      "2KKRiXcivAQ": {
+        "t": "Medieval Times - SNL",
+        "d": 278
+      },
+      "2pRt4dFBkCA": {
+        "t": "Jake Tapper - SNL",
+        "d": 240
+      },
+      "2SQKB9rLHkk": {
+        "t": "Hawaiian Hotel - SNL",
+        "d": 291
+      },
+      "2XOwNpZ9XDM": {
+        "t": "Anthony Coleman Takes Another Puppet Class - SNL",
+        "d": 310
+      },
+      "2yE5u0f3msE": {
+        "t": "Passing Notes - SNL",
+        "d": 402
+      },
+      "2YKlAyA9jR8": {
+        "t": "Cast Away - SNL",
+        "d": 318
+      },
+      "2YnonYf463s": {
+        "t": "Shane Gillis Stand-Up Monologue - SNL",
+        "d": 495
+      },
+      "2zdcNWdCGEs": {
+        "t": "Dongs All Over The World - SNL",
+        "d": 212
+      },
+      "3_mJ4fhbOUU": {
+        "t": "Cut for Time: Work Banter (Drake) - SNL",
+        "d": 289
+      },
+      "323v_FtWqvo": {
+        "t": "High School Theatre Show with Emma Stone - SNL",
+        "d": 295
+      },
+      "37nlTmRHvf8": {
+        "t": "American Households Cold Open - SNL",
+        "d": 371
+      },
+      "3Ar80sFzViw": {
+        "t": "Donald Trump Christmas Cold Open - SNL",
+        "d": 356
+      },
+      "3BBQd63vGqw": {
+        "t": "Costco Meeting ft. Kim Kardashian - SNL",
+        "d": 278
+      },
+      "3byTN8NTCkc": {
+        "t": "Zoom Call - SNL",
+        "d": 349
+      },
+      "3c5neBXQwf8": {
+        "t": "Alan Dershowitz Argues for Trump Cold Open - SNL",
+        "d": 513
+      },
+      "3ct68JZKsZ8": {
+        "t": "SNL Digital Short: People Getting Punched Right Before Eating - Saturday Night Live",
+        "d": 188
+      },
+      "3dzOLoOEToc": {
+        "t": "Totino's - SNL",
+        "d": 142
+      },
+      "3gxbFDPLL_g": {
+        "t": "E! New Line Up - SNL",
+        "d": 153
+      },
+      "3mLsU46h8IA": {
+        "t": "Short Shorts for the USA - SNL",
+        "d": 424
       },
       "3MQeexi0FPU": {
         "t": "Drake's Beef - SNL",
         "d": 166
       },
+      "3RGRyTGUbv4": {
+        "t": "Patriots Press Conference On Deflated Footballs - SNL",
+        "d": 326
+      },
       "3sxRAeh8f7w": {
         "t": "Rap Roundtable - SNL",
         "d": 333
+      },
+      "3tQe9VVxAZw": {
+        "t": "Bedroom - SNL",
+        "d": 252
+      },
+      "3twGmSu1MI0": {
+        "t": "First Got Horny 2 U - SNL",
+        "d": 210
+      },
+      "3uItJuJeuDg": {
+        "t": "The Muppet Show - SNL",
+        "d": 317
+      },
+      "3VubWlYr9Ek": {
+        "t": "Stuck in the House - SNL",
+        "d": 169
+      },
+      "3WC1YZ1o0UY": {
+        "t": "Cars 4 - SNL",
+        "d": 286
       },
       "4_Gf0mGJfP8": {
         "t": "Donald Trump Press Conference Cold Open - SNL",
         "d": 477
       },
+      "40sJn4fEpMQ": {
+        "t": "Jasmine and Aladdin - SNL",
+        "d": 272
+      },
+      "41rYg-GQYVk": {
+        "t": "My Brother Knows Everything - SNL",
+        "d": 270
+      },
+      "48YDO2yN0JE": {
+        "t": "The Californians: Karina Returns - SNL",
+        "d": 444
+      },
+      "49UHAsIk2Ds": {
+        "t": "Dirty Talk - SNL",
+        "d": 211
+      },
+      "4DAE5pTwtFk": {
+        "t": "Brother 2 Brother - SNL",
+        "d": 222
+      },
+      "4Lsa7N7LHJk": {
+        "t": "Louis C.K. Stand-Up Monologue - SNL",
+        "d": 586
+      },
       "4sO5-t3iEYY": {
         "t": "Kanye West Donald Trump Cold Open - SNL",
         "d": 367
+      },
+      "4UFfD0HIhv4": {
+        "t": "Dueling Town Halls Cold Open - SNL",
+        "d": 777
+      },
+      "4UKX1PGvdqY": {
+        "t": "Brutal Marriage Movie - SNL",
+        "d": 142
       },
       "4vFTMjYJTnY": {
         "t": "Evil Boss - SNL",
@@ -20222,13 +20522,41 @@
         "t": "Best Christmas Ever - SNL",
         "d": 200
       },
+      "54BVvP7zvDQ": {
+        "t": "Queer Eye's Tan France Takes Pete Davidson Shopping - SNL",
+        "d": 257
+      },
       "57pGarTBJrU": {
         "t": "Dave Chappelle Stand-Up Monologue 2025 - SNL",
         "d": 1022
       },
+      "5BgvxLd7G0Y": {
+        "t": "Forgot About Lorne ft. Eminem - SNL",
+        "d": 195
+      },
+      "5FKnBWUitu0": {
+        "t": "Cheerleading Show - SNL",
+        "d": 246
+      },
       "5IZrYeUX3MI": {
         "t": "Enhancement Drug - SNL",
         "d": 151
+      },
+      "5lC6yDYl_3w": {
+        "t": "SNL Commercial Parodies: Food",
+        "d": 477
+      },
+      "5oBbY_gDJmY": {
+        "t": "Chopped - SNL",
+        "d": 165
+      },
+      "5Re-sRehKzo": {
+        "t": "Dance Vlog - SNL",
+        "d": 315
+      },
+      "6_Ea5a19jTc": {
+        "t": "The Barry Gibb Talk Show: Bee Gees Singers - SNL",
+        "d": 339
       },
       "6-QG-rFf4po": {
         "t": "(Do It On My) Twin Bed - SNL",
@@ -20238,29 +20566,209 @@
         "t": "Sex With Your Wife - Saturday Night Live",
         "d": 333
       },
+      "69gqiLLCHak": {
+        "t": "Lion King Auditions - SNL",
+        "d": 157
+      },
+      "6d7Vk_qaiB8": {
+        "t": "Airport Sushi - SNL",
+        "d": 493
+      },
       "6F8mJZkP-Hg": {
         "t": "Courtroom - SNL",
         "d": 321
+      },
+      "6GEWSNylwS8": {
+        "t": "Waking Up - SNL",
+        "d": 299
+      },
+      "6gPnaWhcEbo": {
+        "t": "P. J. Doesn't Fit into Women's Group - SNL",
+        "d": 374
+      },
+      "6IL4sMC_XBE": {
+        "t": "Presidential Address Cold Open - SNL",
+        "d": 375
+      },
+      "6mtkqIrOLOg": {
+        "t": "Drag Brunch - SNL",
+        "d": 306
+      },
+      "6NE_kbJQ8r8": {
+        "t": "Weekend Update: Christmas Joke Swap 2023 - SNL",
+        "d": 272
+      },
+      "6RKq8wDuIzc": {
+        "t": "Kissing Video Game Characters - SNL",
+        "d": 253
+      },
+      "6SK7GHDgmmA": {
+        "t": "Please Don't Destroy - Road Trip - SNL",
+        "d": 229
+      },
+      "6T6aVFAnAoA": {
+        "t": "Weekend Update: Pete Davidson on Turning 21 - SNL",
+        "d": 197
+      },
+      "74b6Whj5zNc": {
+        "t": "Top Gun Auditions - SNL",
+        "d": 207
+      },
+      "79cfNqa3SvM": {
+        "t": "Recording Session - SNL",
+        "d": 302
+      },
+      "7Bb2Zk_ZPZk": {
+        "t": "Tall, Plain Boyfriend™",
+        "d": 170
+      },
+      "7DWAMVDtUww": {
+        "t": "Chocolate Droppa's Listening Party - SNL",
+        "d": 269
+      },
+      "7E_WeuKkJ2s": {
+        "t": "VP Debate 2024 Cold Open - SNL",
+        "d": 523
       },
       "7e4vFMJmBIc": {
         "t": "The Chaos President Cold Open - SNL",
         "d": 347
       },
+      "7eBG8JIGugw": {
+        "t": "Mary Poppins - Saturday Night Live",
+        "d": 290
+      },
+      "7F_Cl8wUUHQ": {
+        "t": "Airline Pilots - SNL",
+        "d": 291
+      },
+      "7gQoSDlvQHk": {
+        "t": "Digital Short: Helen Mirren's Magical Bosom - Saturday Night Live",
+        "d": 171
+      },
+      "7N68NjL9cMA": {
+        "t": "Kavanaugh Hegseth Patel Bar Cold Open - SNL",
+        "d": 375
+      },
+      "7o_rwJwqkDc": {
+        "t": "PowerPoint - SNL",
+        "d": 283
+      },
+      "7oPe80mdcZg": {
+        "t": "Friendos (featuring A$AP Rocky) - SNL",
+        "d": 261
+      },
+      "7sK3jyjRq70": {
+        "t": "Shallon: Drug Safety - SNL",
+        "d": 307
+      },
+      "7Ssl7abAEhs": {
+        "t": "Mike Pence Impeachment Strategy Cold Open - SNL",
+        "d": 381
+      },
+      "7Ypo_6MEIj0": {
+        "t": "Dad's New Girlfriend - SNL",
+        "d": 297
+      },
+      "7yq2CXkrZpo": {
+        "t": "The O'Reilly Factor with Donald Trump - SNL",
+        "d": 306
+      },
+      "7z3hTmvKe0A": {
+        "t": "Chad & RuPaul - SNL",
+        "d": 261
+      },
+      "81FllbAcjqg": {
+        "t": "Internet Comments Talk Show - Saturday Night Live",
+        "d": 341
+      },
+      "83Tnl0abp-8": {
+        "t": "Cut for Time: Date in Mexico - SNL",
+        "d": 344
+      },
       "86qKgK0asGo": {
         "t": "Beavis and Butt-Head - SNL",
         "d": 371
+      },
+      "88TuOd6QNAA": {
+        "t": "1-800-Flowers - SNL",
+        "d": 144
       },
       "8Ad5WHtYjw4": {
         "t": "Top 5 Most-Watched Live Sketches | Season 49 | Saturday Night Live",
         "d": 1502
       },
+      "8AlDTjiWdKg": {
+        "t": "MySpace - Saturday Night Live",
+        "d": 407
+      },
+      "8bWRjajx-LE": {
+        "t": "Weekend Update: Rachel from Friends on '90s Nostalgia - SNL",
+        "d": 270
+      },
+      "8cdBcfLhJVY": {
+        "t": "Jumanji - SNL",
+        "d": 324
+      },
+      "8EQAwrDwE6Y": {
+        "t": "Weekend Update on Fire and Fury - SNL",
+        "d": 495
+      },
+      "8h_N80qKYOM": {
+        "t": "Republican or Not - SNL",
+        "d": 328
+      },
+      "8HsyEvr5Pnw": {
+        "t": "CBS Evening News: Katie Couric Interviews Sarah Palin - SNL",
+        "d": 440
+      },
+      "8Ij4a6x_mPs": {
+        "t": "Sports Announcer - SNL",
+        "d": 299
+      },
+      "8KLSg1h0e-M": {
+        "t": "The Lawrence Welk Show: Introducing The Maharelle Sisters - SNL",
+        "d": 229
+      },
       "8nAz-vVYeNA": {
         "t": "Near-Death Experience - SNL",
         "d": 344
       },
+      "8uBP6UL-jEU": {
+        "t": "Black Panther New Scene - SNL",
+        "d": 303
+      },
+      "8vQlhWBvAwY": {
+        "t": "Trump Press Conference Cold Open - SNL",
+        "d": 406
+      },
+      "8WytdYtzyZg": {
+        "t": "Miss Trash 2015 - Saturday Night Live",
+        "d": 274
+      },
+      "8ZM3jvlvgVw": {
+        "t": "Jeff Sessions Gump Cold Open - SNL",
+        "d": 338
+      },
       "8Zq3KCBed5Q": {
         "t": "Celebrity Jeopardy!: Robin Williams, Catherine Zeta-Jones & Sean Connery - SNL",
         "d": 454
+      },
+      "90RFCGB4oas": {
+        "t": "Pete Hegseth addresses Maduro’s capture",
+        "d": 98
+      },
+      "94D4DzLS93E": {
+        "t": "Ladies Night Song - SNL",
+        "d": 199
+      },
+      "9gGvvdGWMKA": {
+        "t": "Penelope: Man and Wife - SNL",
+        "d": 289
+      },
+      "9HMX-EkYUA0": {
+        "t": "The Impossible Hulk - SNL",
+        "d": 206
       },
       "9HVH_I04ZrM": {
         "t": "The Actress - SNL",
@@ -20270,33 +20778,225 @@
         "t": "Office Phone Call - SNL",
         "d": 335
       },
+      "9LqK8GiIMYw": {
+        "t": "What Still Works Cold Open - SNL",
+        "d": 471
+      },
+      "9MWyB95Xwyk": {
+        "t": "Dad's House - SNL",
+        "d": 275
+      },
+      "9OBK8KS8Ims": {
+        "t": "Hooters Waitress - SNL",
+        "d": 258
+      },
+      "9PJb4cFWOfY": {
+        "t": "Dating Show - SNL",
+        "d": 252
+      },
+      "9q3QBnCnJbQ": {
+        "t": "Trump Argentina Cold Open - SNL",
+        "d": 413
+      },
+      "9QnRHEA0_3Q": {
+        "t": "Canceling a Flight - SNL",
+        "d": 355
+      },
+      "9qYM6bKl57A": {
+        "t": "Black Jeopardy – SNL50",
+        "d": 441
+      },
+      "9weqnWBaehg": {
+        "t": "Next: For Men - SNL",
+        "d": 98
+      },
+      "9XOt2Vh0T8w": {
+        "t": "Man Park - SNL",
+        "d": 156
+      },
+      "a_mhtXadceM": {
+        "t": "Uncle Meme - SNL",
+        "d": 251
+      },
+      "A_Z-cr5J90A": {
+        "t": "Bond Girls - SNL",
+        "d": 202
+      },
+      "a1xFlkHh3wg": {
+        "t": "Shallon: Stranger Awareness - SNL",
+        "d": 355
+      },
+      "A2cRZL70C0w": {
+        "t": "Themyscira - SNL",
+        "d": 293
+      },
       "A4kpVO56OBU": {
         "t": "Totino's with Kristen Stewart - SNL",
         "d": 204
+      },
+      "a6I9u3wjn-A": {
+        "t": "Cut For Time: Cool (Ryan Gosling) - SNL",
+        "d": 269
+      },
+      "A8HLnDP6uRM": {
+        "t": "Visit with Santa Cold Open - SNL",
+        "d": 369
+      },
+      "A8rrr_w8rfk": {
+        "t": "The Dream Guy - SNL",
+        "d": 454
+      },
+      "A8WIBv3erj8": {
+        "t": "Totino's Activity Pack Super Bowl Commercial - SNL",
+        "d": 140
+      },
+      "AA0PwmQMVG8": {
+        "t": "Straight Male Friend - SNL",
+        "d": 170
       },
       "AafBunu-k2U": {
         "t": "Family Feud Election 2024 Cold Open - SNL",
         "d": 522
       },
+      "aaVBoEeDK4Q": {
+        "t": "Uber For Jen - SNL",
+        "d": 192
+      },
+      "Ab47umgoLrk": {
+        "t": "Heinz - SNL",
+        "d": 115
+      },
+      "ab5WvwfLuLM": {
+        "t": "Weezer - SNL",
+        "d": 259
+      },
+      "abn6cPxrc5w": {
+        "t": "La La Land Interrogation - SNL",
+        "d": 259
+      },
+      "adPXDTvADD0": {
+        "t": "Levi's Wokes - SNL",
+        "d": 141
+      },
+      "AdQl7SxOHek": {
+        "t": "It's a Wonderful Trump Cold Open - SNL",
+        "d": 536
+      },
+      "aDRdGEJMu0s": {
+        "t": "Jar Glove - SNL",
+        "d": 102
+      },
+      "aeoxg8hx-lc": {
+        "t": "Sara Lee - SNL",
+        "d": 242
+      },
+      "Ag0V_xSGZuc": {
+        "t": "Flight Announcement - Saturday Night Live",
+        "d": 359
+      },
+      "AH4yRRTgcE8": {
+        "t": "America's Funniest Cats - SNL",
+        "d": 276
+      },
+      "AHftFsPweMM": {
+        "t": "New Normal - SNL",
+        "d": 298
+      },
+      "AiyZ92_JZxA": {
+        "t": "Morning Joe Michael Wolff Cold Open - SNL",
+        "d": 490
+      },
+      "AjlDTeOtq-c": {
+        "t": "SNL Commercial Parodies: Fashion",
+        "d": 567
+      },
+      "alaen4fno20": {
+        "t": "Biden Halloween Cold Open - SNL",
+        "d": 467
+      },
+      "AMpRJwP5y9Q": {
+        "t": "Funny New Comedy - SNL",
+        "d": 146
+      },
+      "ANE8j5ay_UU": {
+        "t": "Dysfunctional Family Dinner - SNL",
+        "d": 341
+      },
+      "aNJF8mWbG9A": {
+        "t": "Reel Quotes Game Show - SNL",
+        "d": 397
+      },
+      "aoZXVnz9GPY": {
+        "t": "Aidy B & Cardi B - SNL",
+        "d": 207
+      },
+      "asdR4gIT2vU": {
+        "t": "Weekend Update: Pete Davidson on His Engagement to Ariana Grande - SNL",
+        "d": 207
+      },
+      "ASqnnZpsX1M": {
+        "t": "Weekend Update: Pete Davidson on Kanye West - SNL",
+        "d": 232
+      },
+      "AswY1cRDIgo": {
+        "t": "Forgotten TV Gems: Whoops! I Married a Lesbian - SNL",
+        "d": 301
+      },
       "atEkAkPfpUY": {
         "t": "Buying Beer - SNL",
         "d": 277
+      },
+      "ATFy2YLT504": {
+        "t": "Rap Song - SNL",
+        "d": 175
       },
       "Aw5NG580rBk": {
         "t": "Tucci Gang - SNL",
         "d": 115
       },
+      "aWsRjenuGMo": {
+        "t": "Career Day - SNL",
+        "d": 303
+      },
       "AX7rliyPF48": {
         "t": "Black Jeopardy with Elizabeth Banks - SNL",
         "d": 380
+      },
+      "aXzjxVYPjys": {
+        "t": "Republican Movie Trailer - SNL",
+        "d": 116
+      },
+      "AYGNqUWcOCs": {
+        "t": "James Gandolfini - Saturday Night Live",
+        "d": 232
+      },
+      "azwKHqEkXEY": {
+        "t": "Back to the Future Auditions - SNL",
+        "d": 198
       },
       "b-2fnZfK9Lg": {
         "t": "Disney Housewives - Saturday Night Live",
         "d": 230
       },
+      "B3L2xd5lNrw": {
+        "t": "New Jersey Game Show - Saturday Night Live",
+        "d": 361
+      },
+      "b4yNa9rNJ48": {
+        "t": "Gemma & Ricky - SNL",
+        "d": 275
+      },
+      "B8dKnFU5LUE": {
+        "t": "The Exorcist 2 (ft. Richard Pryor) - SNL",
+        "d": 291
+      },
       "B9Z5YtWOJBM": {
         "t": "Big Boys - SNL",
         "d": 213
+      },
+      "Bdf_XdDwc-o": {
+        "t": "World War II 101 - SNL",
+        "d": 418
       },
       "bEghu90QJH4": {
         "t": "Celebrity Jeopardy!: French Stewart, Burt Reynolds, & Sean Connery - SNL",
@@ -20310,21 +21010,73 @@
         "t": "Hobbit Office - SNL",
         "d": 305
       },
+      "BI6ZMBb110I": {
+        "t": "Catfish - SNL",
+        "d": 291
+      },
       "BIcHwskTu8k": {
         "t": "Aladdin - SNL",
         "d": 244
+      },
+      "BK93l9f5D5s": {
+        "t": "Floribama Shore - SNL",
+        "d": 162
       },
       "blcKeLDDzSM": {
         "t": "Barbie Instagram - SNL",
         "d": 295
       },
+      "bm_a2LXwPG0": {
+        "t": "Weekend Update Rewind: Pete Davidson (Part 1 of 2) - SNL",
+        "d": 882
+      },
       "BmTfxyoEqAc": {
         "t": "Digital Short: The Japanese Office - SNL",
         "d": 277
       },
+      "BmwjpVxHjSI": {
+        "t": "Weekend Update: Pete Davidson Talks Business | Saturday Night Live",
+        "d": 203
+      },
+      "bO9m4D2gcGg": {
+        "t": "Football Party - SNL",
+        "d": 245
+      },
+      "BONhk-hbiXk": {
+        "t": "Wells for Boys - SNL",
+        "d": 119
+      },
+      "bPpcfH_HHH8": {
+        "t": "NPR's Delicious Dish: Schweddy Balls - SNL",
+        "d": 374
+      },
       "Brbrdnh74yA": {
         "t": "Undercover Boss: Where Are They Now - SNL",
         "d": 224
+      },
+      "BSDmnNbE87c": {
+        "t": "Women of SNL: Real Housewives Opening - Saturday Night Live",
+        "d": 490
+      },
+      "bTNiweGySc4": {
+        "t": "Jake from State Farm - SNL",
+        "d": 200
+      },
+      "bUAF18jBHMU": {
+        "t": "Nursing Home - SNL",
+        "d": 272
+      },
+      "BustEdWyqzk": {
+        "t": "Wayne's World - SNL 40th Anniversary Special",
+        "d": 430
+      },
+      "BXdNYXMQoy8": {
+        "t": "Hillary Clinton Election Video Cold Open - SNL",
+        "d": 333
+      },
+      "By4ZWRrlPHM": {
+        "t": "The Princess and the Curse - SNL",
+        "d": 198
       },
       "Byg3GBbd8Rs": {
         "t": "Matt Foley: Scaring Kids Straight In Prison - SNL",
@@ -20338,45 +21090,233 @@
         "t": "Spanish Class - SNL",
         "d": 299
       },
+      "C6F6kVaGn8s": {
+        "t": "Criminal Mastermind - SNL",
+        "d": 207
+      },
+      "C8_3jS9wd9w": {
+        "t": "Attorney Ad - SNL",
+        "d": 205
+      },
+      "c91XUyg9iWM": {
+        "t": "Weekend Update: Jane, You Ignorant Slut - SNL",
+        "d": 137
+      },
+      "C9EJSMG_cdo": {
+        "t": "Elf on the Shelf - SNL",
+        "d": 265
+      },
       "Cbwr37tHu24": {
         "t": "Wedding Objections - Saturday Night Live",
         "d": 385
+      },
+      "cbXdOLttnF8": {
+        "t": "Days of Our Impeachment Cold Open - SNL",
+        "d": 465
+      },
+      "cCfLpuLdF8Q": {
+        "t": "State of the Union Cold Open - SNL",
+        "d": 415
+      },
+      "CgNgkwTusM4": {
+        "t": "Donald Trump Cold Open - SNL",
+        "d": 357
       },
       "Ch_hoYPPeGc": {
         "t": "Celebrity Jeopardy! Kathie Lee, Tom Hanks, Sean Connery, Burt Reynolds - SNL",
         "d": 585
       },
+      "CiU3vIEdRMI": {
+        "t": "Classroom - SNL",
+        "d": 330
+      },
       "cjeORm4LMDk": {
         "t": "Hotline Bling Parody - SNL",
         "d": 151
+      },
+      "cKoIESw1tdM": {
+        "t": "Cut For Time: Gus Chiggins, Old Prospector - SNL",
+        "d": 370
+      },
+      "CkrpvCs-kfE": {
+        "t": "Santa Baby - SNL",
+        "d": 301
+      },
+      "CL7kenX3Vu8": {
+        "t": "Trump's People - SNL",
+        "d": 327
+      },
+      "cLC70ax28-0": {
+        "t": "Michael Bublé Christmas Duets - SNL",
+        "d": 207
+      },
+      "CNaDmdGqCrA": {
+        "t": "Masked Singer - SNL",
+        "d": 238
       },
       "CniGk7Dyp1c": {
         "t": "Extreme Baking Championship - SNL",
         "d": 314
       },
+      "CnTltDzqhzM": {
+        "t": "The Group Hopper - SNL",
+        "d": 228
+      },
+      "cNvEWxbLSEA": {
+        "t": "Pepboys - SNL",
+        "d": 119
+      },
+      "cRiGtHTJb0A": {
+        "t": "The Day You Were Born - SNL",
+        "d": 195
+      },
+      "ctPt74CNBA4": {
+        "t": "Lifetime's First Original Game Show: What's Wrong with Tanya?! - SNL",
+        "d": 276
+      },
+      "CU-WdnXJabs": {
+        "t": "Aaron Rodgers Trump Cold Open - SNL",
+        "d": 531
+      },
+      "CUJhtZZWZZI": {
+        "t": "Weekend Update: Biden Wins 2020 Election - SNL",
+        "d": 319
+      },
       "CUpOMSJ1MdU": {
         "t": "Elon Musk Cold Open - SNL",
         "d": 466
+      },
+      "CuRSVUWXA0s": {
+        "t": "Buffalo Wild Wings - SNL",
+        "d": 140
+      },
+      "cVmCA4kl50Y": {
+        "t": "Fortnite Squad - SNL",
+        "d": 223
+      },
+      "Cvn0F0LEVNE": {
+        "t": "Dinner Date - SNL",
+        "d": 277
+      },
+      "cVpt3erH7ms": {
+        "t": "Celebrity Jeopardy! - SNL",
+        "d": 433
       },
       "cVsQLlk-T0s": {
         "t": "More Cowbell - SNL",
         "d": 343
       },
+      "cYQAFtkqH34": {
+        "t": "Goth Kid on Vacation - SNL",
+        "d": 161
+      },
+      "D3L7AjNfTKM": {
+        "t": "ICE Meeting Cold Open - SNL",
+        "d": 332
+      },
+      "d5GN90UiImo": {
+        "t": "The Rock Obama Cold Open - SNL",
+        "d": 315
+      },
+      "d9HGjZd_Fm8": {
+        "t": "Cut for Time: Cleveland Cavs Promo - SNL",
+        "d": 113
+      },
+      "DAjWr30KMOY": {
+        "t": "Sabrina Carpenter’s monologue!",
+        "d": 77
+      },
+      "DBbguEUN6tw": {
+        "t": "Doctor - SNL",
+        "d": 316
+      },
+      "DbU8-fj9ab0": {
+        "t": "Gym Class - SNL",
+        "d": 147
+      },
       "dCer2e0t8r8": {
         "t": "Every Californians Ever (Part 1 of 2)",
         "d": 1425
+      },
+      "Deqx-Xb-yHY": {
+        "t": "Corksoakers - SNL",
+        "d": 338
+      },
+      "df5iwY7QUTY": {
+        "t": "Celebrity Jeopardy!: Hilary Swank, Keanu Reeves, Sean Connery - SNL",
+        "d": 416
+      },
+      "DFia7FhVmuM": {
+        "t": "Cut for Time: College Admissions - SNL",
+        "d": 399
+      },
+      "DIZPp8Z1vjs": {
+        "t": "Fighter Pilots - SNL",
+        "d": 230
+      },
+      "dj-RQ1Y-Dgk": {
+        "t": "Trump’s Gas Prices Cold Open - SNL",
+        "d": 327
+      },
+      "DjBrLbOJXHA": {
+        "t": "Church on Vacation - SNL",
+        "d": 270
+      },
+      "DK83sAPd_fc": {
+        "t": "Trump Middle East Trip Cold Open - SNL",
+        "d": 335
+      },
+      "Dkt5P5nfXi4": {
+        "t": "Prison Job - SNL",
+        "d": 215
       },
       "dLYfwprjtog": {
         "t": "Trump People's Court - SNL",
         "d": 294
       },
+      "dMbnfxwus0s": {
+        "t": "Rude Buddha - Saturday Night Live",
+        "d": 249
+      },
+      "DopEzgBk4dA": {
+        "t": "The Fault in Our Stars 2 - SNL",
+        "d": 180
+      },
       "DpG__12j6FI": {
         "t": "Bachelor Auction - SNL",
         "d": 299
       },
+      "DptGBVPnvKE": {
+        "t": "The Boarding of Flight 314 - SNL",
+        "d": 229
+      },
+      "drVD7ed65rY": {
+        "t": "Valentine's Song - SNL",
+        "d": 205
+      },
+      "dvLfK0iOyD4": {
+        "t": "Jail Cell Cold Open - SNL",
+        "d": 369
+      },
+      "DXm2y4KD6fk": {
+        "t": "Family Feud: Oscar Nominees - SNL",
+        "d": 425
+      },
+      "e_Z2I10pbWI": {
+        "t": "Don Pauly - SNL",
+        "d": 309
+      },
       "e2zyjbH9zzA": {
         "t": "A Thanksgiving Miracle - SNL",
         "d": 228
+      },
+      "e6Funs6yyEw": {
+        "t": "2024 Pre-Election Cold Open - SNL",
+        "d": 519
+      },
+      "E8ulsr2GNCo": {
+        "t": "pete hegseth answers questions from the press",
+        "d": 178
       },
       "EcwcU0ZG8nk": {
         "t": "Virgin Flight - SNL",
@@ -20386,21 +21326,109 @@
         "t": "Carrey Family Reunion - SNL",
         "d": 349
       },
+      "ED5RX-fou34": {
+        "t": "Nate Bargatze Stand-Up Monologue - SNL",
+        "d": 575
+      },
+      "Ef_33wIEeds": {
+        "t": "I Can't - Saturday Night Live",
+        "d": 221
+      },
       "EG0wQRsXLi4": {
         "t": "Walking Dead Chappelle's Show - SNL",
         "d": 300
+      },
+      "eghK5yMpNuc": {
+        "t": "Adam Sandler's \"I Was Fired\" Monologue - SNL",
+        "d": 349
+      },
+      "eGx7tiNofVc": {
+        "t": "New Beginnings Summer Camp - SNL",
+        "d": 278
+      },
+      "Eh8Fet_YMEk": {
+        "t": "Drive-Thru Window - SNL",
+        "d": 288
+      },
+      "eIdXxDARU_0": {
+        "t": "Civil War Soldiers - SNL",
+        "d": 273
       },
       "EL1wN_ihL_E": {
         "t": "Jurassic Park Auditions - SNL",
         "d": 293
       },
+      "ELXbZsYHhpQ": {
+        "t": "Celebrities Visit Jay-Z and Beyoncé to See Their New Baby - SNL",
+        "d": 418
+      },
       "eM28YFrMdfI": {
         "t": "Teacher Trial - SNL",
         "d": 274
       },
+      "eMFWTAIDCtQ": {
+        "t": "12 Days Not a Slave - SNL",
+        "d": 324
+      },
+      "eP8kW71mBkM": {
+        "t": "Camp Wicawabe - SNL",
+        "d": 317
+      },
       "eq6iaz5QV1U": {
         "t": "he’s up!",
         "d": 164
+      },
+      "EQO2BlkNftQ": {
+        "t": "The Voice Season 4 - SNL",
+        "d": 305
+      },
+      "eQvVxY20yOY": {
+        "t": "Superman's Funeral - SNL",
+        "d": 453
+      },
+      "eRRfSseCe1g": {
+        "t": "Avengers News Report - SNL",
+        "d": 238
+      },
+      "es7jXKXzW-Q": {
+        "t": "Harry Styles Monologue - SNL",
+        "d": 286
+      },
+      "EueeNj98E6I": {
+        "t": "Seth MacFarlane Monologue: The Voices - Saturday Night Live",
+        "d": 341
+      },
+      "EuFfmnu34rs": {
+        "t": "Star Trek Lost Episode - SNL",
+        "d": 306
+      },
+      "evUWersr7pc": {
+        "t": "Taco Town - SNL",
+        "d": 117
+      },
+      "evWiz6WRbCA": {
+        "t": "Dinner Discussion - SNL",
+        "d": 266
+      },
+      "eWBNCnU_PK0": {
+        "t": "Cut for Time: My Little Step Children (Natalie Portman) - SNL",
+        "d": 122
+      },
+      "eweXwtMIj5I": {
+        "t": "M&M Store - Saturday Night Live",
+        "d": 331
+      },
+      "ExMmplQIyO0": {
+        "t": "The Corporal - SNL",
+        "d": 311
+      },
+      "eYt0khR_ej0": {
+        "t": "President Bill Clinton at McDonald's - SNL",
+        "d": 354
+      },
+      "EYyuo7gm-aQ": {
+        "t": "Star Wars Toy Commercial - SNL",
+        "d": 127
       },
       "eZ6_vAXNcxQ": {
         "t": "Celebrity Family Feud - Saturday Night Live",
@@ -20410,16 +21438,36 @@
         "t": "Return Counter - SNL",
         "d": 235
       },
+      "f2dXFzXQ-Bs": {
+        "t": "SNL Commercial Parodies: Toys",
+        "d": 538
+      },
       "f31mmB8HvZw": {
         "t": "Barnes and Noble Firing - SNL",
         "d": 370
+      },
+      "F3gBZK4QrWY": {
+        "t": "The Bush Twins' Secret Language - SNL",
+        "d": 356
+      },
+      "F3lEPL1nzYI": {
+        "t": "Hollywood Dish with Scarlett Johansson - SNL",
+        "d": 313
       },
       "f6NUQeb5noM": {
         "t": "Spider-Man Kiss - SNL",
         "d": 352
       },
+      "F7o4oMKbStE": {
+        "t": "Complicit - SNL",
+        "d": 104
+      },
       "f8PXvqYpGCM": {
         "t": "This Is How I Talk - SNL",
+        "d": 291
+      },
+      "F8TR34viNo0": {
+        "t": "Porn Doctor - SNL",
         "d": 291
       },
       "FaOSCASqLsE": {
@@ -20434,6 +21482,22 @@
         "t": "Census Taker vs. Old Lady - SNL",
         "d": 203
       },
+      "fc2YDa7FOjw": {
+        "t": "Black Jeopardy: Velvet Jones - SNL",
+        "d": 333
+      },
+      "fCF8I_X1qKI": {
+        "t": "Elon Musk Monologue - SNL",
+        "d": 336
+      },
+      "fcziw7helVg": {
+        "t": "Revolutionary War - SNL",
+        "d": 385
+      },
+      "FdSWEyl2mC4": {
+        "t": "Bonus Footage: Star Wars Auditions (Daisy Ridley, Matthew McConaughey & John Boyega) - SNL",
+        "d": 171
+      },
       "FEH9iqWm_xQ": {
         "t": "The Rock Obama: GOP Senators - SNL",
         "d": 350
@@ -20441,6 +21505,66 @@
       "fF6gExZu-2M": {
         "t": "Chad Horror Movie - SNL",
         "d": 224
+      },
+      "FJdDn006ldI": {
+        "t": "Weekend Update: Jeanine Pirro on Her Fox News Suspension - SNL",
+        "d": 230
+      },
+      "fjNoS66fkGM": {
+        "t": "Oprah: Dr. Phil, Marriage Counselor - SNL",
+        "d": 398
+      },
+      "fK0OkpQ4vEU": {
+        "t": "Wayne Thanksgiving - SNL",
+        "d": 261
+      },
+      "fK0rWI0DwG4": {
+        "t": "Eddie Murphy Monologue - SNL",
+        "d": 363
+      },
+      "FkdilH9kOQk": {
+        "t": "Mayweather-Pacquiao Cold Open - SNL",
+        "d": 267
+      },
+      "FLXkVu-5Fsw": {
+        "t": "The Ellen Degeneres Show: Oscar Prank and Olympics Recap - SNL",
+        "d": 370
+      },
+      "Fm2waIyqnMg": {
+        "t": "SNL Commercial Parodies: Babies and Kids",
+        "d": 588
+      },
+      "fMOKevIBwDs": {
+        "t": "Celebrity Family Feud with Ariana Grande - SNL",
+        "d": 351
+      },
+      "FN3q8jZ04_E": {
+        "t": "SNL for Trump Cold Open - SNL",
+        "d": 304
+      },
+      "FNmKFRcUltE": {
+        "t": "Golden Ticket - SNL",
+        "d": 201
+      },
+      "fOpapeX6Vzs": {
+        "t": "Neurotology Music Video - SNL",
+        "d": 203
+      },
+      "FOVCtUdaMCU": {
+        "t": "Christmas Robe - SNL",
+        "d": 155
+      },
+      "fqu5AFEvz7U": {
+        "t": "Weekend Update ft. Bobby Moynihan, Cecily Strong, Fred Armisen, Vanessa Bayer, Bill Murray – SNL50",
+        "d": 946
+      },
+      "fQXtxSBQGmA": {
+        "t": "Funeral Service - SNL",
+        "d": 246
+      },
+      "FRLE8t1rfA8": {
+        "t": "SNL Presents James Bond Sketches",
+        "d": 1233
       },
       "FSvNhxKJJyU": {
         "t": "Dunkin Donuts - SNL",
@@ -20454,33 +21578,261 @@
         "t": "Blues Brothers: Soul Man - SNL",
         "d": 269
       },
+      "FuaDWyCnJxs": {
+        "t": "Chad on Mars - SNL",
+        "d": 200
+      },
+      "FWSM8pDKYkU": {
+        "t": "NYC Mayoral Debate Cold Open - SNL",
+        "d": 551
+      },
+      "fXsOqt2aRNw": {
+        "t": "What's Wrong with This Picture? - SNL",
+        "d": 277
+      },
+      "FxSyaIX3frg": {
+        "t": "SNL40: Digital Short: That's When You Break - SNL",
+        "d": 251
+      },
+      "FYbavuReVF4": {
+        "t": "King Tut - SNL",
+        "d": 214
+      },
+      "fzcSJ1setd0": {
+        "t": "Whiskers R We with Kristen Wiig - SNL",
+        "d": 273
+      },
+      "FzEPcdVvHAE": {
+        "t": "Mr. H - SNL",
+        "d": 230
+      },
+      "g4vktLutpiY": {
+        "t": "I Saw Mommy Kissing Santa Claus - SNL",
+        "d": 163
+      },
+      "G87YdWfI-tw": {
+        "t": "Steve Harvey Show: Phobias - SNL",
+        "d": 331
+      },
+      "GafXVg0cWck": {
+        "t": "Scooby-Doo - SNL",
+        "d": 185
+      },
+      "gaoQ5mMRDhg": {
+        "t": "Shud the Mermaid - SNL",
+        "d": 321
+      },
+      "gCDAFSOmUxE": {
+        "t": "First Lady - SNL",
+        "d": 258
+      },
       "gCSejBIlXVA": {
         "t": "Bronx Beat: Maureen DiCicco (Katy Perry) - SNL",
         "d": 384
+      },
+      "gfDIAZCwHQE": {
+        "t": "Wes Anderson Horror Trailer - SNL",
+        "d": 163
+      },
+      "GFM9-Mq2Fuw": {
+        "t": "HR Meeting - SNL",
+        "d": 240
+      },
+      "GFqHiMkVvxo": {
+        "t": "Prom Queen - SNL",
+        "d": 310
+      },
+      "GGHS7SEYRmY": {
+        "t": "Scared Straight: Underage Drinking with Tracy Morgan - SNL",
+        "d": 386
+      },
+      "gJ3mGQAFS6I": {
+        "t": "Undercover Boss: Starkiller Base Behind The Scenes - SNL",
+        "d": 215
       },
       "gn2933vMylY": {
         "t": "Pool Boy - SNL",
         "d": 185
       },
+      "gPv4wqOB-Us": {
+        "t": "Family Feud Cold Open - SNL",
+        "d": 425
+      },
+      "GQ4jPqU5r7k": {
+        "t": "Taste Test - SNL",
+        "d": 410
+      },
+      "gqeQLV04kwU": {
+        "t": "The Love-ahs with Barbara and Dave - SNL",
+        "d": 466
+      },
+      "gQYH_FG1Ztc": {
+        "t": "The Loser - SNL",
+        "d": 189
+      },
       "gsVlU-TFPfk": {
         "t": "Police Line Up - SNL",
         "d": 318
+      },
+      "guEn4MkE0sw": {
+        "t": "Will Ferrell’s Ryan Reynolds Monologue - SNL",
+        "d": 372
+      },
+      "gui6fOa01G4": {
+        "t": "Pick-Up Artist - SNL",
+        "d": 278
+      },
+      "GWu01Jr9sLY": {
+        "t": "Weekend Update: Christmas Joke Swap 2024 - SNL",
+        "d": 369
+      },
+      "Gx-dJnKIa9U": {
+        "t": "Mr. Westerberg - SNL",
+        "d": 216
+      },
+      "h_DHJrswOKw": {
+        "t": "Cut for Time: Goddesses of Creation (Kristen Wiig) - SNL",
+        "d": 198
+      },
+      "H_yWxB9VW0c": {
+        "t": "WWE Promo Shoot - SNL",
+        "d": 302
+      },
+      "H0HO07pbRe8": {
+        "t": "Scared Straight: Bullying with Betty White - SNL",
+        "d": 307
       },
       "h2ra7ixXM10": {
         "t": "Embarrassing Text Message Evidence Proves a Man's Innocence - SNL",
         "d": 423
       },
+      "H4qvO0StKto": {
+        "t": "Coronavirus Cold Open - SNL",
+        "d": 514
+      },
+      "h5RoVGO4XVA": {
+        "t": "Italian Waiters - SNL",
+        "d": 258
+      },
+      "H9wMNxbQM-4": {
+        "t": "White House Christmas Cold Open - SNL",
+        "d": 381
+      },
+      "hCYPeuEWUbI": {
+        "t": "Sitcom Reboot - SNL",
+        "d": 256
+      },
+      "hGXI7Z6IbE8": {
+        "t": "American Girl Store - SNL",
+        "d": 265
+      },
+      "hGZWUzD1res": {
+        "t": "Bridal Shower Gifts - SNL",
+        "d": 321
+      },
+      "hhK1d1HO-bQ": {
+        "t": "Scarlett Johansson Holiday Monologue - SNL",
+        "d": 301
+      },
+      "HJC9pozdU50": {
+        "t": "Leslie Wants To Play Trump - SNL",
+        "d": 207
+      },
+      "HjgSBJdtrcc": {
+        "t": "SNL Commercial Parodies: Household",
+        "d": 648
+      },
+      "HJQHk5lmTwQ": {
+        "t": "Home Makeover - SNL",
+        "d": 276
+      },
+      "hkF1R0oe8OA": {
+        "t": "Epstein White House Briefing Cold Open - SNL",
+        "d": 333
+      },
+      "HKk91x0Yg7Q": {
+        "t": "Red Flag Perfume by Chanel - SNL",
+        "d": 144
+      },
+      "HkmlfHi9Ll4": {
+        "t": "Protective Mom - SNL",
+        "d": 275
+      },
       "Hlt3rA-oDao": {
         "t": "Kellywise - SNL",
         "d": 240
+      },
+      "hlzAhIl482c": {
+        "t": "Weekend Update: Pete Davidson on R. Kelly and Michael Jackson - SNL",
+        "d": 252
+      },
+      "HNXxCvuPfYk": {
+        "t": "Gilly: Sex Ed Class with Sofia Vergara - SNL",
+        "d": 299
+      },
+      "hOulcmOHCIQ": {
+        "t": "White House Tree Trimming Cold Open - SNL",
+        "d": 446
+      },
+      "HPAtpAelwe4": {
+        "t": "High School Theatre Show with Elizabeth Banks - SNL",
+        "d": 285
+      },
+      "HPH0HgotIE4": {
+        "t": "Weekend Update: Colin Jost and Michael Che Swap Jokes for Season 49 Finale - SNL",
+        "d": 323
       },
       "HphFPQvAWHY": {
         "t": "I Am Your Mother - SNL",
         "d": 347
       },
+      "hpmjtZWVN0A": {
+        "t": "Legal Shark Tank - SNL",
+        "d": 246
+      },
+      "HQ8x8nv670Y": {
+        "t": "Hunger Games Reporter - Saturday Night Live",
+        "d": 227
+      },
+      "hqidLUQhI_E": {
+        "t": "Jack Sparrow - SNL Digital Short",
+        "d": 224
+      },
+      "HTR-dS4lptc": {
+        "t": "Weekend Update: Lana Del Rey - SNL",
+        "d": 225
+      },
+      "huWnNa076uk": {
+        "t": "Arlene - SNL",
+        "d": 444
+      },
+      "hyEiSsg4dX4": {
+        "t": "Weekend Update on Black History Month - SNL",
+        "d": 503
+      },
       "hzMzFGgmQOc": {
         "t": "Black Jeopardy with Chadwick Boseman - SNL",
         "d": 412
+      },
+      "i_B7cvVRBX0": {
+        "t": "Stranger Things 3 - SNL",
+        "d": 246
+      },
+      "i-uYAtlhLXY": {
+        "t": "Twins - SNL",
+        "d": 295
+      },
+      "i0dvv4fTiqA": {
+        "t": "Robot Presentation - SNL",
+        "d": 332
+      },
+      "I6_0BUvxZ68": {
+        "t": "Movie Night - SNL",
+        "d": 288
+      },
+      "i9AdeNSiy0w": {
+        "t": "Farm Hunk - Saturday Night Live",
+        "d": 327
       },
       "I9ihIfoWl3Q": {
         "t": "The Karate Teen - SNL",
@@ -20490,41 +21842,221 @@
         "t": "Sexual Harassment Charlie - SNL",
         "d": 343
       },
+      "IAhF8tPqafQ": {
+        "t": "Hillary Actually - SNL",
+        "d": 179
+      },
+      "iB5hYK0-__k": {
+        "t": "Black Friday - SNL",
+        "d": 159
+      },
       "IcaHutZQiIA": {
         "t": "Greek Gods - SNL",
         "d": 418
+      },
+      "iDtgChc7voY": {
+        "t": "Close Encounter Cold Open - SNL",
+        "d": 411
+      },
+      "Ie6LpKOJVf0": {
+        "t": "Farewell Mr. Bunting - SNL",
+        "d": 219
+      },
+      "Ig7QiZliFzo": {
+        "t": "Evacuation Alert - SNL",
+        "d": 325
+      },
+      "igDCnUaAxAQ": {
+        "t": "Xanax for Gay Summer Weddings - SNL",
+        "d": 146
+      },
+      "iGKffRRIMko": {
+        "t": "Wakanda Forever - SNL",
+        "d": 213
+      },
+      "IHTaMMyK274": {
+        "t": "Pre-School - Saturday Night Live",
+        "d": 432
+      },
+      "iIlDgy_WYzM": {
+        "t": "It's a Date - SNL",
+        "d": 516
+      },
+      "ikYJKuIBVeY": {
+        "t": "Trendy Restaurant - SNL",
+        "d": 263
       },
       "ImaYMoTi2g8": {
         "t": "SNL40: Celebrity Jeopardy - SNL",
         "d": 528
       },
+      "imUigBNF-TE": {
+        "t": "Pitch Meeting - SNL",
+        "d": 262
+      },
+      "ImvCoGr3iDA": {
+        "t": "City Council Meeting - SNL",
+        "d": 315
+      },
       "iOGHJMS0QT0": {
         "t": "Porn Teacher - SNL",
         "d": 316
+      },
+      "IoTv5sjom8k": {
+        "t": "Super Showcase Spokesmodels - SNL",
+        "d": 290
+      },
+      "IPvH6Q7KNxs": {
+        "t": "Acupuncture Gone Wrong - SNL",
+        "d": 332
       },
       "IrMTLV2cR2Q": {
         "t": "The Librarian - SNL",
         "d": 197
       },
+      "iSBpvh4y_lU": {
+        "t": "Singing Sisters (Amy Adams) - SNL",
+        "d": 271
+      },
+      "iSfC_N8XOTE": {
+        "t": "Pam Bondi Hearing Cold Open - SNL",
+        "d": 396
+      },
+      "iTWA6mVSCkk": {
+        "t": "Barber Shop Talk - SNL",
+        "d": 237
+      },
+      "IUjf1lVOGOo": {
+        "t": "Basketball Scene - SNL",
+        "d": 202
+      },
+      "iVfCBiRAwK8": {
+        "t": "Kissing Family: Austin Brings His Girlfriend Home for Christmas - SNL",
+        "d": 315
+      },
+      "iVvpXZxXWZU": {
+        "t": "Weekend Update: Tina Fey on Protesting After Charlottesville - SNL",
+        "d": 417
+      },
+      "Ivxx_grnL2c": {
+        "t": "Cut for Time: Chad's Journey - SNL",
+        "d": 228
+      },
       "j_5KgpN38hM": {
         "t": "Black Widow Trailer - SNL",
         "d": 204
+      },
+      "j0GmfZLMRzM": {
+        "t": "Investigation Discovery Presents: White People Problems - SNL",
+        "d": 254
+      },
+      "J4RdcE6H4Gs": {
+        "t": "Murder Show - SNL",
+        "d": 166
+      },
+      "j5lbGP4_IIQ": {
+        "t": "Immigrant Dad Talk Show 2 - SNL",
+        "d": 368
       },
       "J5RqYtxJ5KI": {
         "t": "Jennifer Aniston Look Alike Contest - Saturday Night Live",
         "d": 392
       },
+      "j7thr3uvXCo": {
+        "t": "Golden Globes - SNL",
+        "d": 254
+      },
+      "JcGVXr4M8T0": {
+        "t": "You Think I'm the Beast? - Saturday Night Live",
+        "d": 313
+      },
+      "jcn9ILmU-Ig": {
+        "t": "Meet the Family - Saturday Night Live",
+        "d": 363
+      },
+      "JcviVDizlJ0": {
+        "t": "Mom Celebrity Translator - SNL",
+        "d": 117
+      },
+      "JdA9_mtXYME": {
+        "t": "Weekend Update: Get in the Cage with Nicolas Cage and Nicolas Cage - SNL",
+        "d": 312
+      },
+      "JdayQgrM74o": {
+        "t": "Weekend Update: Will Smith and Chris Rock - SNL",
+        "d": 290
+      },
+      "jdHsf-K33nQ": {
+        "t": "Last Call with Dave Chappelle - SNL",
+        "d": 321
+      },
+      "JDy3E05gLMc": {
+        "t": "Bland Man - SNL",
+        "d": 321
+      },
       "je1NIf8GeeY": {
         "t": "Sam Adams - SNL",
         "d": 131
+      },
+      "JE4VdrKf40s": {
+        "t": "Fashion Coward - SNL",
+        "d": 124
+      },
+      "jF1aBGE-K_g": {
+        "t": "tucker carlson shares his thoughts on this year’s oscars",
+        "d": 154
+      },
+      "JF2Mf6HxIi0": {
+        "t": "Gen Z Hospital - SNL",
+        "d": 262
+      },
+      "jGbsnHzvrbQ": {
+        "t": "Parent Teacher Conference - SNL",
+        "d": 287
+      },
+      "Ji0TgBy085U": {
+        "t": "Flight Attendants - SNL",
+        "d": 231
+      },
+      "JixQVXGhH-o": {
+        "t": "Weekend Update: Deion Sanders on Coaching at University of Colorado Boulder - SNL",
+        "d": 280
       },
       "jJKEkZL9qrM": {
         "t": "Sofia Vergara and Penelope Cruz Sell Pantene Shampoo - SNL",
         "d": 319
       },
+      "jjl2pnR_WsI": {
+        "t": "Future Self - SNL",
+        "d": 319
+      },
+      "jl_iAHHfUdw": {
+        "t": "ATM - SNL",
+        "d": 236
+      },
+      "JLVmybhXqtU": {
+        "t": "Japanese Game Show - Saturday Night Live",
+        "d": 474
+      },
+      "jn9AFMKlGLA": {
+        "t": "Inventing Spanish - SNL",
+        "d": 301
+      },
+      "jrTXBFcvoMQ": {
+        "t": "Wario - SNL",
+        "d": 347
+      },
       "jSFIwS2b-kg": {
         "t": "BTS: Mic Drop (Live) - SNL",
         "d": 270
+      },
+      "JUDSeb2zHQ0": {
+        "t": "How a Bill Does Not Become a Law - SNL",
+        "d": 211
+      },
+      "junIx1T8A5I": {
+        "t": "Get on the Bag, Brandon! - SNL",
+        "d": 271
       },
       "JUWSLlz0Fdo": {
         "t": "Donald Trump Prepares Cold Open - SNL",
@@ -20534,17 +22066,57 @@
         "t": "Papyrus - SNL",
         "d": 186
       },
+      "jVpw0LknV20": {
+        "t": "Sticky Bun - SNL",
+        "d": 265
+      },
+      "jWnP2jO06gc": {
+        "t": "Sump'n Claus - SNL",
+        "d": 228
+      },
+      "jWTVh4ASpO0": {
+        "t": "Africa Tourism - SNL",
+        "d": 231
+      },
       "JYqfVE-fykk": {
         "t": "Washington's Dream - SNL",
         "d": 291
+      },
+      "jZFSQrfR3qU": {
+        "t": "Shana: Ski Retreat - SNL",
+        "d": 398
       },
       "K1K8s-tQGqY": {
         "t": "Michael Cohen Wiretap Cold Open - SNL",
         "d": 447
       },
+      "K45mFsyZxtU": {
+        "t": "Fox & Friends Cold Open - SNL",
+        "d": 409
+      },
+      "K4aeibd1Rrc": {
+        "t": "Homeland - SNL",
+        "d": 304
+      },
+      "K4PpSfWSWpE": {
+        "t": "Pogie Pepperoni's - SNL",
+        "d": 221
+      },
+      "K5Lv6t0moFY": {
+        "t": "Dateline: The Mystery of the Chopped Up Guy - SNL",
+        "d": 307
+      },
       "K79n-yRmTR0": {
         "t": "Dry Fridays - SNL",
         "d": 308
+      },
+      "k9N9kMD7qCk": {
+        "t": "Immigrant Tale - SNL",
+        "d": 294
+      },
+      "kdDK7_M59os": {
+        "t": "The Black Lotus - SNL",
+        "d": 234
       },
       "kELDEdMbkyg": {
         "t": "Another Close Encounter - SNL",
@@ -20554,33 +22126,233 @@
         "t": "Miley Cyrus and Kyle Mooney's Sex Tape - SNL",
         "d": 182
       },
+      "kG7szS15O8Q": {
+        "t": "Caravan Cold Open - SNL",
+        "d": 405
+      },
+      "kiGHHL5IYyY": {
+        "t": "Weekend Update: Admiral General Aladeen - Saturday Night Live",
+        "d": 306
+      },
+      "KJ39Lhvj2BA": {
+        "t": "Black Ops - Saturday Night Live",
+        "d": 255
+      },
+      "KjO1zPGJ3QY": {
+        "t": "Celebrity Jeopardy!: Bill Cosby, Sharon Osbourne, Sean Connery - SNL",
+        "d": 480
+      },
+      "KL4kcGiqWmw": {
+        "t": "Joan Song - SNL",
+        "d": 211
+      },
+      "KLHRjaUBb3o": {
+        "t": "Almost Pizza - SNL",
+        "d": 114
+      },
       "KNUKou8vnJQ": {
         "t": "High School Musical 4 - SNL",
         "d": 345
+      },
+      "koqBd2H6UqU": {
+        "t": "Top 5 Most-Watched Pretaped Sketches | Season 49 | Saturday Night Live",
+        "d": 1162
+      },
+      "kq9Q9-U0vrc": {
+        "t": "Hotel Check In - SNL",
+        "d": 267
+      },
+      "kqpak5lFxvs": {
+        "t": "Grouch (Joker Parody) - SNL",
+        "d": 181
+      },
+      "KR_rAQ2LBx8": {
+        "t": "SNL Celebrates Father’s Day",
+        "d": 1096
       },
       "ksu7hmVcB4M": {
         "t": "Parole Board - Saturday Night Live",
         "d": 236
       },
+      "kTMow_7H47Q": {
+        "t": "Girl at a Bar - SNL",
+        "d": 190
+      },
+      "KUPSTQSGb50": {
+        "t": "CouplaBeers - SNL",
+        "d": 160
+      },
+      "KuwyR0OW-nc": {
+        "t": "Magic Mirror - SNL",
+        "d": 226
+      },
+      "KUzGrzsYqH4": {
+        "t": "Undercover Office Potty - SNL",
+        "d": 182
+      },
+      "KVKEifWrwn4": {
+        "t": "Every Chad Ever: Part 2 - SNL",
+        "d": 672
+      },
+      "kwCQDbzBerI": {
+        "t": "Italian Restaurant - SNL",
+        "d": 266
+      },
+      "KX5Z-HpHH9g": {
+        "t": "Weekend Update: Adam Sandler on Hanukkah - SNL",
+        "d": 257
+      },
+      "kXIF2FQpgjM": {
+        "t": "Meet the Parents Cold Open - SNL",
+        "d": 415
+      },
+      "KYNFqmu2toI": {
+        "t": "Waffle House - SNL",
+        "d": 219
+      },
+      "l_LeJfn_qW0": {
+        "t": "White Like Me - SNL",
+        "d": 356
+      },
+      "L2tUO2mp99Q": {
+        "t": "Big Dumb Cups - SNL",
+        "d": 253
+      },
+      "l6vS99dEexI": {
+        "t": "SNL Digital Short: I Broke My Arm - SNL",
+        "d": 163
+      },
+      "LAQRtjvtQRo": {
+        "t": "Weekend Update: Stefon on St. Patrick's Day - SNL",
+        "d": 418
+      },
       "LBjGD5VGVg0": {
         "t": "NATO Cafeteria Cold Open - SNL",
         "d": 512
+      },
+      "LCUKya4gLFM": {
+        "t": "Bring It on Down to Wrappinville - SNL",
+        "d": 341
+      },
+      "LDPDDS3HaGo": {
+        "t": "it’s uncanny",
+        "d": 181
+      },
+      "lesTkxvcSFw": {
+        "t": "Post-Quarantine Conversation - SNL",
+        "d": 221
+      },
+      "lgA0fjztqaQ": {
+        "t": "DNC Town Hall - SNL",
+        "d": 620
+      },
+      "lGkmJbFWkzw": {
+        "t": "Harassment Awards - SNL",
+        "d": 296
+      },
+      "lgO3pBfrgxs": {
+        "t": "Brett Kavanaugh Post-Game Cold Open - SNL",
+        "d": 350
+      },
+      "lHyY1QsMC3Q": {
+        "t": "Poetry Class with Drake - SNL",
+        "d": 332
+      },
+      "lk7jW7qRZYM": {
+        "t": "Loco ft. Bad Bunny - SNL",
+        "d": 138
       },
       "LLKJwP1wdqA": {
         "t": "Domingo: Vow Renewal – SNL50",
         "d": 476
       },
+      "LlWs87C2B7Q": {
+        "t": "Adele Monologue - SNL",
+        "d": 236
+      },
+      "LmG-ErzZsUQ": {
+        "t": "Dr. Beaman's Office: Test Results - SNL",
+        "d": 411
+      },
+      "lMYOQ3NAidg": {
+        "t": "Why'd You Like It - SNL",
+        "d": 352
+      },
+      "LNK430YOiT4": {
+        "t": "Vladimir Putin Cold Open - SNL",
+        "d": 246
+      },
+      "LNt1l2Kkfe4": {
+        "t": "Scared Straight – SNL50",
+        "d": 485
+      },
+      "lo8ZgNws504": {
+        "t": "Christmas Miracle - SNL",
+        "d": 352
+      },
       "lO9Fk2mjhbw": {
         "t": "Girlfriends Game Night - SNL",
         "d": 311
+      },
+      "lPCbBuyJSAs": {
+        "t": "Hegseth and Patel Iran Press Briefing Cold Open - SNL",
+        "d": 474
+      },
+      "lpkRFHSpvGI": {
+        "t": "George W. Bush Returns Cold Open - SNL",
+        "d": 394
+      },
+      "LQCQym6hVMo": {
+        "t": "Kim Kardashian West Monologue - SNL",
+        "d": 265
+      },
+      "lqRQ5Y6OYi4": {
+        "t": "Netflix Commercial - SNL",
+        "d": 146
+      },
+      "lrEkNj8NKco": {
+        "t": "The Perfect Mother - SNL",
+        "d": 230
+      },
+      "LS7YO6C-7NI": {
+        "t": "Zoo Pornographer - SNL",
+        "d": 290
+      },
+      "lTEZ5fbPotg": {
+        "t": "Ridiculousness - SNL",
+        "d": 299
       },
       "LuzGs8SfXBo": {
         "t": "Every Chad Ever: Part 1 - SNL",
         "d": 880
       },
+      "LW9QJIT_T-A": {
+        "t": "KPop Demon Hunters - SNL",
+        "d": 360
+      },
+      "lxqPfwKb4E4": {
+        "t": "Adam Grossman: Dinner With Dad's New Girlfriend - SNL",
+        "d": 318
+      },
       "M1jpx5lhPEY": {
         "t": "Hunger Games Press Conference - Saturday Night Live",
         "d": 324
+      },
+      "m3J9rmuS36k": {
+        "t": "Monologue: Jonah Hill Tries to Be a Big Shot - SNL",
+        "d": 360
+      },
+      "m3VUZYxr0MA": {
+        "t": "Maine Justice with Jamie Foxx - SNL",
+        "d": 422
+      },
+      "M43Oukqr2Rw": {
+        "t": "Visiting Grandma - SNL",
+        "d": 312
+      },
+      "M4ilv14csd4": {
+        "t": "Short Term Memory Loss Theater - SNL",
+        "d": 297
       },
       "m6uvv1aS5_I": {
         "t": "Teacher Trial with Ronda Rousey - SNL",
@@ -20598,6 +22370,14 @@
         "t": "39 Cents - SNL",
         "d": 181
       },
+      "MeSd7Q7oThc": {
+        "t": "Disney Channel Acting School - SNL",
+        "d": 171
+      },
+      "mFte46jVFOg": {
+        "t": "Amazon Mother's Day Ad for Fifty Shades of Grey - SNL",
+        "d": 131
+      },
       "mHlpEbhNyh0": {
         "t": "Fifty Shades of Grey Auditions - SNL",
         "d": 212
@@ -20606,37 +22386,249 @@
         "t": "Meet Your Second Wife - SNL",
         "d": 307
       },
+      "MkyNaSz-zZA": {
+        "t": "Hub's Gyros - SNL",
+        "d": 395
+      },
+      "mlMJRXEt0po": {
+        "t": "Plastic Surgeon - Saturday Night Live",
+        "d": 226
+      },
       "Mp8kFqycfFM": {
         "t": "Michael Cohen Hearing Cold Open - SNL",
         "d": 568
+      },
+      "mPJstvZKlso": {
+        "t": "100 Days in the Jungle - SNL",
+        "d": 292
+      },
+      "mPx1T8xKNLU": {
+        "t": "Can't Tonight - SNL",
+        "d": 285
+      },
+      "mqISX2o0a4A": {
+        "t": "Djesus Uncrossed (Director's Cut) - SNL",
+        "d": 156
+      },
+      "MrkJM4JUB28": {
+        "t": "Alien Attack Cold Open - SNL",
+        "d": 323
+      },
+      "mrNOYudaMAc": {
+        "t": "NFTs - SNL",
+        "d": 205
+      },
+      "MrpQVSVa2QI": {
+        "t": "State Meeting - SNL",
+        "d": 281
+      },
+      "MtlFri-CjkQ": {
+        "t": "Weekend Update: Stefon and Derek Zoolander (Ben Stiller) on Autumn's Hottest Tips - SNL",
+        "d": 373
+      },
+      "mumV1CaxMgY": {
+        "t": "The Fliplets - SNL",
+        "d": 182
       },
       "MVXN85TJabg": {
         "t": "Children’s Clothing Ad - SNL",
         "d": 164
       },
+      "mVzCih9RnWg": {
+        "t": "Cut For Time: Morning News - SNL",
+        "d": 291
+      },
+      "MW8M3tr1XXo": {
+        "t": "Donald Trump Robert Mueller Cold Open - SNL",
+        "d": 299
+      },
+      "mwkmgqbYXdE": {
+        "t": "Penn and Teller: The Best Magicians in the World - SNL",
+        "d": 416
+      },
       "MwpmqMnngRk": {
         "t": "Mafia Meeting - SNL",
         "d": 254
+      },
+      "mWYcobbgIU0": {
+        "t": "Southern Ladies - SNL",
+        "d": 247
+      },
+      "mYRwvIh5tmo": {
+        "t": "Three Daughters - SNL",
+        "d": 326
+      },
+      "n_2kDtk-DDc": {
+        "t": "Graduation Commercial - SNL",
+        "d": 177
+      },
+      "N-BmxK-0Jts": {
+        "t": "The Californians: Stuart Has Cancer (Dress Rehearsal) - SNL",
+        "d": 355
+      },
+      "n7gGCk3J5Is": {
+        "t": "The Stand Off - Saturday Night Live",
+        "d": 244
+      },
+      "n9yoVvMCOsU": {
+        "t": "Lawrence Welk - SNL",
+        "d": 303
+      },
+      "NBN77CM3aow": {
+        "t": "I Just Had Sex - SNL Digital Short",
+        "d": 204
+      },
+      "nBoPm_ZJPDc": {
+        "t": "Sam Smith/Dr. Evil Cold Open - Saturday Night Live",
+        "d": 250
+      },
+      "nbyjqG1qYx0": {
+        "t": "Guess That Phrase - Saturday Night Live",
+        "d": 308
+      },
+      "nCbYtKW2BNo": {
+        "t": "The Science Room - SNL",
+        "d": 228
+      },
+      "nd-_UwzSSvQ": {
+        "t": "Punk Band Reunion At The Wedding - SNL",
+        "d": 218
+      },
+      "NDkCiQ-z5O0": {
+        "t": "Grow-a-Guy - SNL",
+        "d": 266
+      },
+      "ndSp1zM_8cY": {
+        "t": "Superhero Party - SNL",
+        "d": 656
+      },
+      "nEDKVNoE2ws": {
+        "t": "New Video Game - SNL",
+        "d": 218
+      },
+      "nf26Q-E2YNY": {
+        "t": "Long Island Medium - SNL",
+        "d": 165
+      },
+      "NGqtZmShIkw": {
+        "t": "Mid-Day News - SNL",
+        "d": 290
+      },
+      "NgTJqv93JVg": {
+        "t": "An Awkward Slumber Party - SNL",
+        "d": 330
+      },
+      "niiNPH64Xv4": {
+        "t": "Superman Auditions - SNL",
+        "d": 459
+      },
+      "Njs7TFQ0b2s": {
+        "t": "Girls Meet Blerta - SNL",
+        "d": 215
+      },
+      "nKcUOUYzDXA": {
+        "t": "Neo-Confederate Meeting - SNL",
+        "d": 225
+      },
+      "nkjjtX83-Cc": {
+        "t": "Crucible Cast Party [feat. Lin-Manuel Miranda] - SNL",
+        "d": 259
+      },
+      "NkZ2fguNNEc": {
+        "t": "The Engagement - SNL",
+        "d": 343
+      },
+      "nlxu5dDwhO0": {
+        "t": "Judge Barry - SNL",
+        "d": 295
+      },
+      "nn4tP7ogWIA": {
+        "t": "Bern Your Enthusiasm - SNL",
+        "d": 339
+      },
+      "nNc1HkkntIo": {
+        "t": "Cut For Time: Children’s Show (Michael Keaton) - SNL",
+        "d": 296
+      },
+      "nnWh8tKfMbk": {
+        "t": "High School Theatre Show with Reese Witherspoon - SNL",
+        "d": 273
+      },
+      "NOP5IbssfOA": {
+        "t": "Lunch Run - SNL",
+        "d": 220
+      },
+      "ntueYuZ8r94": {
+        "t": "Dancing 101 ft. Ariana Grande - SNL",
+        "d": 283
+      },
+      "Ntz8KxCxgGQ": {
+        "t": "House Hunters - SNL",
+        "d": 192
+      },
+      "NUIN04iIJrM": {
+        "t": "Bridgerton Intimacy Coordinator - SNL",
+        "d": 263
       },
       "nv6FMEvNiWo": {
         "t": "Earthquake News Report - SNL",
         "d": 312
       },
+      "nx5kP4C5pVA": {
+        "t": "Monologue: Bruno Mars Is Nervous About Hosting - SNL",
+        "d": 350
+      },
+      "nXgOxLJ-OKc": {
+        "t": "Christmas Cards - SNL",
+        "d": 335
+      },
+      "NYwPsasQf58": {
+        "t": "Fresh Prince - SNL",
+        "d": 215
+      },
+      "nzh727t944k": {
+        "t": "Detectives - SNL",
+        "d": 299
+      },
       "NzTSyzjclck": {
         "t": "Cut For Time: Christmas Romance (ft. Amy Adams) - SNL",
         "d": 269
+      },
+      "o_1GzmjOvKQ": {
+        "t": "The White Potus - SNL",
+        "d": 313
       },
       "O-UfkZKKGc0": {
         "t": "I'm Just Pete - SNL",
         "d": 223
       },
+      "O1xgXJ5_Q34": {
+        "t": "Bill Burr Stand-Up Monologue - SNL",
+        "d": 448
+      },
+      "O2FkgBIL-kI": {
+        "t": "Rectix - SNL",
+        "d": 164
+      },
+      "O3iBb1gvehI": {
+        "t": "Hillary Campaign Ad - SNL",
+        "d": 116
+      },
       "O4NB73HTlxI": {
         "t": "BTS: Boy with Luv (Live) - SNL",
         "d": 266
       },
+      "O4PlNQ9Uhzg": {
+        "t": "Weekend Update on Donald Trump's Wiretapping Accusation - SNL",
+        "d": 413
+      },
       "O7VaXlMvAvk": {
         "t": "Black Jeopardy with Tom Hanks - SNL",
         "d": 399
+      },
+      "o9vgXOH4ET0": {
+        "t": "Top 5 Most-Watched Live Sketches | Season 50 | Saturday Night Live",
+        "d": 1487
       },
       "oC4VXwFibWY": {
         "t": "Celebrity Family Feud: Political Edition - SNL",
@@ -20646,21 +22638,117 @@
         "t": "\"The Day Beyoncé Turned Black\" - SNL",
         "d": 205
       },
+      "OCxx2jFu1rI": {
+        "t": "New Wife - SNL",
+        "d": 313
+      },
+      "oDCm8fhl-50": {
+        "t": "Pet Rescue Commercial - Saturday Night Live",
+        "d": 279
+      },
+      "oDtSQVj0qzg": {
+        "t": "Founding Fathers Cold Open - SNL",
+        "d": 401
+      },
+      "OHq3NhHItD8": {
+        "t": "On the Couch - SNL",
+        "d": 212
+      },
+      "Ojx_5n0VXZU": {
+        "t": "Jimmy Fallon and Justin Timberlake Cold Open - SNL 40th Anniversary Special",
+        "d": 318
+      },
       "OkwAttkRao4": {
         "t": "Escorts - SNL",
         "d": 308
+      },
+      "ol--6c6vMME": {
+        "t": "Kissing Family: Lonny Comes Home for Christmas - SNL",
+        "d": 282
+      },
+      "OslWqLHlCvw": {
+        "t": "She's Got a D!%k - SNL",
+        "d": 141
+      },
+      "ospx7tXWYbI": {
+        "t": "Screen Guild Awards - SNL",
+        "d": 216
+      },
+      "otT53ANCfR4": {
+        "t": "Weekend Update: Stefon on Autumn's Hottest Tips - SNL",
+        "d": 379
+      },
+      "OUi8Yg9Z85Q": {
+        "t": "GoT Tribute - SNL",
+        "d": 189
+      },
+      "OuRnPvJe7C8": {
+        "t": "Ms. Rafferty’s Paranormal Encounter: This Day in SNL History",
+        "d": 1118
+      },
+      "OXvo6ksBHnI": {
+        "t": "Calvin Klein Ad - SNL",
+        "d": 190
       },
       "oYalTzbk4ag": {
         "t": "Match'd - SNL",
         "d": 306
       },
+      "ozGr4IsTUng": {
+        "t": "Final Debate Cold Open - SNL",
+        "d": 688
+      },
+      "ozSRafURI8k": {
+        "t": "Surprise Home Makeover - SNL",
+        "d": 330
+      },
+      "P_kA2t2ytA8": {
+        "t": "Family Feud: Harvey Family Thanksgiving - SNL",
+        "d": 407
+      },
+      "p-qPkzXvpS8": {
+        "t": "Maine Justice - SNL",
+        "d": 376
+      },
       "P4DOyAwN13U": {
         "t": "Shark Tank - Saturday Night Live",
         "d": 297
       },
+      "P8YRuxu8dQU": {
+        "t": "Office Halloween Party - SNL",
+        "d": 262
+      },
+      "p9riv8_tfy4": {
+        "t": "Digital Short: 3-Way (The Golden Rule) - Saturday Night Live",
+        "d": 217
+      },
+      "PaFSkWfFhO0": {
+        "t": "Celebrity Jeopardy!: Sean Connery, Burt Reynolds, Jerry Lewis - SNL",
+        "d": 424
+      },
+      "PAhAz7JU0dg": {
+        "t": "Swiftamine - SNL",
+        "d": 145
+      },
+      "pbyHseP4NLo": {
+        "t": "Devil Can't Write No Love Song - SNL",
+        "d": 405
+      },
+      "PbZdhl5NI6Y": {
+        "t": "You're a Rat Bastard, Charlie Brown - SNL",
+        "d": 216
+      },
+      "PdoTxtExOfY": {
+        "t": "Posters - SNL",
+        "d": 276
+      },
       "PEOZ3I2zk1E": {
         "t": "Chef Show - SNL",
         "d": 347
+      },
+      "PFLuGVOWlkc": {
+        "t": "Uncle Ben - SNL",
+        "d": 317
       },
       "pfmwGAd1L-o": {
         "t": "Democratic Debate Cold Open - SNL",
@@ -20670,6 +22758,10 @@
         "t": "Close Encounter - SNL",
         "d": 347
       },
+      "PfVobgfXE34": {
+        "t": "Donald Trump Trucker Rally Cold Open - SNL",
+        "d": 368
+      },
       "PfwwCpAy0-0": {
         "t": "The Champ - SNL",
         "d": 242
@@ -20678,25 +22770,185 @@
         "t": "Meet Cute - SNL",
         "d": 222
       },
+      "pi06BRTBc7Y": {
+        "t": "Coach Bert - Saturday Night Live",
+        "d": 389
+      },
+      "pIiKdoLYC_A": {
+        "t": "The Joe Pesci Show: Alec Baldwin as Robert Deniro - Saturday Night Live",
+        "d": 514
+      },
+      "Pj-D0jc17D0": {
+        "t": "Diner Lobster - SNL",
+        "d": 292
+      },
+      "pJUccoqrINI": {
+        "t": "Cleopatra - SNL",
+        "d": 224
+      },
+      "Pki_eSxjrGc": {
+        "t": "Actress Round Table - SNL",
+        "d": 293
+      },
+      "pkJtiVCMXVg": {
+        "t": "Family Feud: Oscars Edition - SNL",
+        "d": 432
+      },
+      "PkLzSLkYnGc": {
+        "t": "Donald Trump Monologue - SNL",
+        "d": 252
+      },
+      "PLOJutxxj_Q": {
+        "t": "A Peek at Pico - SNL",
+        "d": 281
+      },
+      "Pn8pwoNWseM": {
+        "t": "Pepsi Commercial - SNL",
+        "d": 219
+      },
+      "prf7qfyB55g": {
+        "t": "Porn Stars with James Franco and Seth Rogen - SNL",
+        "d": 202
+      },
+      "pU8prtJUwHk": {
+        "t": "Pizza Business - Saturday Night Live",
+        "d": 393
+      },
+      "puJePACBoIo": {
+        "t": "The Olympia Restaurant: Cheeseburger, Chips and Pepsi - SNL",
+        "d": 296
+      },
+      "PuWHYJF8Il8": {
+        "t": "The Sopranos Diaries - SNL",
+        "d": 250
+      },
+      "pUXyCXUko9g": {
+        "t": "SNL Digital Short: Motherlover - SNL",
+        "d": 220
+      },
+      "PXFpEFQ6lw0": {
+        "t": "Italian Stereotypes - Saturday Night Live",
+        "d": 364
+      },
+      "pz-mCjHA6Ak": {
+        "t": "Mr. Robot - SNL",
+        "d": 175
+      },
       "pZOF9q5fzfs": {
         "t": "Oval Office Cold Open - SNL",
         "d": 393
+      },
+      "Q06tcRae13k": {
+        "t": "80's Music Video - SNL",
+        "d": 297
+      },
+      "q0r-dKImVLk": {
+        "t": "Game Show - SNL",
+        "d": 347
+      },
+      "Q0TCYu1FiQc": {
+        "t": "The New Boyfriend Talk Show - SNL",
+        "d": 290
+      },
+      "q1WLtIvYk34": {
+        "t": "National School Walkout - SNL",
+        "d": 328
+      },
+      "Q1ZabPOA76w": {
+        "t": "you know what this song needs?",
+        "d": 170
       },
       "q2sI-T69sjs": {
         "t": "A Kanye Place - SNL",
         "d": 216
       },
+      "q3yNku05KZs": {
+        "t": "Parent-Teacher Conference - SNL",
+        "d": 325
+      },
+      "Q4uyI03p8_0": {
+        "t": "Final Encounter Cold Open - SNL",
+        "d": 488
+      },
+      "q5ZaBIKhCzI": {
+        "t": "Film Screening - SNL",
+        "d": 352
+      },
+      "Q7hoynDj4WI": {
+        "t": "Madame Vivelda - SNL",
+        "d": 344
+      },
+      "Q8PdffUfoF0": {
+        "t": "Papyrus 2 - SNL",
+        "d": 414
+      },
+      "QAdYGBfOElk": {
+        "t": "Celeb School Game Show - SNL",
+        "d": 419
+      },
+      "qaKZi6p6sxg": {
+        "t": "Murdur Durdur - SNL",
+        "d": 197
+      },
       "qAtvxFFsoeg": {
         "t": "R. Kelly Interview Cold Open - SNL",
         "d": 457
+      },
+      "QC0acqbjizI": {
+        "t": "Monologue: Rainn Wilson on the Differences Between SNL and The Office - SNL",
+        "d": 279
+      },
+      "Qc4ahnZzVM4": {
+        "t": "Kristen Stewart Monologue - SNL",
+        "d": 292
+      },
+      "Qcj15vHJTtk": {
+        "t": "Royal Wedding - SNL",
+        "d": 352
+      },
+      "qCzWL9OPpwE": {
+        "t": "Please Don't Destroy - First Class ft. Bad Bunny - SNL",
+        "d": 305
+      },
+      "QdqiXXkk4_4": {
+        "t": "Million Dollar Wheel - Saturday Night Live",
+        "d": 282
       },
       "Qg0pO9VG1J8": {
         "t": "Voters For Trump Ad - SNL",
         "d": 86
       },
+      "qkP2F7kWn7A": {
+        "t": "Za - SNL",
+        "d": 237
+      },
+      "qkV1GHYsDzI": {
+        "t": "Porn Pizza Delivery - SNL",
+        "d": 236
+      },
+      "qP5bu9hLH9E": {
+        "t": "Weekend Update: The Iceberg on the Sinking of the Titanic - SNL",
+        "d": 275
+      },
       "QPKZg0wnL7U": {
         "t": "Why is Benedict Cumberbatch Hot? - SNL",
         "d": 291
+      },
+      "qR5E4Uei1rQ": {
+        "t": "H&M - SNL",
+        "d": 177
+      },
+      "QS8bma7LRX4": {
+        "t": "Natalie’s Rap 2 - SNL",
+        "d": 167
+      },
+      "qsEsgp3H7CU": {
+        "t": "Duolingo for Talking to Children - SNL",
+        "d": 140
+      },
+      "qtJRJVdUFx4": {
+        "t": "New Paint - SNL",
+        "d": 258
       },
       "qVjQImP8x5s": {
         "t": "Protective Mom 2 - SNL",
@@ -20706,21 +22958,117 @@
         "t": "Donald Trump vs. Hillary Clinton Town Hall Debate Cold Open - SNL",
         "d": 507
       },
+      "qVWMtdCp3k0": {
+        "t": "Disney - SNL",
+        "d": 205
+      },
+      "r0Th70moeuc": {
+        "t": "GOP Debate Cold Open - SNL",
+        "d": 395
+      },
+      "R3CZMn6z0ZI": {
+        "t": "Domingo: Babymoon - SNL",
+        "d": 306
+      },
+      "R3V94ZtmdbQ": {
+        "t": "Celebrity Rock 'N Roll Jeopardy - SNL",
+        "d": 442
+      },
+      "r4q1L_JtMiI": {
+        "t": "At This Hour Cold Open - SNL",
+        "d": 314
+      },
+      "r5asa2Ot1Fc": {
+        "t": "Platinum Lounge - Saturday Night Live",
+        "d": 338
+      },
+      "r7drK5-sMns": {
+        "t": "Weekend Update: Colin Jost and Michael Che Swap Jokes for Season 46 Finale - SNL",
+        "d": 224
+      },
+      "R8E3arXq75Q": {
+        "t": "Trump, Musk and Rubio Meeting Cold Open - SNL",
+        "d": 380
+      },
+      "r8EF3X8EI2o": {
+        "t": "New HBO Shows - SNL",
+        "d": 163
+      },
+      "raNcTqw-I-o": {
+        "t": "Cut for Time: The Last Fry (Gal Gadot) - SNL",
+        "d": 181
+      },
+      "RAr8A_gQfR4": {
+        "t": "Reality Stars - SNL",
+        "d": 275
+      },
+      "RB21rKsC3sk": {
+        "t": "Why'd You Post That? - SNL",
+        "d": 361
+      },
+      "rDiz5-vfUZ8": {
+        "t": "Tournament Fighter - SNL",
+        "d": 320
+      },
+      "RDK1l2V8hqs": {
+        "t": "Murder Mystery Dinner - SNL",
+        "d": 359
+      },
+      "RFzEunHB-aM": {
+        "t": "Deal or No Deal - SNL",
+        "d": 372
+      },
+      "rGxe83lXgJg": {
+        "t": "The Beygency - SNL",
+        "d": 234
+      },
       "rImxuuD_kwM": {
         "t": "What's That Name - SNL",
         "d": 423
+      },
+      "rKgRPlkWk6o": {
+        "t": "White House Makeover - SNL",
+        "d": 273
+      },
+      "rKLS2CM-NBY": {
+        "t": "Celebrity Family Feud: American and International Musicians - SNL",
+        "d": 434
       },
       "RLn5qNngGn4": {
         "t": "Domingo: Bridesmaid Speech - SNL",
         "d": 291
       },
+      "rMitjMTi__4": {
+        "t": "Gaps Girls at the Foodcourt - SNL",
+        "d": 402
+      },
+      "rnEiMaqQL4I": {
+        "t": "The House with Chris Hemsworth - SNL",
+        "d": 215
+      },
+      "RQuq4VRm-Fk": {
+        "t": "New Mayan Calendar - SNL",
+        "d": 291
+      },
+      "rrjaJem_uko": {
+        "t": "Oscar Host Auditions - SNL",
+        "d": 229
+      },
       "rS00xWnqwvI": {
         "t": "Haunted Elevator (ft. David S. Pumpkins) - SNL",
         "d": 271
       },
+      "RSFLtcUT30Y": {
+        "t": "Mean Girls - SNL",
+        "d": 207
+      },
       "Rt0spqQtMKg": {
         "t": "D*** in a Box - SNL Digital Short",
         "d": 171
+      },
+      "rTb3GR6yrQI": {
+        "t": "Message from Jeff Bezos - SNL",
+        "d": 176
       },
       "ruXBibhbD6o": {
         "t": "Birthday Party - SNL",
@@ -20738,85 +23086,497 @@
         "t": "The U.S. Men's Heterosexual Figure Skating Championship - SNL",
         "d": 288
       },
+      "s3tPfXGKrnE": {
+        "t": "So Ghetto - SNL",
+        "d": 273
+      },
+      "s6o9zVNr6IE": {
+        "t": "Water Park - SNL",
+        "d": 288
+      },
+      "S7voPx_U5EM": {
+        "t": "Beta Force - SNL",
+        "d": 129
+      },
+      "s8R3EXXlKxg": {
+        "t": "Johnny Depp and Amber Heard Trial Cold Open - SNL",
+        "d": 317
+      },
+      "sb9ybImGwkU": {
+        "t": "Kellyanne Conway - SNL",
+        "d": 224
+      },
       "sbpUcfpbnrs": {
         "t": "Sean Spicer Returns (Melissa McCarthy) - SNL",
         "d": 481
+      },
+      "sDQaSuikPss": {
+        "t": "Five Stars - SNL",
+        "d": 259
+      },
+      "SDUDlAEv5pU": {
+        "t": "First Thanksgiving - SNL",
+        "d": 317
+      },
+      "SEN1pcn3oAw": {
+        "t": "Weekend Update: Pete Davidson on Staten Island - SNL",
+        "d": 269
       },
       "sF7qb6Y3GJE": {
         "t": "Stranger Things - SNL",
         "d": 224
       },
+      "sfaBf3EYYIw": {
+        "t": "Customer Service - SNL",
+        "d": 230
+      },
+      "Sg0xiULgVTw": {
+        "t": "Childbirth Class - SNL",
+        "d": 291
+      },
+      "Sgs81IOU0m4": {
+        "t": "Kyle vs. Kanye - SNL",
+        "d": 257
+      },
       "SHG0ezLiVGc": {
         "t": "Election Night - SNL",
         "d": 337
+      },
+      "sI3RhwSF8mo": {
+        "t": "LiMu Emu & Doug - SNL",
+        "d": 126
+      },
+      "SIWSi1mQOik": {
+        "t": "Taco Math - SNL",
+        "d": 228
       },
       "sK-iyzpZGPk": {
         "t": "American Ninja Warrior - SNL",
         "d": 251
       },
+      "Sld27PfAF3M": {
+        "t": "Tucker Carlson Cold Open - SNL",
+        "d": 414
+      },
+      "SLoRJFAN3r0": {
+        "t": "Royal Family Doctor - SNL",
+        "d": 358
+      },
+      "SLQnU63I3IQ": {
+        "t": "Get That Boy Back ft. Chris Stapleton - SNL",
+        "d": 204
+      },
+      "sNDrpWea8ZE": {
+        "t": "Roomies - SNL",
+        "d": 281
+      },
+      "SNecv5Uf1NA": {
+        "t": "express yourself through dance",
+        "d": 124
+      },
+      "spkfIpPmPgs": {
+        "t": "Paul Manafort's House Cold Open - SNL",
+        "d": 320
+      },
       "SQ44aQWnH4I": {
         "t": "Naked & Afraid: Celebrity Edition - SNL",
         "d": 250
+      },
+      "sqpnRyfz_aY": {
+        "t": "What Up With That?: Samuel L. Jackson & Carrie Brownstein - SNL",
+        "d": 496
+      },
+      "sQx-6WPfKLE": {
+        "t": "The Walking Dead: Black or Zombie? - SNL",
+        "d": 259
+      },
+      "sRhTeaa_B98": {
+        "t": "Lazy Sunday - SNL Digital Short",
+        "d": 174
       },
       "SSKJkGDT9AU": {
         "t": "Celebrity Family Feud: Super Bowl Edition - SNL",
         "d": 445
       },
+      "stqG2ihMvP0": {
+        "t": "Chippendales Audition - SNL",
+        "d": 381
+      },
+      "sU55auqDD28": {
+        "t": "Nike Women's Ad - SNL",
+        "d": 105
+      },
+      "svIknH19VL0": {
+        "t": "Chad & JLo - SNL",
+        "d": 224
+      },
+      "SwEyBItsXkw": {
+        "t": "Guns - SNL",
+        "d": 113
+      },
+      "Sx0xOgFDXFg": {
+        "t": "Star Trek: The Last Voyage - SNL",
+        "d": 718
+      },
+      "sxKZSPELEvs": {
+        "t": "Cut for Time: Coal Miners - SNL",
+        "d": 252
+      },
+      "syA9oZkQ-KY": {
+        "t": "Target Thanksgiving Ad - SNL",
+        "d": 178
+      },
+      "sYSbk_tTsjk": {
+        "t": "Can I Play That? - SNL",
+        "d": 323
+      },
+      "sZ-LANh4_Zg": {
+        "t": "Hollywood Game Night with Bill Hader - SNL",
+        "d": 398
+      },
+      "sz6go7xC3Zs": {
+        "t": "The Last Dance: Extended Scene - SNL",
+        "d": 258
+      },
+      "sZ7OJdDSXVo": {
+        "t": "What's That Name?: Norman the Doorman - SNL",
+        "d": 304
+      },
+      "SzaIlHybawg": {
+        "t": "Boss Dinner - SNL",
+        "d": 323
+      },
       "szLej6PgQoY": {
         "t": "Match Finders - SNL",
         "d": 342
+      },
+      "t-3Nni5vlNI": {
+        "t": "Creighton Boys School's Popular New French Teacher - Saturday Night Live",
+        "d": 356
+      },
+      "t0p5EDSgyUM": {
+        "t": "ms. perry will read your note out loud",
+        "d": 181
+      },
+      "T5ei9nEWfyU": {
+        "t": "New Marijuana Policy - SNL",
+        "d": 232
       },
       "t7HD2xG92-0": {
         "t": "Career Day - SNL",
         "d": 298
       },
+      "tALDcVmWE9w": {
+        "t": "Drill Sergeant - SNL",
+        "d": 245
+      },
+      "TCypw1oX4FQ": {
+        "t": "Con Ed Repair Site - SNL",
+        "d": 269
+      },
+      "tDUv59Yu04Y": {
+        "t": "First Impression - SNL",
+        "d": 256
+      },
+      "tebBj42fC3k": {
+        "t": "Holiday Baking Championship - SNL",
+        "d": 285
+      },
+      "TeymT3TMK70": {
+        "t": "Your Mom Talks to Megan Fox - SNL",
+        "d": 251
+      },
       "TfE93xON8jk": {
         "t": "Debbie Downer: Disney World - SNL",
         "d": 393
+      },
+      "TGmuMMTP5IM": {
+        "t": "Weekend Update: Christmas Joke Swap 2020 - SNL",
+        "d": 145
+      },
+      "tJIz-XNLEn8": {
+        "t": "Aer Lingus - SNL",
+        "d": 233
+      },
+      "tKvDw6cfR3c": {
+        "t": "Frozen 2 - SNL",
+        "d": 300
+      },
+      "Tn7g2cn7iBo": {
+        "t": "New Barista Training - SNL",
+        "d": 325
+      },
+      "tnV96o0NSbA": {
+        "t": "happy st. patrick’s day! ☘️",
+        "d": 120
+      },
+      "Tt-tG6ufH90": {
+        "t": "The Californians: Stuart Has Cancer - SNL",
+        "d": 349
+      },
+      "TVueoznrt9Y": {
+        "t": "A Girl's Halloween - SNL",
+        "d": 186
+      },
+      "Tw3M1x5m7h8": {
+        "t": "Trump Rally Cold Open - SNL",
+        "d": 542
+      },
+      "TyALfHsS5pc": {
+        "t": "The Lawrence Welk Show: Dorian Permes - SNL",
+        "d": 335
+      },
+      "TybjwLS1VtA": {
+        "t": "House of the Dragon - SNL",
+        "d": 271
+      },
+      "tzQLYKSVwRI": {
+        "t": "Sleepover - SNL",
+        "d": 305
+      },
+      "TzWi33Z8Nvc": {
+        "t": "My Girl - SNL",
+        "d": 183
+      },
+      "U_mj1CuXrPE": {
+        "t": "The Bachelor - SNL",
+        "d": 401
+      },
+      "U-480a1XGDU": {
+        "t": "Andy Samberg Impressions Monologue - Saturday Night Live",
+        "d": 349
+      },
+      "u-jzbKRi7Qc": {
+        "t": "Audience Q&A - SNL",
+        "d": 434
+      },
+      "u-w5wbu7GBE": {
+        "t": "The Lead with Jake Tapper Cold Open - SNL",
+        "d": 240
+      },
+      "u0o6alqvTDY": {
+        "t": "Weekend Update on IHOP's Apology - SNL",
+        "d": 652
+      },
+      "U9cYmqIbPKI": {
+        "t": "Target Lady: Boogie Bulks Up - SNL",
+        "d": 330
+      },
+      "UA0YDVXO7Pw": {
+        "t": "RV Life - SNL",
+        "d": 246
+      },
+      "uBqvPvMfr0E": {
+        "t": "North Pole News Report - SNL",
+        "d": 251
       },
       "Uc7slln9qNU": {
         "t": "SNL Commercial Parodies: Tech",
         "d": 706
       },
+      "ucqbKO4WPk4": {
+        "t": "Weekend Update on Church's Celibacy Rule - SNL",
+        "d": 562
+      },
       "uEbzD1bBlTQ": {
         "t": "Kissing Family: Brecken Brings His Boyfriend Home - SNL",
         "d": 336
+      },
+      "uEEYbXVCoT0": {
+        "t": "United Way Peyton Manning - SNL",
+        "d": 156
       },
       "uFJz2IMUeDE": {
         "t": "New Disney Movie - SNL",
         "d": 189
       },
+      "UgNE9Zfe--Q": {
+        "t": "Pop the Balloon - SNL",
+        "d": 182
+      },
       "UGRcJQ9tMbY": {
         "t": "Air Traffic Control - SNL",
         "d": 266
+      },
+      "UHml_J1PN9Y": {
+        "t": "He-Man and Lion-O - SNL",
+        "d": 302
       },
       "UiIRlg4Xr5w": {
         "t": "HBO Mario Kart Trailer - SNL",
         "d": 191
       },
+      "uJBL7kuzvsg": {
+        "t": "Melanianade - SNL",
+        "d": 241
+      },
+      "uJYc3m89nwk": {
+        "t": "Hot Ones with Beyoncé - SNL",
+        "d": 371
+      },
+      "ukbtA3df8BI": {
+        "t": "Weekend Update: Pete Davidson's First Impressions of Midterm Election Candidates - SNL",
+        "d": 202
+      },
+      "umqP5CL-bDU": {
+        "t": "Wilson Brothers Funeral Home - Saturday Night Live",
+        "d": 411
+      },
       "Un_VvR_WqNs": {
         "t": "Dave Chappelle Stand-Up Monologue - SNL",
         "d": 996
+      },
+      "uNKL9MMbjNg": {
+        "t": "Weekend Update: Gumby Returns - SNL",
+        "d": 254
+      },
+      "UPx_X3DjXy8": {
+        "t": "Drug Company Hearing - SNL",
+        "d": 240
+      },
+      "Ur7KlIYh8rM": {
+        "t": "Fox News Kamala Harris Interview Cold Open - SNL",
+        "d": 540
+      },
+      "uRBXlvgF7k0": {
+        "t": "Deep Quote Game Night - SNL",
+        "d": 297
+      },
+      "uS2eytYuE4s": {
+        "t": "Mid-Day News 2 - SNL",
+        "d": 317
+      },
+      "uvgBKO7CGzY": {
+        "t": "Cut For Time: Prosecution - SNL",
+        "d": 371
       },
       "uW56CL0pk0g": {
         "t": "Dr. Anthony Fauci Cold Open - SNL",
         "d": 193
       },
+      "uwby0YmAXVc": {
+        "t": "Black Swan - Saturday Night Live",
+        "d": 342
+      },
       "uwfdFCP3KYM": {
         "t": "Harry Potter: Hermione Growth Spurt - SNL",
         "d": 344
+      },
+      "UWMN_TVDGfk": {
+        "t": "Close Encounter 50th – SNL50",
+        "d": 524
       },
       "UWuc18xISwI": {
         "t": "Sean Spicer Press Conference (Melissa McCarthy) - SNL",
         "d": 487
       },
+      "Uxg5tPBWOmI": {
+        "t": "Awkward Flirts - SNL",
+        "d": 255
+      },
+      "V-bBL0303Kw": {
+        "t": "Trump and Biden Meeting Cold Open - SNL",
+        "d": 443
+      },
+      "V0fMwvMelmA": {
+        "t": "Lab Partners - Saturday Night Live",
+        "d": 297
+      },
+      "v3sg2-PqSIM": {
+        "t": "Kyle's Transformation - SNL",
+        "d": 270
+      },
+      "V4347ZE0NQM": {
+        "t": "The Californians/Buh-Bye - SNL 40th Anniversary Special",
+        "d": 589
+      },
+      "V5DeDLI8_IM": {
+        "t": "Cancelling Cable - SNL",
+        "d": 411
+      },
+      "v5P_GqS30xg": {
+        "t": "NFL Intros - SNL",
+        "d": 204
+      },
       "V5PzDHbAtO4": {
         "t": "First Date - SNL",
         "d": 293
       },
+      "vAiZiKjp30o": {
+        "t": "Cinderella’s Slipper - SNL",
+        "d": 289
+      },
+      "Vbo48BvE9x8": {
+        "t": "Golf Tournament - SNL",
+        "d": 218
+      },
+      "vCuw8TXHYWM": {
+        "t": "Pizza Ad - SNL",
+        "d": 326
+      },
+      "vd1pvUG_aAc": {
+        "t": "Mermaids - SNL",
+        "d": 289
+      },
+      "VDNQEplDHjA": {
+        "t": "Trump Impeachment Press Conference Cold Open - SNL",
+        "d": 238
+      },
+      "vdy2Nx_VkWE": {
+        "t": "Slow - SNL",
+        "d": 175
+      },
+      "Ve1kmdHTY24": {
+        "t": "Cut for Time: Cast List - SNL",
+        "d": 358
+      },
+      "ve68mGiR_cU": {
+        "t": "Great British Bake Off - SNL",
+        "d": 230
+      },
+      "vEA4gzG-ooo": {
+        "t": "Superspreader Event - SNL",
+        "d": 310
+      },
+      "VEle3pZRqmI": {
+        "t": "Trump Tariff Cold Open - SNL",
+        "d": 396
+      },
+      "vgBxxEL-3TI": {
+        "t": "Bodega Bathroom - SNL",
+        "d": 377
+      },
+      "VhGTtWsW9F8": {
+        "t": "Old Enough! Longterm Boyfriends! - SNL",
+        "d": 242
+      },
       "VJ62EfUKI3w": {
         "t": "Washington's Dream 2 - SNL",
         "d": 334
+      },
+      "vJZZ-IVWKSU": {
+        "t": "SNL Commercial Parodies: Feminine Products",
+        "d": 464
+      },
+      "vKOb-kmOgpI": {
+        "t": "The Bubble - SNL",
+        "d": 141
+      },
+      "vLk-dxZyp1Q": {
+        "t": "Weekend Update: The Village People on Donald Trump Using Their Music - SNL",
+        "d": 198
+      },
+      "VmI1MSmHFA0": {
+        "t": "Castrati - SNL",
+        "d": 365
+      },
+      "VNjZHZ7kpM0": {
+        "t": "CNN Equality Town Hall Cold Open - SNL",
+        "d": 576
+      },
+      "VnzRFyOMD4U": {
+        "t": "Target Commercial - SNL",
+        "d": 110
       },
       "VorxBhRxZGo": {
         "t": "Black Jeopardy with Drake - SNL",
@@ -20826,9 +23586,73 @@
         "t": "Kavanaugh Hearing Cold Open - SNL",
         "d": 785
       },
+      "vSahneOul10": {
+        "t": "O.J. Simpson Jurors Are Hard to Come By (James Franco) - SNL",
+        "d": 253
+      },
+      "vSOLz1YBFG0": {
+        "t": "Sarah Palin and Hillary Address the Nation - SNL",
+        "d": 364
+      },
+      "VUT80JVy3v4": {
+        "t": "National Anthem - SNL",
+        "d": 243
+      },
+      "vvX_02EGYl0": {
+        "t": "Cabinet Meeting Cold Open - SNL",
+        "d": 388
+      },
+      "VWAhbaQFzRw": {
+        "t": "Weekend Update: Marcello Hernández on Depression in Men - SNL",
+        "d": 229
+      },
+      "vwm_N2PCUz8": {
+        "t": "Every Stefon Ever (Part 1 of 5) - SNL",
+        "d": 976
+      },
       "VWuJHbVZBQg": {
         "t": "Black Jeopardy - Saturday Night Live",
         "d": 394
+      },
+      "VxVXYp2KIeE": {
+        "t": "Home for the Holidays - SNL",
+        "d": 225
+      },
+      "VY14zcUM9SI": {
+        "t": "Adam Sandler: Lunch Lady Land - SNL",
+        "d": 291
+      },
+      "vZb1WO1_lGI": {
+        "t": "Pete Hegseth Cold Open - SNL",
+        "d": 409
+      },
+      "vZRzJJcq6Rs": {
+        "t": "GE Big Boys - SNL",
+        "d": 106
+      },
+      "W-ZdQ0z5cLM": {
+        "t": "Heroin AM - SNL",
+        "d": 112
+      },
+      "W1U_ZTBpqQ0": {
+        "t": "Herb Welch: Falling Ice - SNL",
+        "d": 335
+      },
+      "W2twcSFYlt0": {
+        "t": "Taylor Swift Monologue Song - SNL",
+        "d": 273
+      },
+      "w4maUKzCRCk": {
+        "t": "Penelope: Thanksgiving - SNL",
+        "d": 332
+      },
+      "WA_RamRRS5o": {
+        "t": "Airport Security Search - Saturday Night Live",
+        "d": 292
+      },
+      "wAsBta25OGQ": {
+        "t": "Bushwick, Brooklyn 2015 - SNL",
+        "d": 237
       },
       "watFrxeBNgk": {
         "t": "Family Feud: Extended Family - SNL",
@@ -20838,13 +23662,65 @@
         "t": "Welcome Video - SNL",
         "d": 145
       },
+      "WByfM1zIEP8": {
+        "t": "Suel Forrester Southern Lawyer - Saturday Night Live",
+        "d": 447
+      },
+      "WcEylCwkSxE": {
+        "t": "December to Remember Car Commercial - SNL",
+        "d": 170
+      },
+      "WeTCTARJZm8": {
+        "t": "That's the Game - SNL",
+        "d": 287
+      },
+      "WeX5VO0aXS0": {
+        "t": "Cut for Time: Friendship Song (ft. Nicki Minaj) - SNL",
+        "d": 222
+      },
+      "Wfl-uMVbNn8": {
+        "t": "The View: Jenny McCarthy on Vaccines - SNL",
+        "d": 309
+      },
+      "wGYDWO5Fhtg": {
+        "t": "SNL Commercial Parodies: Health",
+        "d": 498
+      },
+      "Whde50AacZs": {
+        "t": "Aziz Ansari Stand-Up Monologue - SNL",
+        "d": 543
+      },
       "whfQf3Pd5bU": {
         "t": "Mr. Robinson’s Neighborhood 2019 - SNL",
         "d": 263
       },
+      "wHxEOgTFc_0": {
+        "t": "The Jungle - SNL",
+        "d": 247
+      },
+      "wkFjwn-4R4g": {
+        "t": "Brunch - SNL",
+        "d": 291
+      },
       "wkG_8BrAROM": {
         "t": "The Price Is Right Celebrity Edition - SNL",
         "d": 382
+      },
+      "WkwWw753MHg": {
+        "t": "Coffee Shop - SNL",
+        "d": 266
+      },
+      "wphCxNUpLwg": {
+        "t": "The Chosen One - SNL",
+        "d": 205
+      },
+      "WPNJOL50yv8": {
+        "t": "Zombie Apocalypse High School - SNL",
+        "d": 327
+      },
+      "WqDlVtgeYnk": {
+        "t": "Weekend Update: Pete Davidson on Transgender Rights - SNL",
+        "d": 156
       },
       "Wsije1KetVw": {
         "t": "First Debate Cold Open - SNL",
@@ -20854,37 +23730,249 @@
         "t": "Hawkeye Disappoints the Avengers - SNL",
         "d": 276
       },
+      "wvj0CwoJGkQ": {
+        "t": "The Lawyer - SNL",
+        "d": 259
+      },
       "WwfVaehcdfE": {
         "t": "Weekend Update: Rebecca Larue the Flirting Expert - SNL",
         "d": 227
+      },
+      "WWG5YJPuGFo": {
+        "t": "Pentagon Press Conference Cold Open - SNL",
+        "d": 401
+      },
+      "WwgzcXnOHyI": {
+        "t": "Trump Sneakers - SNL",
+        "d": 180
+      },
+      "WWqKyqe_SNQ": {
+        "t": "UPS Delivery Driver - SNL",
+        "d": 362
       },
       "WwU9DupgA_E": {
         "t": "Late for Class - SNL",
         "d": 302
       },
+      "wZrTOJZN4RU": {
+        "t": "Mango and J.Lo Get into a Diva Battle - SNL",
+        "d": 456
+      },
+      "X_kuC35F06E": {
+        "t": "Picture Perfect - SNL",
+        "d": 259
+      },
+      "X-XuT5qKt00": {
+        "t": "Birthday Clown - SNL",
+        "d": 212
+      },
+      "X2FAizaEkls": {
+        "t": "Heated Wizardry - SNL",
+        "d": 196
+      },
+      "X2YmZIAyClg": {
+        "t": "Ask Dr. Oz - SNL",
+        "d": 251
+      },
+      "X5TEsdb918c": {
+        "t": "Weekend Update: Pete Davidson & John Mulaney Review Clint Eastwood's The Mule - SNL",
+        "d": 302
+      },
+      "XB_0gVcLCJo": {
+        "t": "Weekend Update: Pete Davidson on Being Sober - SNL",
+        "d": 178
+      },
+      "xbWpISOIipg": {
+        "t": "Ambiguously Gay Duo: Live - Saturday Night Live",
+        "d": 442
+      },
+      "xCFkTmI_9kE": {
+        "t": "Bank Breakers - SNL",
+        "d": 336
+      },
+      "XCPSoKpLXZQ": {
+        "t": "Zoo-opolis Voice Actors - SNL",
+        "d": 324
+      },
+      "XDxtjVKJ76A": {
+        "t": "Jeffrey's with Sean Hayes - SNL",
+        "d": 354
+      },
+      "Xez7kGgEg-U": {
+        "t": "Outside the Lines - SNL",
+        "d": 331
+      },
+      "XezLiezWN0E": {
+        "t": "The Ingraham Angle Coronavirus Cold Open - SNL",
+        "d": 561
+      },
+      "xGX6SyfFHwA": {
+        "t": "Cut for Time: Jason - SNL",
+        "d": 236
+      },
       "xI_lxFv203I": {
         "t": "VP Fly Debate Cold Open - SNL",
         "d": 741
+      },
+      "xiUvAWZr-5U": {
+        "t": "Kate Middleton Meets the Real Royal Family - SNL",
+        "d": 301
+      },
+      "xj65JgmJBYc": {
+        "t": "Love Island - SNL",
+        "d": 218
+      },
+      "XmuGBNBBu3A": {
+        "t": "Museum of Hip-Hop Panel - SNL",
+        "d": 350
+      },
+      "xNnM4Yyc_C8": {
+        "t": "Every Close Encounter Ever: Part 1 - SNL",
+        "d": 1038
+      },
+      "Xo6CyNNC60M": {
+        "t": "Crime Scene - Saturday Night Live",
+        "d": 262
+      },
+      "Xop8ug07KS8": {
+        "t": "Amazon's New Headquarters - SNL",
+        "d": 291
+      },
+      "xplEPT5I39E": {
+        "t": "Cut For Time: Alan (Bill Hader) - SNL",
+        "d": 321
+      },
+      "xpyPTf1bLS8": {
+        "t": "Shark Tank: Lamp Wearing Sunglasses - SNL",
+        "d": 222
+      },
+      "xs_T07_XVFk": {
+        "t": "Friends - SNL",
+        "d": 327
+      },
+      "Xt1AleHqL-Q": {
+        "t": "The Stuttering Drill Sergeant - SNL",
+        "d": 250
+      },
+      "xTrwT0jSUg0": {
+        "t": "Amy Schumer Mother Knows Best - SNL",
+        "d": 340
+      },
+      "XTTu0k1H2JI": {
+        "t": "Game of Thrones Sneak Peek - SNL",
+        "d": 213
       },
       "Xv2VIEY9-A8": {
         "t": "Matt Foley: Van Down By The River - SNL",
         "d": 381
       },
+      "XX_Rxvg8vdo": {
+        "t": "Please Don't Destroy - Roast - SNL",
+        "d": 184
+      },
+      "xzZkaqBmH-s": {
+        "t": "Every Californians Ever (Part 2 of 2)",
+        "d": 1597
+      },
+      "Y6wqtti7EeE": {
+        "t": "Soda Shop - SNL",
+        "d": 235
+      },
       "y8EQFhj8ca4": {
         "t": "2020 Democratic Debate - SNL",
         "d": 737
+      },
+      "yAH9_HUACQ8": {
+        "t": "So You're Willing to Date a Magician - SNL",
+        "d": 341
+      },
+      "yAxJg74NbwA": {
+        "t": "Spaceship - SNL",
+        "d": 299
+      },
+      "YBdNXjxmj8M": {
+        "t": "Good Morning Meth - Saturday Night Live",
+        "d": 272
+      },
+      "YBQ5YILNGXE": {
+        "t": "Substitute Teacher - SNL",
+        "d": 257
+      },
+      "YChioDnHxm4": {
+        "t": "Old Friends - SNL",
+        "d": 244
       },
       "yDxN4c_CmpI": {
         "t": "Plagiarism - SNL",
         "d": 368
       },
+      "yEfsaXDX0UQ": {
+        "t": "Zillow - SNL",
+        "d": 147
+      },
+      "yfCCwEf_J5A": {
+        "t": "Translator - SNL",
+        "d": 291
+      },
+      "YfiLAcERNQ4": {
+        "t": "This Is Not A Feminist Song - SNL",
+        "d": 184
+      },
+      "Yfva6ETW8e8": {
+        "t": "Mattress Store - SNL",
+        "d": 296
+      },
+      "YgEPkrMOwCg": {
+        "t": "Turtle Shirt - SNL",
+        "d": 135
+      },
+      "YGWYdGYjMlg": {
+        "t": "Pervert Hunters - SNL",
+        "d": 292
+      },
+      "yGx9E0l9zXk": {
+        "t": "Cab Driver - SNL",
+        "d": 257
+      },
+      "yHrnDi6WbFw": {
+        "t": "The Spartans - Saturday Night Live",
+        "d": 325
+      },
+      "Yp81l2aVap4": {
+        "t": "Weekend Update: Colin Jost and Michael Che Switch Jokes - SNL",
+        "d": 230
+      },
+      "YR7i1YFH-QQ": {
+        "t": "The Rock Monologue: WWF Stars Stop By - SNL",
+        "d": 340
+      },
+      "YRfN-UGoKJY": {
+        "t": "Weekend Update: Colin Jost and Michael Che Swap Jokes - SNL",
+        "d": 252
+      },
+      "YrN2LCJRES4": {
+        "t": "Jail Cellmate - SNL",
+        "d": 350
+      },
       "Yrrj0076E9U": {
         "t": "Science Presentation - SNL",
         "d": 294
       },
+      "Ys786ZsA5tI": {
+        "t": "Weekend Update: Christmas Joke Swap 2019 - SNL",
+        "d": 201
+      },
+      "YuTrBbB9bVk": {
+        "t": "Shana at a Halloween Party - SNL",
+        "d": 461
+      },
       "YvT_gqs5ETk": {
         "t": "Amazon Echo - SNL",
         "d": 161
+      },
+      "yVXkR4Z4GSg": {
+        "t": "Jet Blue Flight 292 - SNL",
+        "d": 331
       },
       "YxPRZ9S-qbI": {
         "t": "Harry Potter Epilogue - Saturday Night Live",
@@ -20894,6 +23982,18 @@
         "t": "12 Years a Slave Auditions - Saturday Night Live",
         "d": 258
       },
+      "yzh7RtIJKZk": {
+        "t": "Louis C.K. Monologue - SNL",
+        "d": 568
+      },
+      "YzOrj3LiT38": {
+        "t": "Someone Clogged The Couples Quiz Toilet - SNL",
+        "d": 276
+      },
+      "Z-MMqzK1DKg": {
+        "t": "Dorm Room Posters - SNL",
+        "d": 320
+      },
       "z0NgUhEs1R4": {
         "t": "World's Most Evil Invention - SNL",
         "d": 288
@@ -20902,21 +24002,121 @@
         "t": "Lincoln Ads - Saturday Night Live",
         "d": 180
       },
+      "Z4WHIJTCFs0": {
+        "t": "Sandler Family Reunion - SNL",
+        "d": 341
+      },
+      "z6Drkj80qlQ": {
+        "t": "Gump - SNL",
+        "d": 287
+      },
+      "z7VbvUxj-hw": {
+        "t": "Hegseth Iran Presser Cold Open - SNL",
+        "d": 410
+      },
+      "Z8UZn7PmyXc": {
+        "t": "Voter Fraud Cold Open - SNL",
+        "d": 484
+      },
       "zBcG5tOURuM": {
         "t": "Live Report - SNL",
         "d": 317
+      },
+      "ZBPt335vcAQ": {
+        "t": "Lester Holt Cold Open - SNL",
+        "d": 322
+      },
+      "ZChJfP7LizA": {
+        "t": "olivia rodrigo’s monologue!",
+        "d": 103
+      },
+      "ZdDZRHBJ3DI": {
+        "t": "Girlfriends Talk Show with Amy Adams and One Direction - SNL",
+        "d": 286
+      },
+      "zDgRRVpemLo": {
+        "t": "First Presidential Debate: Al Gore and George W. Bush  - SNL",
+        "d": 630
+      },
+      "ZEII5so6XpY": {
+        "t": "The People's Kourt - SNL",
+        "d": 298
+      },
+      "zejK1XHIDcI": {
+        "t": "My Best Friend's House - SNL",
+        "d": 215
       },
       "Zh75XWRaugg": {
         "t": "Baby Shower - SNL",
         "d": 296
       },
+      "ZhSSLZpl-Vg": {
+        "t": "Digital Exclusive: Inner White Girl (Reese Witherspoon) - SNL",
+        "d": 246
+      },
+      "zhu7rs3Ihas": {
+        "t": "Amy Schumer Monologue - SNL",
+        "d": 517
+      },
+      "ZkPSbp3zTfo": {
+        "t": "Come Back, Barack - SNL",
+        "d": 201
+      },
+      "zLjFOouBOPs": {
+        "t": "QVC Auditions - SNL",
+        "d": 310
+      },
       "ZmWH1F-caM8": {
         "t": "Back Home Ballers - SNL",
         "d": 204
       },
+      "ZN-n0Q_3GvA": {
+        "t": "School vs. School - SNL",
+        "d": 301
+      },
+      "zS9U3Gc832Y": {
+        "t": "Amazon Go - SNL",
+        "d": 151
+      },
+      "ZsMuKSpQfIY": {
+        "t": "Prince Auditions - SNL",
+        "d": 286
+      },
+      "zSnCjyoMNgs": {
+        "t": "1920's Party - Saturday Night Live",
+        "d": 340
+      },
+      "zsv6v8aN9dk": {
+        "t": "SNL Presents Christmas Movie Parodies",
+        "d": 776
+      },
       "ZttGUmqAE-Q": {
         "t": "Top 5 Most-Watched Live Sketches | Season 48 | Saturday Night Live",
         "d": 1401
+      },
+      "ZX34-fk_l6A": {
+        "t": "Bank Robbers - SNL",
+        "d": 241
+      },
+      "ZxeghzvcO3Q": {
+        "t": "Paranormal Occurrence - SNL",
+        "d": 408
+      },
+      "ZxIIv6uQY6k": {
+        "t": "Impeachment Fantasy Cold Open - SNL",
+        "d": 528
+      },
+      "ZXohQEjw1Vc": {
+        "t": "Charades with Mom - SNL",
+        "d": 273
+      },
+      "zxxCaw74ptk": {
+        "t": "Lisa from Temecula - SNL",
+        "d": 261
+      },
+      "ZzloXNWWXLA": {
+        "t": "Couples at the Bar - SNL",
+        "d": 323
       }
     },
     "space": {

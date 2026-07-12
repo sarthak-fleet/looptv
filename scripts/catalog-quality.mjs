@@ -4,6 +4,11 @@ export const MIN_VIEW_COUNT = 10_000;
 export const MAX_VIDEOS_PER_SOURCE = 200;
 export const TOP_PICK_BAND_SIZE = 12;
 
+export function resolveMaxVideos(source = {}) {
+  const configured = Number(source.maxVideos);
+  return Number.isInteger(configured) && configured > 0 ? configured : MAX_VIDEOS_PER_SOURCE;
+}
+
 /**
  * Keep only the top N% of a source's catalog by view count.
  * Thresholds are absolute (per source size), not relative to other channels in the fleet.
@@ -48,17 +53,18 @@ export function qualifiesRawVideo(raw, minDur, maxDur) {
 }
 
 export function applySourceQualityFilter(sourceVideos, source) {
+  const maxVideos = resolveMaxVideos(source);
   if (sourceVideos.length > 0 && sourceVideos.every((raw) => raw._looptvPreselected === true)) {
     const selected = [...new Map(sourceVideos.map((raw) => [raw.id, raw])).values()]
       .sort((a, b) => b.view_count - a.view_count)
-      .slice(0, MAX_VIDEOS_PER_SOURCE);
+      .slice(0, maxVideos);
     return { filtered: selected, pct: null, mode: 'preselected' };
   }
 
   if (sourceVideos.some((raw) => raw._looptvCatalogFallback === true)) {
     const merged = [...new Map(sourceVideos.map((raw) => [raw.id, raw])).values()]
       .sort((a, b) => b.view_count - a.view_count)
-      .slice(0, MAX_VIDEOS_PER_SOURCE);
+      .slice(0, maxVideos);
     return { filtered: merged, pct: null, mode: 'preserved' };
   }
 
@@ -71,8 +77,8 @@ export function applySourceQualityFilter(sourceVideos, source) {
     const cutoff = Math.ceil(filtered.length * (pct / 100));
     filtered = filtered.slice(0, cutoff);
   }
-  if (filtered.length > MAX_VIDEOS_PER_SOURCE) {
-    filtered = filtered.slice(0, MAX_VIDEOS_PER_SOURCE);
+  if (filtered.length > maxVideos) {
+    filtered = filtered.slice(0, maxVideos);
   }
   return { filtered, pct, mode: 'selected' };
 }

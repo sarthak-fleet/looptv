@@ -18,6 +18,7 @@ type CatalogBaselineSource = {
   minDuration?: number;
   maxDuration?: number;
   topPercentile?: number;
+  maxVideos?: number;
 };
 type CatalogBaseline = {
   sourceMeta?: Record<string, Record<string, unknown>>;

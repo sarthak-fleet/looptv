@@ -6,6 +6,7 @@ import {
   calcPercentile,
   hasViewCountsInJsonl,
   qualifiesRawVideo,
+  resolveMaxVideos,
   resolveTopPercentile,
   validateCatalog,
   validateCatalogVideo,
@@ -35,6 +36,12 @@ describe('catalog quality', () => {
   it('honors explicit topPercentile overrides from stations.json', () => {
     expect(resolveTopPercentile({ topPercentile: 3 }, 12_000)).toBe(3);
     expect(resolveTopPercentile({}, 12_000)).toBe(3);
+  });
+
+  it('uses a 200-video default and honors a positive source cap', () => {
+    expect(resolveMaxVideos({})).toBe(200);
+    expect(resolveMaxVideos({ maxVideos: 1_000 })).toBe(1_000);
+    expect(resolveMaxVideos({ maxVideos: 0 })).toBe(200);
   });
 
   it('rejects raw videos without view counts', () => {
@@ -112,6 +119,18 @@ describe('catalog quality', () => {
     expect(result.pct).toBeNull();
     expect(result.filtered).toHaveLength(200);
     expect(result.filtered[0].id).toBe('api-0');
+  });
+
+  it('applies a source-specific cap to preselected rows', () => {
+    const sourceVideos = Array.from({ length: 1_100 }, (_, index) => ({
+      id: `api-${index}`,
+      view_count: 2_000_000 - index,
+      _looptvPreselected: true,
+    }));
+
+    expect(applySourceQualityFilter(sourceVideos, { maxVideos: 1_000 }).filtered).toHaveLength(
+      1_000
+    );
   });
 
   it('refuses to ship catalog entries below the view threshold', () => {

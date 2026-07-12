@@ -11,6 +11,7 @@ import {
   pickRandom,
   getCatalogFreshness,
   getSourceFreshness,
+  isNewCatalogVersion,
 } from '@/lib/catalog';
 import {
   getWatchedIds,
@@ -109,6 +110,8 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const [hasHistory, setHasHistory] = useState(false);
   const playerRef = useRef<PlayerHandle>(null);
   const retryTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const catalogVersionRef = useRef<string | null>(INITIAL_CATALOG_SUMMARY.generatedAt ?? null);
+  const catalogUpdateCheckRef = useRef(false);
   // Defer time-dependent and localStorage-dependent state to after mount so
   // build-time SSR and the first client render produce identical HTML.
   const [mounted, setMounted] = useState(false);
@@ -214,6 +217,42 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
       setCatalogRefreshing(false);
     }
   }, [catalogRefreshing]);
+
+  useEffect(() => {
+    catalogVersionRef.current = catalog?.generatedAt ?? catalogSummary?.generatedAt ?? null;
+  }, [catalog?.generatedAt, catalogSummary?.generatedAt]);
+
+  const checkForCatalogUpdate = useCallback(async () => {
+    if (catalogUpdateCheckRef.current) return;
+    catalogUpdateCheckRef.current = true;
+    try {
+      const summary = await refreshCatalogSummary();
+      const changed = isNewCatalogVersion(catalogVersionRef.current, summary.generatedAt);
+      setCatalogSummary(summary);
+      if (!changed) return;
+      const nextCatalog = await refreshCatalog();
+      setCatalog(nextCatalog);
+      setCatalogLoadFailed(false);
+      setStatus('');
+    } catch (err) {
+      console.error('TVApp: catalog update check failed', err);
+    } finally {
+      catalogUpdateCheckRef.current = false;
+    }
+  }, []);
+
+  useEffect(() => {
+    const onFocus = () => void checkForCatalogUpdate();
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') void checkForCatalogUpdate();
+    };
+    window.addEventListener('focus', onFocus);
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    return () => {
+      window.removeEventListener('focus', onFocus);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    };
+  }, [checkForCatalogUpdate]);
 
   useEffect(() => {
     blockedSourcesRef.current = blockedSources;

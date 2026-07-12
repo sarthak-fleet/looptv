@@ -2,7 +2,7 @@
 
 - Sources: 122
 - Full-history baseline requests: 3,467
-- Requests made by this run: 0
+- Requests made by this run: 413
 - Global ceiling: 4,500 requests
 - Request rate: 5 requests/second
 
@@ -134,7 +134,7 @@
 
 | Source | Baseline | Public uploads | Eligible | Selected | Top | View floor | Baseline requests |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Saturday Night Live | full-history | 10,280 | 8,912 | 200 | 30% | 13,575,907 | 412 |
+| Saturday Night Live | full-history | 10,280 | 8,912 | 1,000 | 30% | 5,177,256 | 412 |
 ## space
 
 | Source | Baseline | Public uploads | Eligible | Selected | Top | View floor | Baseline requests |

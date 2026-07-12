@@ -103,6 +103,7 @@ export function auditCatalogHealth({
         minDuration: source.minDuration ?? 60,
         maxDuration: source.maxDuration ?? 3600,
         topPercentile: source.topPercentile ?? null,
+        maxVideos: source.maxVideos ?? 200,
         qualityBaseline: meta?.qualityBaseline ?? 'incremental-only',
         fullAuditAt: meta?.fullAuditAt || '',
         publicUploadCount: meta?.publicUploadCount ?? 0,
@@ -170,7 +171,7 @@ export function formatCatalogHealthMarkdown(result) {
     for (const source of station.sources) {
       const policy = source.topPercentile ? `top ${source.topPercentile}%` : 'automatic percentile';
       lines.push(
-        `| ${source.name} | ${source.health} | ${source.qualityBaseline} | ${source.publicUploadCount || 'unknown'} | ${source.candidateCount} | ${source.selectedCount} | ${source.lastSuccessfulFetch || 'never'} | ${source.minDuration}-${source.maxDuration}s, ${policy} |`
+        `| ${source.name} | ${source.health} | ${source.qualityBaseline} | ${source.publicUploadCount || 'unknown'} | ${source.candidateCount} | ${source.selectedCount} | ${source.lastSuccessfulFetch || 'never'} | ${source.minDuration}-${source.maxDuration}s, ${policy}, cap ${source.maxVideos} |`
       );
     }
     lines.push('');

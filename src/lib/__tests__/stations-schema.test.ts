@@ -43,6 +43,16 @@ describe('stations-schema', () => {
     expect(bad.success).toBe(false);
   });
 
+  it('rejects a non-positive source video cap', () => {
+    const bad = StationConfigSchema.safeParse({
+      id: 'good',
+      name: 'x',
+      description: 'y',
+      sources: [{ name: 'n', handle: '@foo', maxVideos: 0 }],
+    });
+    expect(bad.success).toBe(false);
+  });
+
   it('rejects duplicate station ids', () => {
     const dup = StationsConfigSchema.safeParse([
       { id: 'a', name: 'x', description: 'y', sources: [{ name: 'n', handle: '@foo' }] },

@@ -6,6 +6,7 @@ import {
   STALE_SOURCE_DAYS,
   pickRandom,
   getVideosForStation,
+  isNewCatalogVersion,
 } from '../catalog';
 import type { SourceMeta } from '../types';
 import {
@@ -97,6 +98,14 @@ describe('getCatalogFreshness', () => {
       state: 'incomplete',
       label: 'Latest refresh covered 10% of sources',
     });
+  });
+});
+
+describe('isNewCatalogVersion', () => {
+  it('detects a deployed catalog version change', () => {
+    expect(isNewCatalogVersion('2026-07-01', '2026-07-12')).toBe(true);
+    expect(isNewCatalogVersion('2026-07-12', '2026-07-12')).toBe(false);
+    expect(isNewCatalogVersion(null, '2026-07-12')).toBe(false);
   });
 });
 

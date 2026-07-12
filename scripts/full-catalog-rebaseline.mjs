@@ -6,9 +6,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  MAX_VIDEOS_PER_SOURCE,
   MIN_VIEW_COUNT,
   qualifiesRawVideo,
+  resolveMaxVideos,
   resolveTopPercentile,
 } from './catalog-quality.mjs';
 import {
@@ -28,7 +28,7 @@ export function sourcePolicyKey(source) {
     source.maxDuration ?? 3600,
     source.topPercentile ?? 'auto',
     MIN_VIEW_COUNT,
-    MAX_VIDEOS_PER_SOURCE,
+    resolveMaxVideos(source),
   ].join(':');
 }
 
@@ -69,7 +69,7 @@ export function selectFullHistoryRows(rows, source, { auditedAt, publicUploadCou
   const candidateCount = eligible.length;
   const pct = resolveTopPercentile(source, candidateCount);
   const selectionLimit = Math.min(
-    MAX_VIDEOS_PER_SOURCE,
+    resolveMaxVideos(source),
     Math.max(1, Math.ceil(candidateCount * (pct / 100)))
   );
   const policy = sourcePolicyKey(source);

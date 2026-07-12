@@ -26,7 +26,7 @@ stations in an auto-committed `catalog.json`.
   per-source selected counts, and fresh-source coverage.
 - **`scripts/full-catalog-rebaseline.mjs`** — manual-only complete upload-history
   ranking. It applies embedding, duration, and 10K-view eligibility once, applies
-  the source percentile once, caps at 200, checkpoints each source, and records a
+  the source percentile once, applies the configured source cap (default 200), checkpoints each source, and records a
   `full-history` baseline in catalog metadata. See `catalog-quality-audit.md`.
 - **Build Catalog workflow** (`.github/workflows/build-catalog.yml`) — runs the
   source-health audit before the manifest rebaseline and auto-commit. A failed audit

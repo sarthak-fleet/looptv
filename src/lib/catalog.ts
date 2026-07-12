@@ -44,7 +44,7 @@ async function fetchCatalogWithRetry(): Promise<Catalog> {
     try {
       const shouldBypassCache = attempt === RETRY_DELAYS_MS.length;
       const url = shouldBypassCache ? `/catalog.json?v=${Date.now()}` : '/catalog.json';
-      const res = await fetch(url, { cache: shouldBypassCache ? 'no-store' : 'force-cache' });
+      const res = await fetch(url, { cache: shouldBypassCache ? 'no-store' : 'no-cache' });
       if (!res.ok) throw new Error(`Failed to load catalog: ${res.status}`);
       return assertUsableCatalog((await res.json()) as Catalog);
     } catch (err) {
@@ -95,7 +95,7 @@ async function fetchSummaryWithRetry(): Promise<CatalogSummary> {
         ? `/catalog-summary.json?v=${Date.now()}`
         : '/catalog-summary.json';
       const res = await fetch(url, {
-        cache: shouldBypassCache ? 'no-store' : 'force-cache',
+        cache: shouldBypassCache ? 'no-store' : 'no-cache',
       });
       if (!res.ok) throw new Error(`Failed to load catalog summary: ${res.status}`);
       return assertUsableSummary((await res.json()) as CatalogSummary);
@@ -135,6 +135,15 @@ export async function loadCatalogSummary(): Promise<CatalogSummary> {
       summaryInflight = null;
     });
   return summaryInflight;
+}
+
+export function isNewCatalogVersion(
+  loadedGeneratedAt: string | null | undefined,
+  deployedGeneratedAt: string | null | undefined
+): boolean {
+  return Boolean(
+    loadedGeneratedAt && deployedGeneratedAt && loadedGeneratedAt !== deployedGeneratedAt
+  );
 }
 
 export function getVideosForStation(

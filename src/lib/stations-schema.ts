@@ -16,6 +16,7 @@ const YouTubeSourceSchema = z
     minDuration: z.number().int().nonnegative().optional(),
     maxDuration: z.number().int().nonnegative().optional(),
     topPercentile: z.number().min(0).max(100).optional(),
+    maxVideos: z.number().int().positive().optional(),
   })
   .refine(
     (s) =>

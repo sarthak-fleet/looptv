@@ -188,7 +188,17 @@ describe('fetch-channel', () => {
     const budget = computeEnrichBudget(9000, snl);
     expect(budget).toBeGreaterThanOrEqual(250);
     expect(budget).toBeLessThan(9000);
-    expect(budget).toBeLessThanOrEqual(500);
+    expect(budget).toBeLessThanOrEqual(2_000);
+  });
+
+  it('honors a source-specific cap in incremental selection', () => {
+    const rows = Array.from({ length: 1_200 }, (_, index) => ({
+      id: `video-${index}`,
+      view_count: 2_000_000 - index,
+    }));
+    const result = selectApiWorkingSet(rows, { topPercentile: 100, maxVideos: 1_000 });
+
+    expect(result.rows).toHaveLength(1_000);
   });
 
   it('detects YouTube bot wall errors', () => {

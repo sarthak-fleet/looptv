@@ -6,9 +6,9 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import {
-  MAX_VIDEOS_PER_SOURCE,
   MIN_VIEW_COUNT,
   hasViewCountsInJsonl,
+  resolveMaxVideos,
   resolveTopPercentile,
 } from './catalog-quality.mjs';
 import { fetchYouTubeSource } from './youtube-data-api.mjs';
@@ -49,7 +49,7 @@ export function filterFlatByDuration(flatVideos, minDur, maxDur) {
 export function computeEnrichBudget(filteredCount, source) {
   if (filteredCount <= SMALL_CHANNEL_ENRICH_ALL) return filteredCount;
   const pct = resolveTopPercentile(source, filteredCount) / 100;
-  const target = Math.min(MAX_VIDEOS_PER_SOURCE, Math.max(1, Math.ceil(filteredCount * pct)));
+  const target = Math.min(resolveMaxVideos(source), Math.max(1, Math.ceil(filteredCount * pct)));
   return Math.min(filteredCount, Math.max(250, target * 2));
 }
 
@@ -180,7 +180,7 @@ export function selectApiWorkingSet(rows, source, cachedRows = [], previousCandi
   );
   const pct = resolveTopPercentile(source, candidateCount);
   const selectionLimit = Math.min(
-    MAX_VIDEOS_PER_SOURCE,
+    resolveMaxVideos(source),
     Math.max(1, Math.ceil(candidateCount * (pct / 100)))
   );
   const verifiedCheckpoint = cachedRows.find(

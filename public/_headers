@@ -1,12 +1,7 @@
-# Long-lived browser caching for the static catalog. The catalog is rebuilt
-# weekly via GitHub Actions, so a 1h max-age with a 24h stale-while-revalidate
-# keeps returning visitors instant while staying fresh enough for new uploads.
+# Catalog assets use validators but must revalidate so an old successful browser
+# cache entry cannot outlive a newer deployment.
 /catalog.json
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  Cache-Control: public, max-age=0, must-revalidate
 
 /catalog-summary.json
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
-
-# Catch-all for any other generated JSON artifacts.
-/*.json
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  Cache-Control: public, max-age=0, must-revalidate

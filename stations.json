@@ -4,7 +4,7 @@
     "name": "Saturday Night Live",
     "description": "Sketches, Weekend Update, cold opens, and more",
     "sources": [
-      { "name": "Saturday Night Live", "handle": "@SaturdayNightLive", "channelId": "UCqFzWxSCi39LnW1JKFR3efg", "minDuration": 60, "maxDuration": 1800, "topPercentile": 30 }
+      { "name": "Saturday Night Live", "handle": "@SaturdayNightLive", "channelId": "UCqFzWxSCi39LnW1JKFR3efg", "minDuration": 60, "maxDuration": 1800, "topPercentile": 30, "maxVideos": 1000 }
     ]
   },
   {

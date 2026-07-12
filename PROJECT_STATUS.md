@@ -56,7 +56,7 @@ stations.json → fetch-sources.sh (cache → Data API → yt-dlp fallback)
              → Next.js player (random pick, IFrame API, localStorage prefs)
 ```
 
-**Stats (current):** 17 stations, 149 channels (~38K videos until next catalog rebuild); global 10K views minimum filter; per-source min/max duration in `stations.json`.
+**Stats (current):** 16 stations, 122 channels, 8,760 curated videos; global 10K views minimum filter; per-source duration, percentile, and optional cap controls in `stations.json`.
 
 **CI:** `.github/workflows/fetch-catalog-sources.yml` (8 fetch shards, 1st/15th, cache-first) → `.github/workflows/build-catalog.yml` (merge, process, incremental tag, audit, commit); `.github/workflows/deploy.yml` on push to main.
 
@@ -86,7 +86,8 @@ stations.json → fetch-sources.sh (cache → Data API → yt-dlp fallback)
 
 ### Catalog & offline
 
-- `/catalog.json` fetch with retry + backoff; offline fallback banner on landing with Retry (no full reload).
+- `/catalog.json` fetch with revalidation, retry, and backoff; offline fallback banner on landing with Retry (no full reload).
+- Long-lived tabs revalidate the small catalog summary when they become active and fetch the full catalog only when a new deployment is detected.
 - Sample channels visible from bundled `stations.json` when catalog unavailable.
 - Dev hint for build-catalog when fetch fails in development.
 
@@ -116,9 +117,9 @@ stations.json → fetch-sources.sh (cache → Data API → yt-dlp fallback)
 ### Quality & maintenance
 
 - Fork-friendly: edit `stations.json` and deploy.
-- **Top-content policy:** global 10K-view minimum (requires full metadata); per-source duration filters; top-N% by views per channel plus 200-video cap (`scripts/catalog-quality.mjs`); catalog build refuses output below threshold. Normal playback samples the full curated pool; Smart Mix retains ranked top-band selection.
+- **Top-content policy:** global 10K-view minimum (requires full metadata); per-source duration filters; top-N% by views per channel plus a 200-video default cap (`scripts/catalog-quality.mjs`), configurable per source. SNL uses a reviewed 1,000-video cap because it occupies its own station. Catalog builds refuse output below threshold. Normal playback samples the full curated pool; Smart Mix retains ranked top-band selection.
 - **Quota-aware refresh (2026-07-12):** 13-day cache gate, 250-video discovery ceiling, known-ID pagination stop, 50-ID metadata batches, 20-request per-source hard stop, per-shard request reporting, and no YouTube calls from build/deploy. Free-AI is called only when untagged videos exist.
-- **Full quality rebaseline (2026-07-12):** manual-only full upload-history scan with a 4,500-request global ceiling, five-request/second throttle, per-source checkpoints, and zero-request resume. The verified 122-source baseline used 3,467 requests; SNL was corrected from a stale 1,357-candidate/recent-biased set to 8,912 eligible candidates and the true top 200 under its 30% policy plus global cap. See `docs/catalog-quality-audit.md`.
+- **Full quality rebaseline (2026-07-12):** manual-only full upload-history scan with a 4,500-request global ceiling, five-request/second throttle, per-source checkpoints, and zero-request resume. The verified 122-source baseline used 3,467 requests. A cap-only SNL rebaseline reused 121 checkpoints, spent 413 requests, and selected the true top 1,000 from 8,912 eligible uploads under its 30% policy. See `docs/catalog-quality-audit.md`.
 - **Verified cache continuity (2026-07-12):** committed full-history catalog metadata reconstructs verified top-set checkpoints on fresh/legacy GitHub runners; source-row provenance controls the 13-day freshness gate, preventing checkout time from hiding stale data.
 - **Catalog audit (2026-07-12, enhanced):** `catalog-manifest.json` baselines + `scripts/validate-catalog-manifest.mjs` hard-fail the Build Catalog workflow on suspicious swings (station disappearing/empty, per-station drop > max(30%, 5), total drop > 20%, per-station replacement churn > 50% — catches silent swaps without treating healthy growth as churn); both audits run before incremental AI tagging so a rejected catalog spends no tagging calls. Per-station count diff + per-video changelog (added/removed/title-changed, with removed titles) land in the job summary and commit message; `override_audit` dispatch input / `CATALOG_AUDIT_OVERRIDE=1` is reserved for intentional changes. Manifest stores both per-station counts and a per-video map (`{ videoId: { t, d } }`) so each audit diffs against the previous run's exact video set. See `docs/catalog-auditability.md`.
 - **Catalog integrity (2026-07-12):** raw source caches are separated from checked-in fallback rows; tiny partial enrichments are rejected; catalog generation time is separate from last complete refresh; per-source provenance and 80% fresh-coverage gates prevent false-green refreshes; `scripts/audit-catalog-health.mjs` reports every configured channel grouped by station.
@@ -137,7 +138,7 @@ stations.json → fetch-sources.sh (cache → Data API → yt-dlp fallback)
 
 ### Blocked
 
-- Catalog freshness depends on weekly GitHub Action — stale catalog shows diagnostics banner but no push notification.
+- Catalog freshness depends on the bi-weekly GitHub Action; clients revalidate deployed assets, but there is no push notification for upstream refresh failures.
 - Legacy local NER rebuilds require `requirements-ner.txt`; scheduled CI tagging uses the free-AI gateway.
 - Blocked/quarantined state is per-browser — not portable across devices.
 - Production: `looptv.pages.dev` via Cloudflare Pages static export.
