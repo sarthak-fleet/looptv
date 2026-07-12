@@ -4,6 +4,11 @@
 
 The fetcher SHALL apply source quality percentages exactly once against a persisted candidate baseline, the catalog builder SHALL NOT reapply a percentage to an API-preselected working set, and incremental refreshes SHALL retain a verified full-history top set while considering newly discovered uploads.
 
+#### Scenario: Three-percent source refresh
+
+- **WHEN** a source previously recorded 1,357 candidates and its API working set is bounded below that count
+- **THEN** selection retains up to 41 highest-view qualifying videos rather than selecting 3% of the smaller working set
+
 #### Scenario: Verified full-history source refresh
 
 - **WHEN** a source has a full-history checkpoint and an incremental refresh discovers recent uploads

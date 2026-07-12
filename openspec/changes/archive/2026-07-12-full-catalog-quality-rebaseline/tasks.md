@@ -15,4 +15,4 @@
 - [x] 3.1 Run the resumable audit for all 122 sources within the global request ceiling.
 - [x] 3.2 Rebuild the catalog and inspect every station/source for eligibility, counts, rank quality, and churn.
 - [x] 3.3 Run tests, typecheck, formatting, catalog audits, and production build.
-- [ ] 3.4 Commit, push, deploy, verify production, archive the OpenSpec change, and verify final CI.
+- [x] 3.4 Commit, push, deploy, verify production, archive the OpenSpec change, and verify final CI.
