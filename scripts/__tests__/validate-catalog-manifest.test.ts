@@ -207,6 +207,23 @@ describe('video churn audit (compareToManifest with videos)', () => {
     expect(result.violations.some((v: string) => v.includes('"ai" churned 60'))).toBe(true);
   });
 
+  it('does not treat healthy catalog growth as replacement churn', () => {
+    const baseline = vids(Array.from({ length: 100 }, (_, i) => [`v${i}`, `T${i}`, 100]));
+    const current: VideoMap = { ...baseline };
+    delete current.v0;
+    for (let i = 0; i < 60; i++) current[`new${i}`] = { t: `New${i}`, d: 100 };
+
+    const result = compareToManifest(
+      { ai: 159 },
+      manifestWithVideos({ ai: 100 }, { ai: baseline }),
+      { ai: current }
+    );
+
+    expect(result.violations).toEqual([]);
+    expect(result.videoDiffs.ai.added).toHaveLength(60);
+    expect(result.videoDiffs.ai.removed).toEqual(['v0']);
+  });
+
   it('skips video diff when manifest has no videos field (backward compatible)', () => {
     const result = compareToManifest({ ai: 100 }, manifest({ ai: 100 }), {
       ai: { x: { t: 'X', d: 1 } },

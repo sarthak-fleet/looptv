@@ -32,9 +32,9 @@ export const DEFAULT_THRESHOLDS = {
   minStationDropAbs: 5,
   // Max acceptable drop in total catalog size, as % of the manifest baseline.
   maxTotalDropPct: 20,
-  // Max acceptable per-station video churn (added + removed IDs) as % of the
-  // manifest baseline, even when counts stay stable. Catches silent swaps where
-  // yt-dlp returns a different video set at the same cardinality.
+  // Max acceptable per-station replacement churn as % of the manifest baseline.
+  // Replacement churn is twice the smaller of added/removed IDs, so healthy
+  // catalog growth does not look like a silent same-cardinality swap.
   maxVideoChurnPct: 50,
 };
 
@@ -134,7 +134,7 @@ export function compareToManifest(counts, manifest, currentVideos) {
     if (currentVideos && expectedVideos[id]) {
       const diff = diffStationVideos(expectedVideos[id], currentVideos[id] || {});
       videoDiffs[id] = diff;
-      const churn = diff.added.length + diff.removed.length;
+      const churn = 2 * Math.min(diff.added.length, diff.removed.length);
       if (churn > 0 && exp > 0) {
         const churnPct = Math.round((churn / exp) * 100);
         if (churnPct > thresholds.maxVideoChurnPct) {

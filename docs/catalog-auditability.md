@@ -37,7 +37,7 @@ stations in an auto-committed `catalog.json`.
 | Station empty (0 videos) | always fails |
 | Station count drop | > max(30% of baseline, 5 videos) — `maxStationDropPct` / `minStationDropAbs` |
 | Total catalog drop | > 20% of baseline total — `maxTotalDropPct` |
-| Station video churn (added + removed IDs) | > 50% of baseline — `maxVideoChurnPct` |
+| Station replacement churn (`2 × min(added, removed)` IDs) | > 50% of baseline — `maxVideoChurnPct` |
 | Fresh configured-source coverage | < 80% — `MIN_FRESH_SOURCE_COVERAGE` |
 | Video outside its configured source duration | always fails |
 | Video below 10,000 views or assigned to the wrong station/source | always fails |
@@ -46,6 +46,12 @@ stations in an auto-committed `catalog.json`.
 The churn rule is the key guard against silent gutting: if metadata fetch breakage
 returns a different video set at the same cardinality (counts stable, videos
 swapped), the per-video diff catches it even though the count audit passes.
+Pure catalog growth is not replacement churn; station and total drop rules
+separately guard destructive losses.
+
+Both source-health and manifest audits run before the free-AI tagging step. A
+rejected catalog therefore makes no tagging requests, and a passing rebuild tags
+only videos that still lack tags.
 
 New stations and any growth are allowed (warning only for stations not yet in
 the manifest). Edit thresholds directly in `catalog-manifest.json` if the

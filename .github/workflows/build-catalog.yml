@@ -115,6 +115,24 @@ jobs:
         id: build-catalog
         run: bash scripts/build-catalog.sh --process-only
 
+      - name: Audit catalog source health
+        if: always() && steps.build-catalog.outcome == 'success'
+        env:
+          CATALOG_AUDIT_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.override_audit && '1' || '' }}
+        run: |
+          set +e
+          node scripts/audit-catalog-health.mjs --markdown-file "$RUNNER_TEMP/catalog-health.md"
+          status=$?
+          set -e
+          cat "$RUNNER_TEMP/catalog-health.md" >> "$GITHUB_STEP_SUMMARY"
+          exit "$status"
+
+      - name: Audit catalog against manifest
+        if: success() && steps.build-catalog.outcome == 'success'
+        env:
+          CATALOG_AUDIT_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.override_audit && '1' || '' }}
+        run: node scripts/validate-catalog-manifest.mjs --update --diff-file "$RUNNER_TEMP/catalog-diff.txt"
+
       - name: Count videos needing AI tags
         id: pending-tags-before
         run: echo "count=$(node scripts/catalog-tag-status.mjs public/catalog.json)" >> "$GITHUB_OUTPUT"
@@ -165,24 +183,6 @@ jobs:
             echo "- Pending videos before tagging: ${PENDING_TAGS_BEFORE:-unknown}"
             echo "- Pending videos after tagging: ${PENDING_TAGS_FINAL:-unknown}"
           } >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Audit catalog source health
-        if: always() && steps.build-catalog.outcome == 'success'
-        env:
-          CATALOG_AUDIT_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.override_audit && '1' || '' }}
-        run: |
-          set +e
-          node scripts/audit-catalog-health.mjs --markdown-file "$RUNNER_TEMP/catalog-health.md"
-          status=$?
-          set -e
-          cat "$RUNNER_TEMP/catalog-health.md" >> "$GITHUB_STEP_SUMMARY"
-          exit "$status"
-
-      - name: Audit catalog against manifest
-        if: success() && steps.build-catalog.outcome == 'success'
-        env:
-          CATALOG_AUDIT_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.override_audit && '1' || '' }}
-        run: node scripts/validate-catalog-manifest.mjs --update --diff-file "$RUNNER_TEMP/catalog-diff.txt"
 
       - name: Save source cache
         if: success() && steps.build-catalog.outcome == 'success'
