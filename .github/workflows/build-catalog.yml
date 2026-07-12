@@ -147,7 +147,9 @@ jobs:
         run: node scripts/smoke-tag-gateway.mjs
 
       - name: Tag new videos via AI gateway
+        id: tag-primary
         if: steps.gateway-smoke.outcome == 'success' && steps.pending-tags-before.outputs.count != '0'
+        continue-on-error: true
         env:
           FAGW_API_KEY: ${{ secrets.FAGW_API_KEY }}
           FAGW_PROJECT_ID: looptv
@@ -161,6 +163,19 @@ jobs:
         run: |
           echo "::warning::AI gateway ${GATEWAY_STATUS:-unknown}; cache and audit will continue, but shipping ${PENDING_TAGS} pending videos is blocked."
 
+      - name: Count videos needing an AI retry
+        id: pending-tags-retry
+        if: always() && steps.build-catalog.outcome == 'success'
+        run: echo "count=$(node scripts/catalog-tag-status.mjs public/catalog.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Retry remaining AI tags
+        if: always() && steps.gateway-smoke.outcome == 'success' && steps.pending-tags-retry.outputs.count != '0'
+        continue-on-error: true
+        env:
+          FAGW_API_KEY: ${{ secrets.FAGW_API_KEY }}
+          FAGW_PROJECT_ID: looptv
+        run: node scripts/tag-videos.mjs
+
       - name: Count videos still needing AI tags
         id: pending-tags-final
         if: always() && steps.build-catalog.outcome == 'success'
@@ -171,6 +186,7 @@ jobs:
         env:
           GATEWAY_STATUS: ${{ steps.gateway-smoke.outputs.status }}
           PENDING_TAGS_BEFORE: ${{ steps.pending-tags-before.outputs.count }}
+          PENDING_TAGS_RETRY: ${{ steps.pending-tags-retry.outputs.count }}
           PENDING_TAGS_FINAL: ${{ steps.pending-tags-final.outputs.count }}
         run: |
           {
@@ -181,6 +197,7 @@ jobs:
               echo "- Gateway status: ${GATEWAY_STATUS:-unknown}"
             fi
             echo "- Pending videos before tagging: ${PENDING_TAGS_BEFORE:-unknown}"
+            echo "- Pending videos after first pass: ${PENDING_TAGS_RETRY:-unknown}"
             echo "- Pending videos after tagging: ${PENDING_TAGS_FINAL:-unknown}"
           } >> "$GITHUB_STEP_SUMMARY"
 

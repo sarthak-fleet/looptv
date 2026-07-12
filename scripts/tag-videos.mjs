@@ -9,6 +9,7 @@ import {
   getSystemPrompt,
   getTaggingProfileId,
 } from './tagging-prompts.mjs';
+import { normalizeBatchTags } from './tag-result.mjs';
 
 const CATALOG_PATH = process.argv[2] || 'public/catalog.json';
 const GATEWAY = 'https://free-ai-gateway.sarthakagrawal927.workers.dev/v1/chat/completions';
@@ -64,12 +65,7 @@ async function callModel(model, stationId, videos, retries = 2) {
       const match = content.match(/\[[\s\S]*\]/);
       if (!match) throw new Error('No JSON array in response');
 
-      const tags = JSON.parse(match[0]);
-      if (!Array.isArray(tags) || tags.length !== videos.length) {
-        throw new Error(`Expected ${videos.length} tag arrays, got ${tags.length}`);
-      }
-
-      return tags;
+      return normalizeBatchTags(videos, JSON.parse(match[0]));
     } catch {
       if (attempt < retries) {
         await sleep(2000);
@@ -95,9 +91,7 @@ async function processQueue(model, batches, results, stats) {
     if (tags) {
       for (let i = 0; i < batch.videos.length; i++) {
         const video = batch.videos[i];
-        const videoTags = new Set([video.source || '', ...tags[i]]);
-        videoTags.delete('');
-        results.set(video.id, [...videoTags].slice(0, 10));
+        results.set(video.id, tags[i]);
       }
       stats.success += batch.videos.length;
     } else {
@@ -192,7 +186,6 @@ async function main() {
     }
   }
 
-  catalog.lastUpdated = new Date().toISOString();
   fs.writeFileSync(CATALOG_PATH, JSON.stringify(catalog));
   const sizeKB = Math.round(fs.statSync(CATALOG_PATH).size / 1024);
   console.log(`Applied ${applied} tag updates. Output: ${CATALOG_PATH} (${sizeKB}KB)`);

@@ -51,7 +51,8 @@ separately guard destructive losses.
 
 Both source-health and manifest audits run before the free-AI tagging step. A
 rejected catalog therefore makes no tagging requests, and a passing rebuild tags
-only videos that still lack tags.
+only videos that still lack tags. Malformed or empty gateway tag arrays are rejected
+and the workflow makes one bounded retry for only the videos still pending.
 
 New stations and any growth are allowed (warning only for stations not yet in
 the manifest). Edit thresholds directly in `catalog-manifest.json` if the
