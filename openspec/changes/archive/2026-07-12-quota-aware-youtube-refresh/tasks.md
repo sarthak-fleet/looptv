@@ -19,5 +19,5 @@
 
 - [x] 4.1 Run focused tests and a one-source live API smoke test.
 - [x] 4.2 Run full tests, typecheck, formatting checks, catalog audits, and production build.
-- [ ] 4.3 Validate and archive the OpenSpec change, commit, push, and verify CI.
-- [ ] 4.4 Trigger one manual source refresh, inspect coverage/quota summaries, and allow the chained catalog build only if audits pass.
+- [x] 4.3 Validate and archive the OpenSpec change, commit, push, and verify CI.
+- [x] 4.4 Trigger one manual source refresh, inspect coverage/quota summaries, and allow the chained catalog build only if audits pass.
