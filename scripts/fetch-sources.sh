@@ -1,18 +1,19 @@
 #!/usr/bin/env bash
 set -uo pipefail
 
-# Fetch yt-dlp JSONL metadata for LoopTV sources into data/sources/
+# Fetch JSONL metadata for LoopTV sources into data/sources/
 #
 # Fast path per channel:
-#   1) flat-playlist listing (seconds)
-#   2) one bounded playlist enrich call (avoids bot-triggering URL batches)
+#   1) complete recent cache (zero requests)
+#   2) bounded YouTube Data API fetch when configured
+#   3) yt-dlp fallback
 #
 # Usage:
 #   ./scripts/fetch-sources.sh              # all handles (respect cache)
 #   ./scripts/fetch-sources.sh --fresh      # ignore cache age
 #
 # Sharding (for parallel CI jobs):
-#   SHARD_INDEX=0 SHARD_TOTAL=4 ./scripts/fetch-sources.sh
+#   SHARD_INDEX=0 SHARD_TOTAL=8 ./scripts/fetch-sources.sh
 
 DATA_DIR="data/sources"
 FRESH="${1:-}"
@@ -21,8 +22,10 @@ SHARD_INDEX="${SHARD_INDEX:-}"
 SHARD_TOTAL="${SHARD_TOTAL:-}"
 RETRY_SLEEP_SECONDS="${RETRY_SLEEP_SECONDS:-12}"
 RETRY_MISSING="${RETRY_MISSING:-true}"
+FETCH_METRICS_FILE="${FETCH_METRICS_FILE:-${RUNNER_TEMP:-/tmp}/looptv-fetch-${SHARD_INDEX:-all}-$$.jsonl}"
 
 mkdir -p "$DATA_DIR"
+: > "$FETCH_METRICS_FILE"
 
 if [ -n "$SHARD_INDEX" ] && [ -n "$SHARD_TOTAL" ]; then
   HANDLES=$(node scripts/shard-handles.mjs "$SHARD_INDEX" "$SHARD_TOTAL")
@@ -48,6 +51,7 @@ echo "Concurrency: $FETCH_CONCURRENCY"
 echo ""
 
 export FRESH_FLAG
+export FETCH_METRICS_FILE
 
 echo "$HANDLES" | sed '/^$/d' | xargs -P "$FETCH_CONCURRENCY" -I {} bash -c 'echo "[$(date -u +%H:%M:%S)] $1"; node scripts/fetch-channel.mjs "$1" '"$FRESH_FLAG"' || true' _ {} || true
 
@@ -83,6 +87,7 @@ done <<< "$HANDLES"
 
 echo ""
 echo "Fetch done: ${OK}/${HANDLE_COUNT} channels have source JSONL (missing=${MISSING}, retried=${RETRIED})."
+node scripts/summarize-fetch-metrics.mjs "$FETCH_METRICS_FILE"
 
 if [ "$OK" -eq 0 ]; then
   echo "ERROR: no source files produced for this shard."

@@ -2,7 +2,7 @@
 
 TV-like app that plays random YouTube videos from curated channels, nonstop. Pick a station, hit play, and lean back.
 
-**Zero API keys needed.** Uses yt-dlp for catalog building and YouTube's free IFrame Player for playback. HuggingFace NER auto-tags videos with people, places, and topics.
+**Zero API keys needed for playback or forks using the checked-in catalog.** Maintained catalog refreshes use a cache-first YouTube Data API path with yt-dlp fallback; free-AI tagging runs only for new, untagged videos.
 
 > **Fork it, edit `stations.json` with your own YouTube channels, and deploy.** That's it.
 
@@ -13,12 +13,12 @@ TV-like app that plays random YouTube videos from curated channels, nonstop. Pic
 | Hosting | Cloudflare Pages (`looptv`, `looptv.pages.dev`) — static Next.js export, deployed via `wrangler pages deploy` |
 | Database | None — static `public/catalog.json` served at runtime; watched history in browser `localStorage` |
 | Analytics | PostHog via `local posthog-js wrapper` |
-| AI / tagging | HuggingFace Transformers NER (`dslim/bert-base-NER`), run locally / in CI — no hosted AI service |
-| CI/CD | GitHub Actions (`.github/workflows/deploy.yml`) — auto-deploy to Pages on push to `main`; `update-catalog.yml` weekly catalog rebuild |
+| AI / tagging | Free-AI gateway in CI for untagged videos; local HuggingFace NER remains available |
+| CI/CD | GitHub Actions — Pages deploys plus cache-first catalog refreshes on the 1st and 15th |
 
 ## Stats
 
-- 13 stations, 78 YouTube channels, ~38K videos
+- 16 stations, 122 YouTube channels, 4,548 currently shipped videos
 - NER-based auto-tagging via HuggingFace (dslim/bert-base-NER)
 - Quality filters: per-source minDuration/maxDuration, global 10K views minimum
 - Watched tracking with localStorage
@@ -47,14 +47,15 @@ pnpm dev
 
 ## Build Catalog
 
-Requires [yt-dlp](https://github.com/yt-dlp/yt-dlp):
+For a reliable refresh, set `YOUTUBE_API_KEY`. Without it, the fetcher falls back to [yt-dlp](https://github.com/yt-dlp/yt-dlp):
 
 ```bash
 brew install yt-dlp    # or pip install yt-dlp
-bash scripts/build-catalog.sh
+bash scripts/fetch-sources.sh
+bash scripts/build-catalog.sh --process-only
 ```
 
-NER tagging runs automatically in GitHub Actions weekly, or manually:
+Incremental AI tagging runs automatically in GitHub Actions only when new videos need tags. Local NER remains available:
 
 ```bash
 pip install -r requirements-ner.txt
@@ -66,11 +67,11 @@ python3 scripts/extract-tags.py
 ```
 stations.json          <- Add YouTube channels here
      |
-build-catalog.sh       <- yt-dlp fetches video metadata (titles, descriptions, durations)
+fetch-sources.sh       <- recent cache, then bounded Data API fetch; yt-dlp fallback
      |
 process-catalog.mjs    <- Merges with existing catalog, preserves NER tags for known videos
      |
-extract-tags.py        <- HuggingFace NER (dslim/bert-base-NER) extracts people, places
+tag-videos.mjs         <- free-AI gateway tags only new/untagged videos in CI
      |                    Auto-derives categories from most frequent tags
 catalog.json           <- Committed to repo, served as static JSON
      |
@@ -81,10 +82,11 @@ Next.js frontend       <- Picks random videos, plays via YouTube IFrame API
 
 | Script | Description |
 |--------|-------------|
-| `scripts/build-catalog.sh` | Full pipeline: fetch sources, process, extract tags |
+| `scripts/build-catalog.sh` | Process cached sources into the static catalog |
+| `scripts/fetch-sources.sh` | Cache-first Data API fetch with yt-dlp fallback |
 | `scripts/process-catalog.mjs` | Merge raw JSONL into catalog.json, preserve existing tags |
 | `scripts/extract-tags.py` | HuggingFace NER tagging on new/untagged videos |
-| `scripts/fetch-all-sources.sh` | Fetch raw JSONL for all sources via yt-dlp |
+| `scripts/fetch-all-sources.sh` | Compatibility wrapper for fetching all sources |
 
 ## Controls
 
@@ -130,7 +132,7 @@ Clearing site data wipes all of it; nothing leaves the browser.
 
 ## GitHub Actions
 
-The catalog updates weekly via GitHub Actions (`.github/workflows/update-catalog.yml`). It fetches new videos, runs NER only on new additions, and commits the updated catalog.
+The source workflow runs on the 1st and 15th. Complete source caches younger than 13 days make zero YouTube requests. Stale or missing sources scan at most 250 recent uploads, stop when known IDs are reached, request video metadata in batches of 50, and hard-stop at 20 requests per source. The chained build tags only untagged additions, audits coverage and churn, and commits only a passing catalog.
 
 ## Deployment
 
@@ -145,7 +147,7 @@ wrangler pages deploy out --project-name=looptv
 
 - Next.js 16 + Tailwind CSS v4
 - YouTube IFrame Player API (free, no key)
-- yt-dlp (free, no key)
+- YouTube Data API for maintained catalog refreshes; yt-dlp fallback
 - HuggingFace Transformers (dslim/bert-base-NER)
 
 ## License

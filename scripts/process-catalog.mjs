@@ -78,7 +78,7 @@ for (const station of stationsConfig) {
     if (sourceCache.has(handle)) continue;
     const filePath = path.join(TEMP_DIR, `${handle}.jsonl`);
     const artifactExists = fs.existsSync(filePath);
-    const fetchedAt = artifactExists ? fs.statSync(filePath).mtime.toISOString() : '';
+    let fetchedAt = artifactExists ? fs.statSync(filePath).mtime.toISOString() : '';
     const minDur = src.minDuration ?? 60;
     const maxDur = src.maxDuration ?? 3600;
     const lines = artifactExists ? fs.readFileSync(filePath, 'utf-8').trim().split('\n') : [];
@@ -86,6 +86,9 @@ for (const station of stationsConfig) {
     for (const line of lines) {
       try {
         const raw = JSON.parse(line);
+        if (raw._looptvFetchedAt && !Number.isNaN(new Date(raw._looptvFetchedAt).getTime())) {
+          fetchedAt = raw._looptvFetchedAt;
+        }
         if (!qualifiesRawVideo(raw, minDur, maxDur)) continue;
         videos.push(raw);
       } catch {}
@@ -99,12 +102,17 @@ for (const station of stationsConfig) {
       (video) => video._looptvCatalogFallback === true
     ).length;
     const liveVideoCount = videos.length - fallbackVideoCount;
+    const candidateCount = videos.reduce(
+      (max, video) => Math.max(max, Number(video._looptvCandidateCount || 0)),
+      videos.length
+    );
     sourceCache.set(handle, {
       videos,
       state,
       fetchedAt,
       liveVideoCount,
       fallbackVideoCount,
+      candidateCount,
       prevMeta,
     });
   }
@@ -130,7 +138,11 @@ for (const station of stationsConfig) {
     const { filtered, pct, mode } = applySourceQualityFilter(sourceVideos, src);
     if (sourceVideos.length > 0) {
       const selection =
-        mode === 'preserved' ? 'preserved curated fallback' : `top ${pct}% selected`;
+        mode === 'preserved'
+          ? 'preserved curated fallback'
+          : mode === 'preselected'
+            ? 'preserved API preselection'
+            : `top ${pct}% selected`;
       console.log(
         `  ${src.name}: ${selection} — ${sourceVideos.length} → ${filtered.length} videos`
       );
@@ -148,7 +160,7 @@ for (const station of stationsConfig) {
       lastSuccessfulFetch: successfulFetch,
       videoCount:
         input.state === 'live'
-          ? sourceVideos.length
+          ? input.candidateCount
           : (input.prevMeta?.videoCount ?? sourceVideos.length),
       selectedCount: filtered.length,
       liveVideoCount: input.liveVideoCount,

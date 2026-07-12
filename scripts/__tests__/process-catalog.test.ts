@@ -148,11 +148,109 @@ describe('process-catalog', () => {
     expect(catalog.stations.science.videos).toHaveLength(1);
   });
 
+  it('keeps partial and empty sources unhealthy without losing prior catalog rows', () => {
+    const root = mkdtempSync(join(tmpdir(), 'looptv-process-catalog-states-'));
+    const sources = join(root, 'sources');
+    const stationsPath = join(root, 'stations.json');
+    const outputPath = join(root, 'catalog.json');
+    const previousFetch = '2026-06-01T00:00:00.000Z';
+    const partialFetchedAt = new Date().toISOString();
+    mkdirSync(sources);
+    writeFileSync(
+      stationsPath,
+      JSON.stringify([
+        {
+          id: 'science',
+          sources: [
+            { handle: '@partial', name: 'Partial Source', topPercentile: 100 },
+            { handle: '@empty', name: 'Empty Source', topPercentile: 100 },
+          ],
+        },
+      ])
+    );
+    writeFileSync(
+      outputPath,
+      JSON.stringify({
+        lastUpdated: previousFetch,
+        sourceMeta: {
+          partial: { lastSuccessfulFetch: previousFetch, videoCount: 20 },
+          empty: { lastSuccessfulFetch: previousFetch, videoCount: 10 },
+        },
+        stations: {
+          science: {
+            videos: [
+              {
+                id: 'empty-preserved',
+                title: 'Empty preserved',
+                duration: 300,
+                tags: ['Empty Source'],
+                source: 'Empty Source',
+                viewCount: 30_000,
+              },
+            ],
+            categoryVideoIds: {},
+          },
+        },
+      })
+    );
+    writeFileSync(
+      join(sources, 'partial.jsonl'),
+      `${[
+        {
+          id: 'partial-live',
+          title: 'Partial live',
+          duration: 300,
+          view_count: 40_000,
+          _looptvFetchedAt: partialFetchedAt,
+        },
+        {
+          id: 'partial-fallback',
+          title: 'Partial fallback',
+          duration: 300,
+          view_count: 35_000,
+          _looptvCatalogFallback: true,
+        },
+      ]
+        .map((row) => JSON.stringify(row))
+        .join('\n')}\n`
+    );
+    writeFileSync(join(sources, 'empty.jsonl'), '');
+
+    const result = spawnSync(
+      process.execPath,
+      [resolve('scripts/process-catalog.mjs'), sources, outputPath],
+      { encoding: 'utf8', env: { ...process.env, STATIONS_PATH: stationsPath } }
+    );
+    expect(result.status, result.stderr).toBe(0);
+
+    const catalog = JSON.parse(readFileSync(outputPath, 'utf8'));
+    expect(catalog.refreshStatus).toMatchObject({
+      complete: false,
+      partialSources: 1,
+      emptySources: 1,
+      freshSources: 0,
+    });
+    expect(catalog.sourceMeta.partial).toMatchObject({
+      refreshState: 'partial',
+      fetchedAt: partialFetchedAt,
+      lastSuccessfulFetch: previousFetch,
+    });
+    expect(catalog.sourceMeta.empty).toMatchObject({
+      refreshState: 'empty',
+      lastSuccessfulFetch: previousFetch,
+      selectedCount: 1,
+    });
+    expect(catalog.stations.science.videos.map((video: { id: string }) => video.id)).toContain(
+      'empty-preserved'
+    );
+  });
+
   it('advances freshness only when live source coverage is complete', () => {
     const root = mkdtempSync(join(tmpdir(), 'looptv-process-catalog-live-'));
     const sources = join(root, 'sources');
     const stationsPath = join(root, 'stations.json');
     const outputPath = join(root, 'catalog.json');
+    const fetchedAt = new Date().toISOString();
     mkdirSync(sources);
     writeFileSync(
       stationsPath,
@@ -177,6 +275,9 @@ describe('process-catalog', () => {
         title: 'Live video',
         duration: 300,
         view_count: 42_000,
+        _looptvFetchedAt: fetchedAt,
+        _looptvPreselected: true,
+        _looptvCandidateCount: 400,
       })}\n`
     );
 
@@ -194,5 +295,7 @@ describe('process-catalog', () => {
       totalSources: 1,
     });
     expect(catalog.lastUpdated).not.toBe('2026-06-01T00:00:00.000Z');
+    expect(catalog.sourceMeta.live.lastSuccessfulFetch).toBe(fetchedAt);
+    expect(catalog.sourceMeta.live.videoCount).toBe(400);
   });
 });

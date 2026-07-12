@@ -4,11 +4,11 @@ Last updated: 2026-07-12
 
 ## Why/What
 
-**Thesis:** TV-like web app for random YouTube playback from curated channels — lean-back, zero API keys. Maintainers edit `stations.json`; bi-weekly CI refreshes `catalog.json` with yt-dlp + AI gateway tagging.
+**Thesis:** TV-like web app for random YouTube playback from curated channels — lean-back and keyless at runtime. Maintainers edit `stations.json`; bi-weekly CI refreshes `catalog.json` through a cache-first YouTube Data API path with yt-dlp fallback and incremental AI tagging.
 
 **In scope:** Static Next.js export on Cloudflare Pages, YouTube IFrame Player, client-side watch history, playback diagnostics, source health auto-quarantine, lean-back controls redesign.
 
-**Out / parked:** User accounts, server-side catalog, YouTube Data API (hard constraint: zero API keys), playlists/likes/subscriptions as cloud features.
+**Out / parked:** User accounts, server-side catalog, playlists/likes/subscriptions as cloud features.
 
 ## Dependencies
 
@@ -16,7 +16,7 @@ Last updated: 2026-07-12
 
 - **Hosting:** Cloudflare Pages `looptv.pages.dev`.
 - **Playback:** YouTube IFrame Player API (free) — no YouTube Data API keys.
-- **Catalog build:** yt-dlp + `scripts/process-catalog.mjs` + `scripts/extract-tags.py` (dslim/bert-base-NER).
+- **Catalog build:** cache-first YouTube Data API + yt-dlp fallback + `scripts/process-catalog.mjs` + free-AI incremental tagging.
 - **Analytics:** PostHog via local wrapper (optional; no PII beyond analytics config).
 - **State:** Browser `localStorage` only — no DB, no auth.
 
@@ -32,7 +32,7 @@ Last updated: 2026-07-12
 | Hosting | Cloudflare Pages `looptv.pages.dev` |
 | Catalog | `public/catalog.json` (static); config `stations.json` |
 | Playback | YouTube IFrame Player API (free) |
-| Catalog build | yt-dlp + process-catalog + extract-tags (HuggingFace NER) |
+| Catalog build | YouTube Data API + yt-dlp fallback + process-catalog + free-AI tagging |
 | State | Browser `localStorage` only |
 
 ```bash
@@ -42,13 +42,14 @@ pnpm build | pnpm cf:build
 pnpm deploy                  # build + wrangler pages deploy out --project-name=looptv
 pnpm test                    # vitest
 pnpm lint | pnpm typecheck | pnpm check   # biome
-bash scripts/build-catalog.sh            # requires yt-dlp
+bash scripts/fetch-sources.sh             # YOUTUBE_API_KEY preferred; yt-dlp fallback
+bash scripts/build-catalog.sh --process-only
 python3 scripts/extract-tags.py          # requires requirements-ner.txt
 bash scripts/fetch-all-sources.sh
 ```
 
 ```
-stations.json → build-catalog.sh (yt-dlp metadata)
+stations.json → fetch-sources.sh (cache → Data API → yt-dlp fallback)
              → process-catalog.mjs (merge, preserve NER tags)
              → extract-tags.py (HuggingFace NER: people, places, categories)
              → catalog.json (committed, served statically)
@@ -57,13 +58,14 @@ stations.json → build-catalog.sh (yt-dlp metadata)
 
 **Stats (current):** 17 stations, 149 channels (~38K videos until next catalog rebuild); global 10K views minimum filter; per-source min/max duration in `stations.json`.
 
-**CI:** `.github/workflows/fetch-catalog-sources.yml` (4 parallel fetch shards, bi-weekly) → `.github/workflows/build-catalog.yml` (merge, process, tag, commit); `.github/workflows/deploy.yml` on push to main.
+**CI:** `.github/workflows/fetch-catalog-sources.yml` (8 fetch shards, 1st/15th, cache-first) → `.github/workflows/build-catalog.yml` (merge, process, incremental tag, audit, commit); `.github/workflows/deploy.yml` on push to main.
 
 ## Timeline
 
 - **2026-05-25:** React hydration error fix (fleet-smoke task done).
 - **PRD cycle:** Playback diagnostics, source health auto-pruning, lean-back controls redesign — all shipped.
-- **Weekly CI:** catalog rebuild may auto-commit on the 1st and 15th; maintainer review expected for station diffs.
+- **2026-07-12:** quota-aware YouTube Data API refresh path added; repository secrets synchronized from Infisical; yt-dlp retained as fallback.
+- **Bi-weekly CI:** catalog rebuild may auto-commit on the 1st and 15th; maintainer review expected for station diffs.
 
 ## Products
 
@@ -114,7 +116,8 @@ stations.json → build-catalog.sh (yt-dlp metadata)
 ### Quality & maintenance
 
 - Fork-friendly: edit `stations.json` and deploy.
-- **Top-content policy:** global 10K-view minimum (requires full yt-dlp metadata — no `--flat-playlist`); per-source duration filters; top-N% by views per channel plus 200-video cap (`scripts/catalog-quality.mjs`); catalog build refuses output below threshold. Normal playback samples the full curated pool; Smart Mix retains ranked top-band selection.
+- **Top-content policy:** global 10K-view minimum (requires full metadata); per-source duration filters; top-N% by views per channel plus 200-video cap (`scripts/catalog-quality.mjs`); catalog build refuses output below threshold. Normal playback samples the full curated pool; Smart Mix retains ranked top-band selection.
+- **Quota-aware refresh (2026-07-12):** 13-day cache gate, 250-video discovery ceiling, known-ID pagination stop, 50-ID metadata batches, 20-request per-source hard stop, per-shard request reporting, and no YouTube calls from build/deploy. Free-AI is called only when untagged videos exist.
 - **Catalog audit (2026-07-03, enhanced):** `catalog-manifest.json` baselines + `scripts/validate-catalog-manifest.mjs` hard-fail the Build Catalog workflow on suspicious swings (station disappearing/empty, per-station drop > max(30%, 5), total drop > 20%, per-station video churn > 50% — catches silent swaps where counts stay stable but the video set changes); per-station count diff + per-video changelog (added/removed/title-changed, with removed titles) land in the job summary and commit message; `override_audit` dispatch input / `CATALOG_AUDIT_OVERRIDE=1` for intentional changes. Manifest stores both per-station counts and a per-video map (`{ videoId: { t, d } }`) so each audit diffs against the previous run's exact video set. See `docs/catalog-auditability.md`.
 - **Catalog integrity (2026-07-12):** raw source caches are separated from checked-in fallback rows; tiny partial enrichments are rejected; catalog generation time is separate from last complete refresh; per-source provenance and 80% fresh-coverage gates prevent false-green refreshes; `scripts/audit-catalog-health.mjs` reports every configured channel grouped by station.
 
@@ -127,15 +130,13 @@ stations.json → build-catalog.sh (yt-dlp metadata)
 ### Deferred
 
 - User accounts, cloud playlists, likes, subscriptions.
-- YouTube Data API — zero API keys remains a hard constraint.
 - Server-side catalog or watch sync while static catalog stays reliable.
 - Recommendation engine beyond Smart Mix local weights.
 
 ### Blocked
 
 - Catalog freshness depends on weekly GitHub Action — stale catalog shows diagnostics banner but no push notification.
-- GitHub-hosted runners can hit YouTube bot detection; the catalog fallback preserves shipped sources but cannot discover videos for a source until a live fetch succeeds.
-- The July 12 audit found only 1/122 fully fresh sources after rejecting partial/fallback contamination; a new complete source fetch is required before catalog freshness can advance.
+- The July 12 audit found only 1/122 fully fresh sources after rejecting partial/fallback contamination; the first bounded Data API refresh must pass catalog coverage and churn audits before freshness advances.
 - Legacy local NER rebuilds require `requirements-ner.txt`; scheduled CI tagging uses the free-AI gateway.
 - Blocked/quarantined state is per-browser — not portable across devices.
 - Production: `looptv.pages.dev` via Cloudflare Pages static export.

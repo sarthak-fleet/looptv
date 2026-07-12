@@ -97,6 +97,23 @@ describe('catalog quality', () => {
     });
   });
 
+  it('deduplicates, sorts, and caps API-preselected rows without another percentile', () => {
+    const sourceVideos = [
+      ...Array.from({ length: 205 }, (_, index) => ({
+        id: `api-${index}`,
+        view_count: 100_000 - index,
+        _looptvPreselected: true,
+      })),
+      { id: 'api-0', view_count: 200_000, _looptvPreselected: true },
+    ];
+    const result = applySourceQualityFilter(sourceVideos, { topPercentile: 3 });
+
+    expect(result.mode).toBe('preselected');
+    expect(result.pct).toBeNull();
+    expect(result.filtered).toHaveLength(200);
+    expect(result.filtered[0].id).toBe('api-0');
+  });
+
   it('refuses to ship catalog entries below the view threshold', () => {
     expect(() => validateCatalogVideo({ id: 'x', viewCount: 0 })).toThrow();
     expect(() =>

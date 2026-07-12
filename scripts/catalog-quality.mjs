@@ -48,6 +48,13 @@ export function qualifiesRawVideo(raw, minDur, maxDur) {
 }
 
 export function applySourceQualityFilter(sourceVideos, source) {
+  if (sourceVideos.length > 0 && sourceVideos.every((raw) => raw._looptvPreselected === true)) {
+    const selected = [...new Map(sourceVideos.map((raw) => [raw.id, raw])).values()]
+      .sort((a, b) => b.view_count - a.view_count)
+      .slice(0, MAX_VIDEOS_PER_SOURCE);
+    return { filtered: selected, pct: null, mode: 'preselected' };
+  }
+
   if (sourceVideos.some((raw) => raw._looptvCatalogFallback === true)) {
     const merged = [...new Map(sourceVideos.map((raw) => [raw.id, raw])).values()]
       .sort((a, b) => b.view_count - a.view_count)

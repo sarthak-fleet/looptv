@@ -15,6 +15,7 @@ permissions:
 
 jobs:
   fetch:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 120
     strategy:
@@ -39,10 +40,13 @@ jobs:
 
       - name: Fetch source shard
         env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           SHARD_INDEX: ${{ matrix.shard }}
           SHARD_TOTAL: 8
           FETCH_CONCURRENCY: "2"
           CACHE_MAX_AGE_DAYS: "13"
+          YOUTUBE_RECENT_VIDEO_LIMIT: "250"
+          YOUTUBE_MAX_REQUESTS_PER_SOURCE: "20"
           YT_DLP_RETRIES: "2"
           YT_DLP_TIMEOUT_MS: "600000"
           RETRY_MISSING: "false"

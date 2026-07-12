@@ -1,4 +1,4 @@
-// Fast per-channel fetch: flat playlist listing, then one bounded enrich call.
+// Cache-first per-channel fetch: bounded YouTube Data API, then yt-dlp fallback.
 // Usage: node scripts/fetch-channel.mjs @handle [--fresh]
 
 import fs from 'node:fs';
@@ -7,13 +7,16 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import {
   MAX_VIDEOS_PER_SOURCE,
+  MIN_VIEW_COUNT,
   hasViewCountsInJsonl,
   resolveTopPercentile,
 } from './catalog-quality.mjs';
+import { fetchYouTubeSource } from './youtube-data-api.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, '..', 'data', 'sources');
 const STATIONS_PATH = path.join(__dirname, '..', 'stations.json');
+const CATALOG_PATH = path.join(__dirname, '..', 'public', 'catalog.json');
 
 const MIN_CACHE_ROWS = Number(process.env.MIN_CACHE_ROWS_TO_TRUST || 5);
 const CACHE_MAX_AGE_DAYS = Number(process.env.CACHE_MAX_AGE_DAYS || 13);
@@ -93,10 +96,55 @@ function sleepSeconds(seconds) {
   spawnSync('sleep', [String(seconds)], { encoding: 'utf8' });
 }
 
-function cacheIsFresh(filePath) {
-  const mtimeMs = fs.statSync(filePath).mtimeMs;
-  const ageDays = (Date.now() - mtimeMs) / 86_400_000;
-  return ageDays <= CACHE_MAX_AGE_DAYS;
+export function cacheQualifies({ fresh, cachedLines, hasViewCounts, ageDays, trustedApi }) {
+  const minimumRows = trustedApi ? 1 : MIN_CACHE_ROWS;
+  return !fresh && cachedLines >= minimumRows && hasViewCounts && ageDays <= CACHE_MAX_AGE_DAYS;
+}
+
+function priorCatalogCandidateCount(handle) {
+  try {
+    const catalog = JSON.parse(fs.readFileSync(CATALOG_PATH, 'utf8'));
+    return Number(catalog.sourceMeta?.[handle]?.videoCount || 0);
+  } catch {
+    return 0;
+  }
+}
+
+export function selectApiWorkingSet(rows, source, cachedRows = [], previousCandidateCount = 0) {
+  const qualifying = [
+    ...new Map(
+      rows
+        .filter((row) => typeof row.view_count === 'number' && row.view_count >= MIN_VIEW_COUNT)
+        .map((row) => [row.id, row])
+    ).values(),
+  ];
+  const recordedCandidateCount = cachedRows.reduce(
+    (max, row) => Math.max(max, Number(row._looptvCandidateCount || 0)),
+    0
+  );
+  const candidateCount = Math.max(
+    recordedCandidateCount,
+    cachedRows.length,
+    Number(previousCandidateCount || 0),
+    qualifying.length
+  );
+  const pct = resolveTopPercentile(source, candidateCount);
+  const selectionLimit = Math.min(
+    MAX_VIDEOS_PER_SOURCE,
+    Math.max(1, Math.ceil(candidateCount * (pct / 100)))
+  );
+  return {
+    candidateCount,
+    pct,
+    rows: qualifying
+      .sort((a, b) => b.view_count - a.view_count)
+      .slice(0, selectionLimit)
+      .map((row) => ({
+        ...row,
+        _looptvPreselected: true,
+        _looptvCandidateCount: candidateCount,
+      })),
+  };
 }
 
 /** Duration-only at fetch time; view-count + top-N applied in process-catalog.mjs */
@@ -158,11 +206,64 @@ export function runYtDlpLines(args, { retries = YT_DLP_RETRIES } = {}) {
   throw lastError || new Error('yt-dlp failed with no output');
 }
 
-function writeJsonl(filePath, rows) {
+function writeJsonl(filePath, rows, fetchedAt = new Date().toISOString()) {
   fs.writeFileSync(
     filePath,
-    rows.map((row) => JSON.stringify(row)).join('\n') + (rows.length ? '\n' : '')
+    rows
+      .map((row) => ({
+        ...row,
+        ...(row._looptvCatalogFallback === true || row._looptvFetchedAt
+          ? {}
+          : { _looptvFetchedAt: fetchedAt }),
+      }))
+      .map((row) => JSON.stringify(row))
+      .join('\n') + (rows.length ? '\n' : '')
   );
+}
+
+function readCachedRows(outputPath) {
+  if (!fs.existsSync(outputPath) || fs.statSync(outputPath).size === 0) return [];
+  return parseJsonLines(fs.readFileSync(outputPath, 'utf8'));
+}
+
+export async function refreshFromYouTubeApi({
+  source,
+  outputPath,
+  minDur,
+  maxDur,
+  previousCandidateCount = 0,
+  apiKey = process.env.YOUTUBE_API_KEY,
+  fetchImpl = globalThis.fetch,
+}) {
+  const cachedRows = readCachedRows(outputPath);
+  const apiResult = await fetchYouTubeSource(source, cachedRows, { apiKey, fetchImpl });
+  if (apiResult.discoveredCount > 0 && apiResult.rows.length === 0) {
+    const error = new Error('YouTube Data API returned no public embeddable video metadata');
+    error.apiRequests = apiResult.apiRequests;
+    throw error;
+  }
+
+  const selection = selectApiWorkingSet(
+    filterFlatByDuration(apiResult.rows, minDur, maxDur),
+    source,
+    cachedRows,
+    previousCandidateCount
+  );
+  if (selection.rows.length === 0 && cachedRows.length > 0) {
+    const error = new Error('YouTube Data API produced no qualifying replacement rows');
+    error.apiRequests = apiResult.apiRequests;
+    throw error;
+  }
+
+  writeJsonl(outputPath, selection.rows);
+  return { selection, apiResult };
+}
+
+function stampLegacyCache(outputPath) {
+  const rows = readCachedRows(outputPath);
+  if (rows.length === 0 || rows.every((row) => row._looptvFetchedAt)) return;
+  const originalFetchedAt = fs.statSync(outputPath).mtime.toISOString();
+  writeJsonl(outputPath, rows, originalFetchedAt);
 }
 
 function readCachedCount(outputPath) {
@@ -181,6 +282,25 @@ function cacheFallback(safe, outputPath, reason) {
   return { handle: safe, mode: 'failed', count: 0 };
 }
 
+export function handleEmptyDurationResult({
+  safe,
+  outputPath,
+  minDur,
+  maxDur,
+  flatCount,
+  apiRequests = 0,
+}) {
+  if (readCachedCount(outputPath) > 0) {
+    return {
+      ...cacheFallback(safe, outputPath, `flat produced no videos in ${minDur}-${maxDur}s range`),
+      apiRequests,
+    };
+  }
+  writeJsonl(outputPath, []);
+  console.log(`  @${safe.padEnd(30)} empty flat=${flatCount}`);
+  return { handle: safe, mode: 'empty', count: 0, apiRequests, flatCount };
+}
+
 function enrichPlaylist(channelUrl, playlistEnd, minDur, maxDur) {
   return runYtDlpLines([
     ...ytDlpBaseArgs(),
@@ -193,7 +313,7 @@ function enrichPlaylist(channelUrl, playlistEnd, minDur, maxDur) {
   ]);
 }
 
-export function fetchChannel(handle, { fresh = false } = {}) {
+export async function fetchChannel(handle, { fresh = false } = {}) {
   const source = findSourceByHandle(handle);
   const safe = handle.replace(/^@/, '');
   const outputPath = path.join(DATA_DIR, `${safe}.jsonl`);
@@ -203,15 +323,49 @@ export function fetchChannel(handle, { fresh = false } = {}) {
 
   fs.mkdirSync(DATA_DIR, { recursive: true });
 
-  if (!fresh && fs.existsSync(outputPath) && fs.statSync(outputPath).size > 0) {
+  if (fs.existsSync(outputPath) && fs.statSync(outputPath).size > 0) {
     const cachedLines = readCachedCount(outputPath);
+    const cachedRows = readCachedRows(outputPath);
+    const ageDays = (Date.now() - fs.statSync(outputPath).mtimeMs) / 86_400_000;
     if (
-      cachedLines >= MIN_CACHE_ROWS &&
-      hasViewCountsInJsonl(outputPath, fs) &&
-      cacheIsFresh(outputPath)
+      cacheQualifies({
+        fresh,
+        cachedLines,
+        hasViewCounts: hasViewCountsInJsonl(outputPath, fs),
+        ageDays,
+        trustedApi: cachedRows.every((row) => row._looptvFetchProvider === 'youtube-data-api'),
+      })
     ) {
+      stampLegacyCache(outputPath);
       console.log(`  @${safe.padEnd(30)} CACHED (${cachedLines} videos)`);
-      return { handle: safe, mode: 'cached', count: cachedLines };
+      return { handle: safe, mode: 'cached', count: cachedLines, apiRequests: 0 };
+    }
+  }
+
+  let failedApiRequests = 0;
+  if (process.env.YOUTUBE_API_KEY && source.channelId) {
+    try {
+      const { selection, apiResult } = await refreshFromYouTubeApi({
+        source,
+        outputPath,
+        minDur,
+        maxDur,
+        previousCandidateCount: priorCatalogCandidateCount(safe),
+      });
+      console.log(
+        `  @${safe.padEnd(30)} youtube-api recent=${apiResult.discoveredCount} candidates=${selection.candidateCount} selected=${selection.rows.length} top=${selection.pct}% requests=${apiResult.apiRequests}${apiResult.stoppedAtKnown ? ' known-stop' : ''}`
+      );
+      return {
+        handle: safe,
+        mode: 'youtube-api',
+        count: selection.rows.length,
+        apiRequests: apiResult.apiRequests,
+        playlistRequests: apiResult.playlistRequests,
+        videoRequests: apiResult.videoRequests,
+      };
+    } catch (error) {
+      failedApiRequests = error.apiRequests || 0;
+      console.warn(`  @${safe.padEnd(30)} YouTube API failed (${error.message}); trying yt-dlp`);
     }
   }
 
@@ -219,16 +373,24 @@ export function fetchChannel(handle, { fresh = false } = {}) {
   try {
     flat = runYtDlpLines([...ytDlpBaseArgs(), '--flat-playlist', '--dump-json', channelUrl]);
   } catch (error) {
-    return cacheFallback(safe, outputPath, `flat failed (${error.message.slice(0, 80)})`);
+    return {
+      ...cacheFallback(safe, outputPath, `flat failed (${error.message.slice(0, 80)})`),
+      apiRequests: failedApiRequests,
+    };
   }
 
   const durationFiltered = filterFlatByDuration(flat, minDur, maxDur);
   const budget = computeEnrichBudget(durationFiltered.length, source);
 
   if (durationFiltered.length === 0) {
-    writeJsonl(outputPath, []);
-    console.log(`  @${safe.padEnd(30)} empty flat=${flat.length}`);
-    return { handle: safe, mode: 'empty', count: 0 };
+    return handleEmptyDurationResult({
+      safe,
+      outputPath,
+      minDur,
+      maxDur,
+      flatCount: flat.length,
+      apiRequests: failedApiRequests,
+    });
   }
 
   const isSmall = durationFiltered.length <= SMALL_CHANNEL_ENRICH_ALL;
@@ -240,26 +402,35 @@ export function fetchChannel(handle, { fresh = false } = {}) {
   try {
     enriched = enrichPlaylist(enrichUrl, playlistEnd, minDur, maxDur);
   } catch (error) {
-    return cacheFallback(safe, outputPath, `enrich failed (${error.message.slice(0, 80)})`);
+    return {
+      ...cacheFallback(safe, outputPath, `enrich failed (${error.message.slice(0, 80)})`),
+      apiRequests: failedApiRequests,
+    };
   }
 
   if (enriched.length > 0 && enriched.some((row) => typeof row.view_count === 'number')) {
     const liveRows = [...new Map(enriched.map((row) => [row.id, row])).values()];
     if (!isEnrichmentComplete(liveRows.length, durationFiltered.length, budget)) {
-      return cacheFallback(
-        safe,
-        outputPath,
-        `incomplete enrich (${liveRows.length}/${minimumCompleteEnrichment(durationFiltered.length, budget)} minimum)`
-      );
+      return {
+        ...cacheFallback(
+          safe,
+          outputPath,
+          `incomplete enrich (${liveRows.length}/${minimumCompleteEnrichment(durationFiltered.length, budget)} minimum)`
+        ),
+        apiRequests: failedApiRequests,
+      };
     }
     writeJsonl(outputPath, liveRows);
     console.log(
       `  @${safe.padEnd(30)} ${mode} flat=${flat.length} dur=${durationFiltered.length} enriched=${liveRows.length}`
     );
-    return { handle: safe, mode, count: liveRows.length };
+    return { handle: safe, mode, count: liveRows.length, apiRequests: failedApiRequests };
   }
 
-  return cacheFallback(safe, outputPath, 'enrich produced no view counts');
+  return {
+    ...cacheFallback(safe, outputPath, 'enrich produced no view counts'),
+    apiRequests: failedApiRequests,
+  };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
@@ -271,6 +442,10 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     process.exit(1);
   }
 
-  fetchChannel(handleArg.startsWith('@') ? handleArg : `@${handleArg}`, { fresh });
-  process.exit(0);
+  const result = await fetchChannel(handleArg.startsWith('@') ? handleArg : `@${handleArg}`, {
+    fresh,
+  });
+  if (process.env.FETCH_METRICS_FILE) {
+    fs.appendFileSync(process.env.FETCH_METRICS_FILE, `${JSON.stringify(result)}\n`);
+  }
 }

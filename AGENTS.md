@@ -11,7 +11,7 @@ This version has breaking changes -- APIs, conventions, and file structure may a
 # agents.md — LoopTV
 
 ## Purpose
-TV-like random YouTube player with 13 stations, 78 channels, and ~38K videos — zero API keys needed for playback or catalog building.
+TV-like random YouTube player with 16 stations and 122 curated channels. Playback needs no API key; scheduled catalog refreshes use repository-scoped YouTube Data API and free-AI gateway keys with cache-first fallbacks.
 
 ## Stack
 - Framework: Next.js 16 (App Router, webpack — `next build --webpack`)
@@ -28,10 +28,10 @@ TV-like random YouTube player with 13 stations, 78 channels, and ~38K videos —
 stations.json               # Station definitions + YouTube channel handles (primary config)
 channels.config.ts          # Re-exports stations.json as typed TS
 public/catalog.json         # Generated video catalog (~38K entries) — committed to repo
-data/sources/               # Raw JSONL from yt-dlp (gitignored)
+data/sources/               # Raw JSONL from YouTube Data API or yt-dlp fallback (gitignored)
 scripts/
   build-catalog.sh          # Full pipeline: fetch + process + NER tag
-  fetch-all-sources.sh      # yt-dlp fetch → data/sources/*.jsonl
+  fetch-all-sources.sh      # cache-first metadata fetch → data/sources/*.jsonl
   process-catalog.mjs       # Merge JSONL into catalog.json, preserve existing NER tags
   tag-videos.mjs            # Additional tagging step
   extract-tags.py           # HuggingFace NER (dslim/bert-base-NER) tagging
@@ -62,7 +62,7 @@ pnpm build            # Production build
 pnpm test             # vitest run
 pnpm lint             # eslint
 
-# Catalog pipeline (requires yt-dlp: brew install yt-dlp)
+# Catalog pipeline (YOUTUBE_API_KEY preferred; yt-dlp fallback)
 pnpm run build:catalog    # Fetch + process only (no NER — use `build:ner` separately)
 pnpm run fetch:all        # Fetch raw JSONL for all sources
 pnpm run build:ner        # Run NER tagging only
@@ -75,9 +75,10 @@ python3 scripts/extract-tags.py
 ## Architecture notes
 - **100% client-side playback.** `TVApp.tsx` and `Player.tsx` are `"use client"`. Server renders only the shell; `catalog.json` fetched client-side via `fetch('/catalog.json')`.
 - **Static catalog committed to repo.** Weekly GH Actions cron rebuilds it — only new/untagged videos go through NER to keep CI fast.
-- **Catalog pipeline**: `stations.json` → yt-dlp → JSONL → `process-catalog.mjs` (merge + dedup, preserves NER tags) → `extract-tags.py` (NER on untagged only) → `public/catalog.json`.
+- **Catalog pipeline**: `stations.json` → recent-cache gate → YouTube Data API (bounded uploads + 50-ID metadata batches) or yt-dlp fallback → JSONL → `process-catalog.mjs` (merge + dedup, preserves tags) → free-AI tagging on untagged videos only → `public/catalog.json`.
 - **Embed error handling**: YouTube errors 101/150 (embedding blocked) caught by `Player.tsx` → auto-skip.
-- **Quality filters**: per-source `minDuration`/`maxDuration` in `stations.json`; global 10K views minimum in `process-catalog.mjs` (requires full yt-dlp metadata, not `--flat-playlist`); top-N% + 200-video cap per source in `scripts/catalog-quality.mjs`.
+- **Quality filters**: per-source `minDuration`/`maxDuration` in `stations.json`; global 10K views minimum in `process-catalog.mjs` (requires full video metadata); top-N% + 200-video cap per source in `scripts/catalog-quality.mjs`.
+- **Quota controls**: source fetch runs only on the 1st/15th or manual dispatch; complete caches younger than 13 days use zero YouTube requests; stale/missing sources scan at most 250 recent uploads, stop at known IDs, batch 50 IDs per metadata request, and hard-stop at 20 requests per source. Builds/deploys never receive the YouTube key.
 - **Catalog audit**: `scripts/validate-catalog-manifest.mjs` compares generated catalog against checked-in `catalog-manifest.json` baselines and hard-fails CI on suspicious station drops — see `docs/catalog-auditability.md` for thresholds and overrides.
 - **Adding a station**: add entry to `stations.json`, run `pnpm run build:catalog`, commit updated `catalog.json`.
 - **webpack** used (`next build --webpack`) — Turbopack is not enabled.

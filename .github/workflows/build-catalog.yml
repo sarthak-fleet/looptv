@@ -25,7 +25,9 @@ permissions:
 
 jobs:
   build:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: >-
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
+      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     timeout-minutes: 60
 
@@ -119,6 +121,7 @@ jobs:
 
       - name: Smoke test AI gateway
         id: gateway-smoke
+        if: steps.pending-tags-before.outputs.count != '0'
         continue-on-error: true
         env:
           FAGW_API_KEY: ${{ secrets.FAGW_API_KEY }}
@@ -133,16 +136,12 @@ jobs:
         run: node scripts/tag-videos.mjs
 
       - name: Note unavailable AI tagging
-        if: steps.gateway-smoke.outcome != 'success'
+        if: steps.pending-tags-before.outputs.count != '0' && steps.gateway-smoke.outcome != 'success'
         env:
           GATEWAY_STATUS: ${{ steps.gateway-smoke.outputs.status }}
           PENDING_TAGS: ${{ steps.pending-tags-before.outputs.count }}
         run: |
-          if [ "$PENDING_TAGS" = "0" ]; then
-            echo "::warning::AI gateway ${GATEWAY_STATUS:-unknown}; no pending videos, continuing."
-          else
-            echo "::warning::AI gateway ${GATEWAY_STATUS:-unknown}; cache and audit will continue, but shipping ${PENDING_TAGS} pending videos is blocked."
-          fi
+          echo "::warning::AI gateway ${GATEWAY_STATUS:-unknown}; cache and audit will continue, but shipping ${PENDING_TAGS} pending videos is blocked."
 
       - name: Count videos still needing AI tags
         id: pending-tags-final
@@ -158,7 +157,11 @@ jobs:
         run: |
           {
             echo "### Catalog AI tagging"
-            echo "- Gateway status: ${GATEWAY_STATUS:-unknown}"
+            if [ "${PENDING_TAGS_BEFORE:-0}" = "0" ]; then
+              echo "- Gateway status: not called (no pending tags)"
+            else
+              echo "- Gateway status: ${GATEWAY_STATUS:-unknown}"
+            fi
             echo "- Pending videos before tagging: ${PENDING_TAGS_BEFORE:-unknown}"
             echo "- Pending videos after tagging: ${PENDING_TAGS_FINAL:-unknown}"
           } >> "$GITHUB_STEP_SUMMARY"
