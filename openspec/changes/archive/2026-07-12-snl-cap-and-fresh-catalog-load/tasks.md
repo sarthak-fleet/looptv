@@ -14,4 +14,4 @@
 
 - [x] 3.1 Run the bounded full-history audit and verify only SNL is invalidated and selected at 1,000.
 - [x] 3.2 Process and incrementally tag the catalog, then verify health, manifest changes, tests, lint, typecheck, and production build.
-- [ ] 3.3 Update project status, archive the specification, commit, push, deploy, and verify production SNL count and catalog freshness behavior.
+- [x] 3.3 Update project status, archive the specification, commit, push, deploy, and verify production SNL count and catalog freshness behavior.

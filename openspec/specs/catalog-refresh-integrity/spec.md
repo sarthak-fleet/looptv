@@ -43,5 +43,5 @@ The builder MUST preserve previously curated fallback videos without reapplying 
 
 #### Scenario: Fallback-only source
 - **WHEN** every qualifying artifact row is a catalog fallback
-- **THEN** the builder deduplicates, sorts by views, applies the per-source cap, and labels the operation as preservation
+- **THEN** the builder deduplicates, sorts by views, applies the source's configured video cap or the 200-video default, and labels the operation as preservation
 
