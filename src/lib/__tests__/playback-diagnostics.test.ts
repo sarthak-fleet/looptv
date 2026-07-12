@@ -95,4 +95,22 @@ describe('derivePlaybackDiagnostic', () => {
       action: 'retry_catalog',
     });
   });
+
+  it('routes incomplete refreshes to channel health', () => {
+    expect(
+      derivePlaybackDiagnostic({
+        catalogLoaded: true,
+        catalogLoadFailed: false,
+        catalogFreshness: {
+          state: 'incomplete',
+          label: 'Latest refresh covered 7% of sources',
+          ageDays: null,
+          updatedAt: null,
+        },
+      })
+    ).toMatchObject({
+      kind: 'catalog_incomplete',
+      action: 'open_health',
+    });
+  });
 });

@@ -73,7 +73,7 @@ describe('catalog quality', () => {
     const { filtered, pct } = applySourceQualityFilter(sourceVideos, {});
 
     expect(filtered).toHaveLength(200);
-    expect(pct).toBe(100);
+    expect(pct).toBeNull();
   });
 
   it('preserves fallback rows while admitting live rows', () => {
@@ -85,7 +85,16 @@ describe('catalog quality', () => {
     const { filtered, pct } = applySourceQualityFilter(sourceVideos, {});
 
     expect(filtered.map((video) => video.id)).toEqual(['live', 'fallback']);
-    expect(pct).toBe(100);
+    expect(pct).toBeNull();
+  });
+
+  it('labels fallback preservation separately from percentile selection', () => {
+    const sourceVideos = [{ id: 'fallback', view_count: 20_000, _looptvCatalogFallback: true }];
+
+    expect(applySourceQualityFilter(sourceVideos, {})).toMatchObject({
+      mode: 'preserved',
+      pct: null,
+    });
   });
 
   it('refuses to ship catalog entries below the view threshold', () => {

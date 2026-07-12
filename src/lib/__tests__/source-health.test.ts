@@ -86,4 +86,39 @@ describe('source-health', () => {
     expect(counts.fresh).toBe(1);
     expect(counts.quarantined).toBe(1);
   });
+
+  it('does not report absent source metadata as fresh', () => {
+    expect(
+      resolveSourceHealthState({
+        sourceName: 'Missing',
+        blockedSources: new Set(),
+        quarantinedSources: new Set(),
+      })
+    ).toBe('missing');
+  });
+
+  it('surfaces partial and fallback refresh provenance', () => {
+    const recent = new Date().toISOString();
+    const base = {
+      fetchedAt: recent,
+      lastSuccessfulFetch: recent,
+      videoCount: 10,
+    };
+    expect(
+      resolveSourceHealthState({
+        sourceName: 'Partial',
+        meta: { ...base, refreshState: 'partial' },
+        blockedSources: new Set(),
+        quarantinedSources: new Set(),
+      })
+    ).toBe('partial');
+    expect(
+      resolveSourceHealthState({
+        sourceName: 'Fallback',
+        meta: { ...base, refreshState: 'fallback' },
+        blockedSources: new Set(),
+        quarantinedSources: new Set(),
+      })
+    ).toBe('fallback');
+  });
 });

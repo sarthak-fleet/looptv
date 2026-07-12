@@ -39,17 +39,40 @@ export interface SourceMeta {
   fetchedAt: string;
   lastSuccessfulFetch: string; // empty string if source has never yielded videos
   videoCount: number;
+  selectedCount?: number;
+  liveVideoCount?: number;
+  fallbackVideoCount?: number;
+  refreshState?: 'live' | 'partial' | 'fallback' | 'empty' | 'missing';
   embedHealth?: SourceEmbedHealth;
+}
+
+export interface CatalogRefreshStatus {
+  generatedAt: string;
+  complete: boolean;
+  requiredFreshCoverage: number;
+  freshCoverage: number;
+  totalSources: number;
+  liveSources: number;
+  freshSources: number;
+  staleSources: number;
+  partialSources: number;
+  fallbackSources: number;
+  emptySources: number;
+  missingSources: number;
 }
 
 export interface Catalog {
   lastUpdated: string;
+  generatedAt?: string;
+  refreshStatus?: CatalogRefreshStatus;
   sourceMeta?: Record<string, SourceMeta>; // keyed by YouTube handle (without @)
   stations: Record<string, StationCatalog>;
 }
 
 export interface CatalogSummary {
   lastUpdated: string;
+  generatedAt?: string;
+  refreshStatus?: CatalogRefreshStatus;
   stations: Record<string, { videoCount: number }>;
   totalVideos: number;
 }

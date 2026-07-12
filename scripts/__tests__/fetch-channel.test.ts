@@ -1,37 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import {
-  catalogFallbackRows,
   computeEnrichBudget,
   filterFlatByDuration,
   findSourceByHandle,
   isBotDetectionError,
-  mergeCatalogFallbackRows,
+  isEnrichmentComplete,
   ytDlpBaseArgs,
   ytDlpTimeoutMs,
 } from '../fetch-channel.mjs';
-
-const catalog = {
-  stations: {
-    science: {
-      videos: [
-        {
-          id: 'known',
-          title: 'Known video',
-          duration: 300,
-          source: 'Known Source',
-          viewCount: 42_000,
-        },
-        {
-          id: 'other',
-          title: 'Other video',
-          duration: 400,
-          source: 'Other Source',
-          viewCount: 50_000,
-        },
-      ],
-    },
-  },
-};
 
 describe('fetch-channel', () => {
   it('filters flat entries by per-source duration', () => {
@@ -60,6 +36,12 @@ describe('fetch-channel', () => {
     expect(isBotDetectionError('network timeout')).toBe(false);
   });
 
+  it('rejects tiny enrichment responses as incomplete', () => {
+    expect(isEnrichmentComplete(1, 98, 98)).toBe(false);
+    expect(isEnrichmentComplete(60, 98, 98)).toBe(true);
+    expect(isEnrichmentComplete(2, 1_000, 250)).toBe(false);
+  });
+
   it('uses android/web player client for CI resilience', () => {
     expect(ytDlpBaseArgs()).toContain('youtube:player_client=android,web');
   });
@@ -68,35 +50,5 @@ describe('fetch-channel', () => {
     expect(ytDlpTimeoutMs({})).toBeUndefined();
     expect(ytDlpTimeoutMs({ YT_DLP_TIMEOUT_MS: '600000' })).toBe(600000);
     expect(ytDlpTimeoutMs({ YT_DLP_TIMEOUT_MS: 'invalid' })).toBeUndefined();
-  });
-
-  it('converts the checked-in catalog into source fallback rows', () => {
-    expect(catalogFallbackRows(catalog, { stationId: 'science', name: 'Known Source' })).toEqual([
-      {
-        id: 'known',
-        title: 'Known video',
-        duration: 300,
-        view_count: 42_000,
-        description: '',
-        _looptvCatalogFallback: true,
-      },
-    ]);
-  });
-
-  it('merges live rows over the checked-in fallback without dropping old rows', () => {
-    const fallbackRows = [
-      { id: 'old', title: 'Old title', _looptvCatalogFallback: true },
-      { id: 'kept', title: 'Kept', _looptvCatalogFallback: true },
-    ];
-    const liveRows = [
-      { id: 'old', title: 'Live title' },
-      { id: 'new', title: 'New' },
-    ];
-
-    expect(mergeCatalogFallbackRows(liveRows, fallbackRows)).toEqual([
-      { id: 'kept', title: 'Kept', _looptvCatalogFallback: true },
-      { id: 'old', title: 'Live title' },
-      { id: 'new', title: 'New' },
-    ]);
   });
 });

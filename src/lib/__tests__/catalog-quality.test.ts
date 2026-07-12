@@ -4,6 +4,7 @@ import {
   MIN_VIEW_COUNT,
   TOP_PICK_BAND_SIZE,
   pickFromTopViewBand,
+  pickUniform,
   videoViewWeight,
 } from '../catalog-quality';
 
@@ -34,5 +35,14 @@ describe('catalog-quality (client)', () => {
       const pick = pickFromTopViewBand(pool);
       expect(pick?.id).not.toBe('low');
     }
+  });
+
+  it('allows normal playback to reach outside the top view band', () => {
+    const pool = Array.from({ length: 20 }, (_, index) => ({
+      id: `video-${index}`,
+      viewCount: 20_000 - index,
+    }));
+
+    expect(pickUniform(pool, undefined, () => 0.99)?.id).toBe('video-19');
   });
 });

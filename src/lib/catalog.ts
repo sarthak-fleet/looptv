@@ -1,5 +1,5 @@
-import { pickFromTopViewBand } from './catalog-quality';
-import type { Catalog, CatalogSummary, SourceMeta, Video } from './types';
+import { pickUniform } from './catalog-quality';
+import type { Catalog, CatalogRefreshStatus, CatalogSummary, SourceMeta, Video } from './types';
 
 let catalogCache: Catalog | null = null;
 let inflight: Promise<Catalog> | null = null;
@@ -11,7 +11,7 @@ const MS_PER_DAY = 24 * 60 * 60 * 1000;
 export const STALE_CATALOG_DAYS = 10;
 
 export type CatalogFreshness = {
-  state: 'loading' | 'fresh' | 'stale' | 'unknown';
+  state: 'loading' | 'fresh' | 'stale' | 'incomplete' | 'unknown';
   label: string;
   ageDays: number | null;
   updatedAt: Date | null;
@@ -160,8 +160,17 @@ export function getVideosForStation(
 
 export function getCatalogFreshness(
   lastUpdated?: string | null,
-  now: Date = new Date()
+  now: Date = new Date(),
+  refreshStatus?: CatalogRefreshStatus
 ): CatalogFreshness {
+  if (refreshStatus && !refreshStatus.complete) {
+    return {
+      state: 'incomplete',
+      label: `Latest refresh covered ${Math.round(refreshStatus.freshCoverage * 100)}% of sources`,
+      ageDays: null,
+      updatedAt: null,
+    };
+  }
   if (!lastUpdated) {
     return {
       state: 'loading',
@@ -204,6 +213,15 @@ export function getSourceFreshness(
   meta: SourceMeta | undefined | null,
   now: Date = new Date()
 ): SourceFreshness {
+  if (meta?.refreshState === 'partial') {
+    return { state: 'stale', label: 'Latest source refresh was partial', ageDays: null };
+  }
+  if (meta?.refreshState === 'fallback') {
+    return { state: 'stale', label: 'Using preserved fallback data', ageDays: null };
+  }
+  if (meta?.refreshState === 'missing' || meta?.refreshState === 'empty') {
+    return { state: 'unknown', label: 'No usable source data', ageDays: null };
+  }
   const fetchedAt = meta?.lastSuccessfulFetch || meta?.fetchedAt;
   if (!fetchedAt) {
     return { state: 'unknown', label: 'Never fetched', ageDays: null };
@@ -221,8 +239,12 @@ export function getSourceFreshness(
   };
 }
 
-export function pickRandom(videos: Video[], exclude?: string): Video | null {
-  return pickFromTopViewBand(videos, exclude);
+export function pickRandom(
+  videos: Video[],
+  exclude?: string,
+  random: () => number = Math.random
+): Video | null {
+  return pickUniform(videos, exclude, random);
 }
 
 export function formatDuration(seconds: number): string {

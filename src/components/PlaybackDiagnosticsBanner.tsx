@@ -9,6 +9,7 @@ interface Props {
   onRetryCatalog?: () => void;
   onOpenHealth?: () => void;
   onSearch?: () => void;
+  onDismiss?: () => void;
 }
 
 export default function PlaybackDiagnosticsBanner({
@@ -18,6 +19,7 @@ export default function PlaybackDiagnosticsBanner({
   onRetryCatalog,
   onOpenHealth,
   onSearch,
+  onDismiss,
 }: Props) {
   const action =
     diagnostic.action === 'retry_catalog'
@@ -41,16 +43,42 @@ export default function PlaybackDiagnosticsBanner({
           <p className="font-medium text-yellow-200">{diagnostic.headline}</p>
           {diagnostic.detail && <p className="mt-0.5 text-white/55">{diagnostic.detail}</p>}
         </div>
-        {action?.onClick && (
-          <button
-            type="button"
-            onClick={action.onClick}
-            disabled={action.disabled}
-            className="self-start rounded-lg bg-white/10 px-3 py-2 text-white transition-colors hover:bg-white/15 disabled:cursor-wait disabled:opacity-60 sm:self-auto"
-          >
-            {action.label}
-          </button>
-        )}
+        <div className="flex shrink-0 items-center gap-2 self-start sm:self-auto">
+          {action?.onClick && (
+            <button
+              type="button"
+              onClick={action.onClick}
+              disabled={action.disabled}
+              className="rounded-lg bg-white/10 px-3 py-2 text-white transition-colors hover:bg-white/15 disabled:cursor-wait disabled:opacity-60"
+            >
+              {action.label}
+            </button>
+          )}
+          {onDismiss && (
+            <button
+              type="button"
+              onClick={onDismiss}
+              className="rounded-lg p-2 text-white/50 transition-colors hover:bg-white/10 hover:text-white"
+              aria-label="Dismiss channel health notification"
+              title="Dismiss"
+            >
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

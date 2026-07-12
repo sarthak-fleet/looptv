@@ -93,6 +93,7 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   );
   const [catalogLoadFailed, setCatalogLoadFailed] = useState(false);
   const [catalogRefreshing, setCatalogRefreshing] = useState(false);
+  const [dismissedDiagnosticKey, setDismissedDiagnosticKey] = useState<string | null>(null);
   const [embedHealth, setEmbedHealth] = useState<Record<string, EmbedHealthRecord>>(() => ({}));
   const queueRef = useRef<Video[]>([]);
   const [queueCount, setQueueCount] = useState(0);
@@ -601,14 +602,24 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
   const catalogFreshness = useMemo(
     () =>
       mounted
-        ? getCatalogFreshness(catalog?.lastUpdated ?? catalogSummary?.lastUpdated)
+        ? getCatalogFreshness(
+            catalog?.lastUpdated ?? catalogSummary?.lastUpdated,
+            new Date(),
+            catalog?.refreshStatus ?? catalogSummary?.refreshStatus
+          )
         : {
             state: 'loading' as const,
             label: 'Checking catalog freshness...',
             ageDays: null,
             updatedAt: null,
           },
-    [mounted, catalog?.lastUpdated, catalogSummary?.lastUpdated]
+    [
+      mounted,
+      catalog?.lastUpdated,
+      catalog?.refreshStatus,
+      catalogSummary?.lastUpdated,
+      catalogSummary?.refreshStatus,
+    ]
   );
 
   const currentSourceFreshness = useMemo(() => {
@@ -649,6 +660,22 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
       playbackIssue,
     ]
   );
+  const playbackDiagnosticKey = playbackDiagnostic
+    ? [
+        playbackDiagnostic.kind,
+        playbackDiagnostic.source ?? '',
+        playbackDiagnostic.headline,
+        playbackDiagnostic.detail ?? '',
+      ].join(':')
+    : null;
+  const visiblePlaybackDiagnostic =
+    playbackDiagnosticKey !== dismissedDiagnosticKey ? playbackDiagnostic : null;
+
+  useEffect(() => {
+    if (playbackDiagnosticKey !== dismissedDiagnosticKey) {
+      setDismissedDiagnosticKey(null);
+    }
+  }, [playbackDiagnosticKey, dismissedDiagnosticKey]);
 
   const handleUnquarantine = useCallback(
     (source: string) => {
@@ -779,20 +806,21 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
                 ? 'No videos'
                 : 'Loading...'}
           </p>
-          {!playbackDiagnostic && catalogFreshness.state !== 'loading' && (
+          {!visiblePlaybackDiagnostic && catalogFreshness.state !== 'loading' && (
             <p className="text-xs mt-2 text-white/25">{catalogFreshness.label}</p>
           )}
         </div>
 
-        {playbackDiagnostic && (
+        {visiblePlaybackDiagnostic && (
           <div className="mb-6 w-full max-w-xl">
             <PlaybackDiagnosticsBanner
-              diagnostic={playbackDiagnostic}
+              diagnostic={visiblePlaybackDiagnostic}
               refreshing={catalogRefreshing}
               variant="inline"
               onRetryCatalog={refreshCatalogState}
               onOpenHealth={() => setShowHealth(true)}
               onSearch={() => setSearchOpen(true)}
+              onDismiss={() => setDismissedDiagnosticKey(playbackDiagnosticKey)}
             />
           </div>
         )}
@@ -923,13 +951,14 @@ export default function TVApp({ initialChannel }: { initialChannel?: string }) {
             </div>
           </div>
         )}
-        {playbackDiagnostic && (
+        {visiblePlaybackDiagnostic && (
           <PlaybackDiagnosticsBanner
-            diagnostic={playbackDiagnostic}
+            diagnostic={visiblePlaybackDiagnostic}
             refreshing={catalogRefreshing}
             onRetryCatalog={refreshCatalogState}
             onOpenHealth={() => setShowHealth(true)}
             onSearch={() => setSearchOpen(true)}
+            onDismiss={() => setDismissedDiagnosticKey(playbackDiagnosticKey)}
           />
         )}
       </div>

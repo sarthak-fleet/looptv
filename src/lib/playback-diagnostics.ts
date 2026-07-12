@@ -10,6 +10,7 @@ export type DiagnosticKind =
   | 'source_quarantined'
   | 'source_embed'
   | 'source_stale'
+  | 'catalog_incomplete'
   | 'catalog_stale';
 
 export interface PlaybackDiagnostic {
@@ -100,6 +101,15 @@ export function derivePlaybackDiagnostic(
       headline: `${currentSource} catalog data is stale`,
       detail: `${sourceFreshness.label}. Playback may include older clips until the next catalog build.`,
       source: currentSource,
+      action: 'open_health',
+    };
+  }
+
+  if (catalogFreshness.state === 'incomplete') {
+    return {
+      kind: 'catalog_incomplete',
+      headline: 'Channel refresh was incomplete',
+      detail: `${catalogFreshness.label}. Preserved videos remain available.`,
       action: 'open_health',
     };
   }

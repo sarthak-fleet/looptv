@@ -8,7 +8,15 @@ export const MIN_EMBED_SAMPLES = 5;
 /** Block rate above which a source is flagged unhealthy / auto-quarantined. */
 export const UNHEALTHY_EMBED_BLOCK_RATE = 0.3;
 
-export type SourceHealthState = 'fresh' | 'stale' | 'unhealthy' | 'quarantined' | 'blocked';
+export type SourceHealthState =
+  | 'fresh'
+  | 'stale'
+  | 'partial'
+  | 'fallback'
+  | 'missing'
+  | 'unhealthy'
+  | 'quarantined'
+  | 'blocked';
 
 export function getEmbedBlockRate(record: EmbedHealthRecord | undefined): number | null {
   if (!record || record.checked < MIN_EMBED_SAMPLES) return null;
@@ -35,6 +43,9 @@ export function resolveSourceHealthState(input: {
 
   if (blockedSources.has(sourceName)) return 'blocked';
   if (quarantinedSources.has(sourceName)) return 'quarantined';
+  if (!meta || meta.refreshState === 'missing' || meta.refreshState === 'empty') return 'missing';
+  if (meta.refreshState === 'partial') return 'partial';
+  if (meta.refreshState === 'fallback') return 'fallback';
 
   const freshness = getSourceFreshness(meta);
   if (freshness.state === 'stale') return 'stale';
@@ -52,6 +63,9 @@ export function countSourcesByHealth(
   const counts: Record<SourceHealthState, number> = {
     fresh: 0,
     stale: 0,
+    partial: 0,
+    fallback: 0,
+    missing: 0,
     unhealthy: 0,
     quarantined: 0,
     blocked: 0,

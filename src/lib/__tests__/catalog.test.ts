@@ -76,6 +76,28 @@ describe('getCatalogFreshness', () => {
       ageDays: null,
     });
   });
+
+  it('reports incomplete refresh coverage before timestamp freshness', () => {
+    expect(
+      getCatalogFreshness('2026-05-20T12:00:00.000Z', now, {
+        generatedAt: '2026-05-24T00:00:00.000Z',
+        complete: false,
+        requiredFreshCoverage: 0.8,
+        freshCoverage: 0.1,
+        totalSources: 10,
+        liveSources: 1,
+        freshSources: 1,
+        staleSources: 9,
+        partialSources: 0,
+        fallbackSources: 9,
+        emptySources: 0,
+        missingSources: 0,
+      })
+    ).toMatchObject({
+      state: 'incomplete',
+      label: 'Latest refresh covered 10% of sources',
+    });
+  });
 });
 
 describe('Smart Mix', () => {
@@ -153,7 +175,7 @@ describe('pickRandom', () => {
     expect(pickRandom([v1], v1.id)).toBeNull();
   });
 
-  it('prefers the highest-view band', () => {
+  it('can select outside the highest-view band', () => {
     const filler = Array.from({ length: 13 }, (_, i) => ({
       ...makeVideo(`f${i}`),
       viewCount: 50_000 + i,
@@ -162,9 +184,7 @@ describe('pickRandom', () => {
     const low = { ...makeVideo('low'), viewCount: 10_000 };
     const pool = [...filler, high, low];
 
-    for (let i = 0; i < 40; i += 1) {
-      expect(pickRandom(pool)?.id).not.toBe('low');
-    }
+    expect(pickRandom(pool, undefined, () => 0.99)?.id).toBe('low');
   });
 });
 

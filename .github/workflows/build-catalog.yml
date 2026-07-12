@@ -87,7 +87,6 @@ jobs:
           if [ -d artifact-shards ]; then
             find artifact-shards -name '*.jsonl' -exec cp {} data/sources/ \;
           fi
-          node scripts/preserve-catalog-source-rows.mjs data/sources
           echo "Source files after merge: $(find data/sources -maxdepth 1 -name '*.jsonl' | wc -l | tr -d ' ')"
           node --input-type=module -e "
             import fs from 'fs';
@@ -95,19 +94,6 @@ jobs:
             const handles = new Set(stations.flatMap((s) => s.sources.map((src) => src.handle.replace('@',''))));
             const have = new Set(fs.readdirSync('data/sources').filter((f) => f.endsWith('.jsonl')).map((f) => f.replace(/\\.jsonl$/, '')));
             const missing = [...handles].filter((h) => !have.has(h));
-            const catalog = JSON.parse(fs.readFileSync('public/catalog.json', 'utf8'));
-            const represented = new Set();
-            for (const station of stations) {
-              const sourceNames = new Set((catalog.stations?.[station.id]?.videos || []).map((video) => video.source));
-              for (const source of station.sources) {
-                if (sourceNames.has(source.name)) represented.add(source.handle.replace('@',''));
-              }
-            }
-            const missingRepresented = missing.filter((handle) => represented.has(handle));
-            if (missingRepresented.length) {
-              console.error('Missing source JSONL for shipped sources:', missingRepresented.join(', '));
-              process.exit(1);
-            }
             if (missing.length) console.warn('No source JSONL for unrepresented handles:', missing.join(', '));
           "
 
@@ -177,14 +163,26 @@ jobs:
             echo "- Pending videos after tagging: ${PENDING_TAGS_FINAL:-unknown}"
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Audit catalog against manifest
+      - name: Audit catalog source health
         if: always() && steps.build-catalog.outcome == 'success'
+        env:
+          CATALOG_AUDIT_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.override_audit && '1' || '' }}
+        run: |
+          set +e
+          node scripts/audit-catalog-health.mjs --markdown-file "$RUNNER_TEMP/catalog-health.md"
+          status=$?
+          set -e
+          cat "$RUNNER_TEMP/catalog-health.md" >> "$GITHUB_STEP_SUMMARY"
+          exit "$status"
+
+      - name: Audit catalog against manifest
+        if: success() && steps.build-catalog.outcome == 'success'
         env:
           CATALOG_AUDIT_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.override_audit && '1' || '' }}
         run: node scripts/validate-catalog-manifest.mjs --update --diff-file "$RUNNER_TEMP/catalog-diff.txt"
 
       - name: Save source cache
-        if: always() && steps.build-catalog.outcome == 'success'
+        if: success() && steps.build-catalog.outcome == 'success'
         uses: actions/cache/save@v4
         with:
           path: data/sources
@@ -202,15 +200,15 @@ jobs:
       - name: Check for changes
         id: diff
         run: |
-          git diff --stat public/catalog.json catalog-manifest.json
-          echo "changed=$(git diff --name-only public/catalog.json catalog-manifest.json | wc -l | tr -d ' ')" >> $GITHUB_OUTPUT
+          git diff --stat public/catalog.json public/catalog-summary.json catalog-manifest.json
+          echo "changed=$(git diff --name-only public/catalog.json public/catalog-summary.json catalog-manifest.json | wc -l | tr -d ' ')" >> $GITHUB_OUTPUT
 
       - name: Commit and push
         if: steps.diff.outputs.changed != '0' && steps.pending-tags-final.outputs.count == '0'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/catalog.json catalog-manifest.json
+          git add public/catalog.json public/catalog-summary.json catalog-manifest.json
           NEW_COUNT=$(node -e "const d=JSON.parse(require('fs').readFileSync('public/catalog.json','utf8')); console.log(Object.values(d.stations).reduce((s,st) => s + st.videos.length, 0))")
           git commit -m "Update catalog: ${NEW_COUNT} videos" \
             -m "$(cat "$RUNNER_TEMP/catalog-diff.txt")" \

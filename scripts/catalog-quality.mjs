@@ -52,7 +52,7 @@ export function applySourceQualityFilter(sourceVideos, source) {
     const merged = [...new Map(sourceVideos.map((raw) => [raw.id, raw])).values()]
       .sort((a, b) => b.view_count - a.view_count)
       .slice(0, MAX_VIDEOS_PER_SOURCE);
-    return { filtered: merged, pct: 100 };
+    return { filtered: merged, pct: null, mode: 'preserved' };
   }
 
   let filtered = sourceVideos.filter(
@@ -67,7 +67,7 @@ export function applySourceQualityFilter(sourceVideos, source) {
   if (filtered.length > MAX_VIDEOS_PER_SOURCE) {
     filtered = filtered.slice(0, MAX_VIDEOS_PER_SOURCE);
   }
-  return { filtered, pct };
+  return { filtered, pct, mode: 'selected' };
 }
 
 export function validateCatalogVideo(video, context = '') {

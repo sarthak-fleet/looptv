@@ -24,3 +24,13 @@ export function pickFromTopViewBand<T extends { id: string; viewCount?: number }
   const band = ranked.slice(0, Math.min(bandSize, ranked.length));
   return band[Math.floor(Math.random() * band.length)] ?? null;
 }
+
+export function pickUniform<T extends { id: string }>(
+  items: T[],
+  excludeId?: string,
+  random: () => number = Math.random
+): T | null {
+  const filtered = excludeId ? items.filter((item) => item.id !== excludeId) : items;
+  if (filtered.length === 0) return null;
+  return filtered[Math.floor(random() * filtered.length)] ?? null;
+}

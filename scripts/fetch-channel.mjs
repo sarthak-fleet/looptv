@@ -14,7 +14,6 @@ import {
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, '..', 'data', 'sources');
 const STATIONS_PATH = path.join(__dirname, '..', 'stations.json');
-const CATALOG_PATH = path.join(__dirname, '..', 'public', 'catalog.json');
 
 const MIN_CACHE_ROWS = Number(process.env.MIN_CACHE_ROWS_TO_TRUST || 5);
 const CACHE_MAX_AGE_DAYS = Number(process.env.CACHE_MAX_AGE_DAYS || 13);
@@ -48,6 +47,17 @@ export function computeEnrichBudget(filteredCount, source) {
   const pct = resolveTopPercentile(source, filteredCount) / 100;
   const target = Math.min(MAX_VIDEOS_PER_SOURCE, Math.max(1, Math.ceil(filteredCount * pct)));
   return Math.min(filteredCount, Math.max(250, target * 2));
+}
+
+export function minimumCompleteEnrichment(durationFilteredCount, budget) {
+  if (durationFilteredCount <= SMALL_CHANNEL_ENRICH_ALL) {
+    return Math.max(1, Math.ceil(durationFilteredCount * 0.5));
+  }
+  return Math.max(5, Math.min(50, Math.ceil(budget * 0.1)));
+}
+
+export function isEnrichmentComplete(enrichedCount, durationFilteredCount, budget) {
+  return enrichedCount >= minimumCompleteEnrichment(durationFilteredCount, budget);
 }
 
 export function isBotDetectionError(message) {
@@ -160,47 +170,11 @@ function readCachedCount(outputPath) {
   return fs.readFileSync(outputPath, 'utf8').trim().split('\n').filter(Boolean).length;
 }
 
-export function catalogFallbackRows(catalog, source) {
-  const videos = catalog?.stations?.[source.stationId]?.videos || [];
-  const matching = videos.filter((video) => video.source === source.name);
-  return [...new Map(matching.map((video) => [video.id, video])).values()].map((video) => ({
-    id: video.id,
-    title: video.title || '',
-    duration: video.duration || 0,
-    view_count: video.viewCount,
-    description: video.description || '',
-    _looptvCatalogFallback: true,
-  }));
-}
-
-export function mergeCatalogFallbackRows(liveRows, fallbackRows) {
-  return [
-    ...new Map([...fallbackRows, ...liveRows].map((video) => [video.id, video])).values(),
-  ].sort(
-    (a, b) => Number(b._looptvCatalogFallback === true) - Number(a._looptvCatalogFallback === true)
-  );
-}
-
-function readCatalogFallbackRows(source) {
-  if (!fs.existsSync(CATALOG_PATH)) return [];
-  const catalog = JSON.parse(fs.readFileSync(CATALOG_PATH, 'utf8'));
-  return catalogFallbackRows(catalog, source);
-}
-
-function cacheFallback(safe, outputPath, source, reason) {
+function cacheFallback(safe, outputPath, reason) {
   const cachedLines = readCachedCount(outputPath);
   if (cachedLines > 0) {
     console.log(`  @${safe.padEnd(30)} ${reason}, kept cache (${cachedLines} videos)`);
     return { handle: safe, mode: 'cache-fallback', count: cachedLines };
-  }
-
-  const fallbackRows = readCatalogFallbackRows(source);
-  if (fallbackRows.length > 0) {
-    writeJsonl(outputPath, fallbackRows);
-    console.log(
-      `  @${safe.padEnd(30)} ${reason}, seeded catalog fallback (${fallbackRows.length} videos)`
-    );
-    return { handle: safe, mode: 'catalog-fallback', count: fallbackRows.length };
   }
 
   console.log(`  @${safe.padEnd(30)} ${reason}, no cache`);
@@ -245,7 +219,7 @@ export function fetchChannel(handle, { fresh = false } = {}) {
   try {
     flat = runYtDlpLines([...ytDlpBaseArgs(), '--flat-playlist', '--dump-json', channelUrl]);
   } catch (error) {
-    return cacheFallback(safe, outputPath, source, `flat failed (${error.message.slice(0, 80)})`);
+    return cacheFallback(safe, outputPath, `flat failed (${error.message.slice(0, 80)})`);
   }
 
   const durationFiltered = filterFlatByDuration(flat, minDur, maxDur);
@@ -266,21 +240,26 @@ export function fetchChannel(handle, { fresh = false } = {}) {
   try {
     enriched = enrichPlaylist(enrichUrl, playlistEnd, minDur, maxDur);
   } catch (error) {
-    return cacheFallback(safe, outputPath, source, `enrich failed (${error.message.slice(0, 80)})`);
+    return cacheFallback(safe, outputPath, `enrich failed (${error.message.slice(0, 80)})`);
   }
 
   if (enriched.length > 0 && enriched.some((row) => typeof row.view_count === 'number')) {
     const liveRows = [...new Map(enriched.map((row) => [row.id, row])).values()];
-    const fallbackRows = readCatalogFallbackRows(source);
-    const merged = mergeCatalogFallbackRows(liveRows, fallbackRows);
-    writeJsonl(outputPath, merged);
+    if (!isEnrichmentComplete(liveRows.length, durationFiltered.length, budget)) {
+      return cacheFallback(
+        safe,
+        outputPath,
+        `incomplete enrich (${liveRows.length}/${minimumCompleteEnrichment(durationFiltered.length, budget)} minimum)`
+      );
+    }
+    writeJsonl(outputPath, liveRows);
     console.log(
-      `  @${safe.padEnd(30)} ${mode} flat=${flat.length} dur=${durationFiltered.length} enriched=${liveRows.length} preserved=${fallbackRows.length} total=${merged.length}`
+      `  @${safe.padEnd(30)} ${mode} flat=${flat.length} dur=${durationFiltered.length} enriched=${liveRows.length}`
     );
-    return { handle: safe, mode, count: merged.length };
+    return { handle: safe, mode, count: liveRows.length };
   }
 
-  return cacheFallback(safe, outputPath, source, 'enrich produced no view counts');
+  return cacheFallback(safe, outputPath, 'enrich produced no view counts');
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

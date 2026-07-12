@@ -26,9 +26,34 @@ interface Props {
 const STATE_LABELS: Record<SourceHealthState, string> = {
   fresh: 'Fresh',
   stale: 'Stale',
+  partial: 'Partial refresh',
+  fallback: 'Fallback data',
+  missing: 'Missing data',
   unhealthy: 'Embed issues',
   quarantined: 'Quarantined',
   blocked: 'Blocked',
+};
+
+const STATE_DOT_CLASSES: Record<SourceHealthState, string> = {
+  blocked: 'bg-white/20',
+  quarantined: 'bg-amber-400',
+  missing: 'bg-red-400',
+  partial: 'bg-orange-300',
+  fallback: 'bg-yellow-300',
+  unhealthy: 'bg-orange-400',
+  stale: 'bg-yellow-400',
+  fresh: 'bg-emerald-400',
+};
+
+const STATE_ROW_CLASSES: Record<SourceHealthState, string> = {
+  blocked: 'bg-white/3 opacity-50',
+  quarantined: 'bg-amber-500/5',
+  missing: 'bg-red-500/5',
+  partial: 'bg-orange-500/5',
+  fallback: 'bg-yellow-500/5',
+  unhealthy: 'bg-orange-500/5',
+  stale: 'bg-yellow-500/5',
+  fresh: 'bg-white/5',
 };
 
 export default function ChannelHealth({
@@ -62,7 +87,13 @@ export default function ChannelHealth({
   );
 
   const hasIssues =
-    counts.stale > 0 || counts.unhealthy > 0 || counts.quarantined > 0 || counts.blocked > 0;
+    counts.stale > 0 ||
+    counts.partial > 0 ||
+    counts.fallback > 0 ||
+    counts.missing > 0 ||
+    counts.unhealthy > 0 ||
+    counts.quarantined > 0 ||
+    counts.blocked > 0;
 
   const visibleIssueCount = useMemo(() => {
     if (!catalog || !issuesOnly) return null;
@@ -90,6 +121,15 @@ export default function ChannelHealth({
             <p className="text-white/40 text-xs mt-0.5 flex flex-wrap gap-x-2 gap-y-0.5">
               <span className="text-emerald-400/80">{counts.fresh} fresh</span>
               {counts.stale > 0 && <span className="text-yellow-400/80">{counts.stale} stale</span>}
+              {counts.partial > 0 && (
+                <span className="text-orange-300/80">{counts.partial} partial</span>
+              )}
+              {counts.fallback > 0 && (
+                <span className="text-yellow-300/80">{counts.fallback} fallback</span>
+              )}
+              {counts.missing > 0 && (
+                <span className="text-red-300/80">{counts.missing} missing</span>
+              )}
               {counts.unhealthy > 0 && (
                 <span className="text-orange-400/80">{counts.unhealthy} embed issues</span>
               )}
@@ -187,35 +227,22 @@ export default function ChannelHealth({
                         blockedSources,
                         quarantinedSources,
                       });
-                      const videoCount = meta?.videoCount ?? 0;
-
-                      const dotColor =
-                        state === 'blocked'
-                          ? 'bg-white/20'
-                          : state === 'quarantined'
-                            ? 'bg-amber-400'
-                            : state === 'unhealthy'
-                              ? 'bg-orange-400'
-                              : state === 'stale'
-                                ? 'bg-yellow-400'
-                                : 'bg-emerald-400';
+                      const candidateCount = meta?.videoCount ?? 0;
+                      const selectedCount =
+                        meta?.selectedCount ??
+                        catalog.stations[st.id]?.videos.filter(
+                          (video) => video.source === source.name
+                        ).length ??
+                        0;
 
                       return (
                         <div
                           key={source.handle}
-                          className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-colors ${
-                            state === 'blocked'
-                              ? 'bg-white/3 opacity-50'
-                              : state === 'quarantined'
-                                ? 'bg-amber-500/5'
-                                : state === 'unhealthy'
-                                  ? 'bg-orange-500/5'
-                                  : state === 'stale'
-                                    ? 'bg-yellow-500/5'
-                                    : 'bg-white/5'
-                          }`}
+                          className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-colors ${STATE_ROW_CLASSES[state]}`}
                         >
-                          <span className={`w-2 h-2 rounded-full shrink-0 ${dotColor}`} />
+                          <span
+                            className={`w-2 h-2 rounded-full shrink-0 ${STATE_DOT_CLASSES[state]}`}
+                          />
 
                           <div className="min-w-0 flex-1">
                             <p
@@ -226,9 +253,9 @@ export default function ChannelHealth({
                               {source.name}
                             </p>
                             <p className="text-white/30 text-xs mt-0.5">
-                              {videoCount > 0
-                                ? `${videoCount.toLocaleString()} videos`
-                                : 'No videos fetched'}
+                              {selectedCount > 0
+                                ? `${selectedCount.toLocaleString()} selected${candidateCount > selectedCount ? ` of ${candidateCount.toLocaleString()} candidates` : ''}`
+                                : 'No selected videos'}
                               {freshness.state !== 'unknown' && ` · ${freshness.label}`}
                               {state !== 'fresh' && ` · ${STATE_LABELS[state]}`}
                             </p>

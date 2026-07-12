@@ -1,6 +1,6 @@
 # looptv — PROJECT STATUS
 
-Last updated: 2026-07-10
+Last updated: 2026-07-12
 
 ## Why/What
 
@@ -91,11 +91,12 @@ stations.json → build-catalog.sh (yt-dlp metadata)
 ### Playback diagnostics
 
 - Compact banner when degraded: catalog age, source age, skip streaks, embed issue counts.
+- Diagnostics can be dismissed for the current condition and return when a new issue appears.
 - Retry refreshes catalog without full page reload.
 
 ### Source health & auto-pruning
 
-- Channel Health panel: fresh/stale/unhealthy/quarantined/blocked counts; issue filters; re-enable quarantined sources.
+- Channel Health panel: fresh/stale/partial/fallback/missing/embed/quarantined/blocked counts; issue filters; re-enable quarantined sources.
 - Auto-quarantine on sustained embed failures; decisions persist in localStorage.
 
 ### Lean-back controls redesign
@@ -113,9 +114,9 @@ stations.json → build-catalog.sh (yt-dlp metadata)
 ### Quality & maintenance
 
 - Fork-friendly: edit `stations.json` and deploy.
-- **Top-content policy:** global 10K-view minimum (requires full yt-dlp metadata — no `--flat-playlist`); per-source duration filters; top-N% by views per channel plus 200-video cap (`scripts/catalog-quality.mjs`); catalog build refuses output below threshold; playback picks from top-12 view band (same as Smart Mix).
+- **Top-content policy:** global 10K-view minimum (requires full yt-dlp metadata — no `--flat-playlist`); per-source duration filters; top-N% by views per channel plus 200-video cap (`scripts/catalog-quality.mjs`); catalog build refuses output below threshold. Normal playback samples the full curated pool; Smart Mix retains ranked top-band selection.
 - **Catalog audit (2026-07-03, enhanced):** `catalog-manifest.json` baselines + `scripts/validate-catalog-manifest.mjs` hard-fail the Build Catalog workflow on suspicious swings (station disappearing/empty, per-station drop > max(30%, 5), total drop > 20%, per-station video churn > 50% — catches silent swaps where counts stay stable but the video set changes); per-station count diff + per-video changelog (added/removed/title-changed, with removed titles) land in the job summary and commit message; `override_audit` dispatch input / `CATALOG_AUDIT_OVERRIDE=1` for intentional changes. Manifest stores both per-station counts and a per-video map (`{ videoId: { t, d } }`) so each audit diffs against the previous run's exact video set. See `docs/catalog-auditability.md`.
-- **Catalog fetch resilience (2026-07-10):** eight bounded fetch shards prevent unbounded `yt-dlp` jobs; bot-wall/time-out failures preserve represented sources from the checked-in catalog; the downstream build saves the merged source set under a unique immutable cache key for the next refresh.
+- **Catalog integrity (2026-07-12):** raw source caches are separated from checked-in fallback rows; tiny partial enrichments are rejected; catalog generation time is separate from last complete refresh; per-source provenance and 80% fresh-coverage gates prevent false-green refreshes; `scripts/audit-catalog-health.mjs` reports every configured channel grouped by station.
 
 ## Todo / Planned / Deferred / Blocked
 
@@ -134,7 +135,7 @@ stations.json → build-catalog.sh (yt-dlp metadata)
 
 - Catalog freshness depends on weekly GitHub Action — stale catalog shows diagnostics banner but no push notification.
 - GitHub-hosted runners can hit YouTube bot detection; the catalog fallback preserves shipped sources but cannot discover videos for a source until a live fetch succeeds.
-- AI catalog tagging is currently blocked in CI by an invalid `FAGW_API_KEY` (gateway 401). Fetch artifacts are audited and cached, but the build refuses to commit while any videos still need tags.
+- The July 12 audit found only 1/122 fully fresh sources after rejecting partial/fallback contamination; a new complete source fetch is required before catalog freshness can advance.
 - Legacy local NER rebuilds require `requirements-ner.txt`; scheduled CI tagging uses the free-AI gateway.
 - Blocked/quarantined state is per-browser — not portable across devices.
 - Production: `looptv.pages.dev` via Cloudflare Pages static export.

@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { auditCatalogHealth } from '../audit-catalog-health.mjs';
 
 const catalogPath = resolve(__dirname, '../../public/catalog.json');
 const raw = readFileSync(catalogPath, 'utf-8');
@@ -87,5 +88,21 @@ describe('catalog.json validation', () => {
         ).toBeGreaterThanOrEqual(10_000);
       }
     }
+  });
+
+  it('passes structural source/station audit independently of current freshness coverage', () => {
+    const stations = JSON.parse(readFileSync(resolve(__dirname, '../../stations.json'), 'utf8'));
+    const result = auditCatalogHealth({ stations, catalog });
+    const structuralViolations = result.violations.filter(
+      (message: string) => !message.startsWith('Fresh source coverage')
+    );
+
+    expect(Object.keys(catalog.sourceMeta ?? {})).toHaveLength(
+      stations.reduce(
+        (total: number, station: { sources: unknown[] }) => total + station.sources.length,
+        0
+      )
+    );
+    expect(structuralViolations).toEqual([]);
   });
 });

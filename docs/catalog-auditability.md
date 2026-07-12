@@ -20,8 +20,12 @@ stations in an auto-committed `catalog.json`.
   plus a concise video-level changelog, appends a markdown table (counts +
   video changes + removed titles) to the GitHub job summary, writes the compact
   diff for the commit message, and exits non-zero on violations.
+- **`scripts/audit-catalog-health.mjs`** — joins `stations.json` and
+  `public/catalog.json` into a station/source report. It verifies source
+  membership, duration bounds, the 10K-view floor, unique video IDs,
+  per-source selected counts, and fresh-source coverage.
 - **Build Catalog workflow** (`.github/workflows/build-catalog.yml`) — runs the
-  audit after processing + tagging and before the auto-commit. A failed audit
+  source-health audit before the manifest rebaseline and auto-commit. A failed audit
   fails the job; nothing is committed. The commit message body includes the
   per-station count diff and the video-level changelog.
 
@@ -34,6 +38,10 @@ stations in an auto-committed `catalog.json`.
 | Station count drop | > max(30% of baseline, 5 videos) — `maxStationDropPct` / `minStationDropAbs` |
 | Total catalog drop | > 20% of baseline total — `maxTotalDropPct` |
 | Station video churn (added + removed IDs) | > 50% of baseline — `maxVideoChurnPct` |
+| Fresh configured-source coverage | < 80% — `MIN_FRESH_SOURCE_COVERAGE` |
+| Video outside its configured source duration | always fails |
+| Video below 10,000 views or assigned to the wrong station/source | always fails |
+| Duplicate video ID across stations | always fails |
 
 The churn rule is the key guard against silent gutting: if yt-dlp breakage
 returns a different video set at the same cardinality (counts stable, videos
@@ -68,6 +76,15 @@ exists for reviewed, intentional swings, not for making red CI green.
 ```bash
 node scripts/validate-catalog-manifest.mjs            # audit only
 node scripts/validate-catalog-manifest.mjs --update   # audit, then rebaseline
+node scripts/audit-catalog-health.mjs                  # grouped source audit + coverage gate
+node scripts/audit-catalog-health.mjs \
+  --markdown-file /tmp/catalog-health.md \
+  --json-file /tmp/catalog-health.json
 ```
 
-Unit tests: `scripts/__tests__/validate-catalog-manifest.test.ts` (`pnpm test`).
+The source-health audit exits non-zero when coverage or catalog invariants fail.
+`CATALOG_AUDIT_OVERRIDE=1` reports violations without failing for a reviewed,
+intentional rebaseline.
+
+Unit tests: `scripts/__tests__/validate-catalog-manifest.test.ts` and
+`scripts/__tests__/audit-catalog-health.test.ts` (`pnpm test`).
