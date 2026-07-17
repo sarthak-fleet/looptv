@@ -1,5 +1,8 @@
 # LoopTV
 
+**Product:** [tv.significanthobbies.com](https://tv.significanthobbies.com)
+
+
 TV-like app that plays random YouTube videos from curated channels, nonstop. Pick a station, hit play, and lean back.
 
 **Zero API keys needed for playback or forks using the checked-in catalog.** Maintained catalog refreshes use a cache-first YouTube Data API path with yt-dlp fallback; free-AI tagging runs only for new, untagged videos.
