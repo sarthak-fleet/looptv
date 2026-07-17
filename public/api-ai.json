@@ -1,0 +1,25 @@
+{
+  "name": "LoopTV",
+  "version": "1",
+  "url": "https://tv.significanthobbies.com",
+  "llms": "https://tv.significanthobbies.com/llms.txt",
+  "llmsFull": null,
+  "sitemap": "https://tv.significanthobbies.com/sitemap.xml",
+  "markdown": {
+    "suffix": ".md",
+    "negotiation": true
+  },
+  "surfaces": [
+    {
+      "id": "home",
+      "url": "https://tv.significanthobbies.com/",
+      "md": "https://tv.significanthobbies.com/index.md",
+      "kind": "static",
+      "description": "Product home"
+    }
+  ],
+  "auth": {
+    "public": true,
+    "notes": "Auth-walled app routes are not agent-indexed unless listed here."
+  }
+}

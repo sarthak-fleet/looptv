@@ -1,0 +1,17 @@
+# LoopTV
+
+> TV-style random video player for lean-back browsing of curated channels.
+
+## Product
+
+- [Home](https://tv.significanthobbies.com/): Player
+
+## Machine surfaces
+
+- [Agent catalog](https://tv.significanthobbies.com/api/ai): JSON inventory of public surfaces
+- [Homepage markdown](https://tv.significanthobbies.com/index.md): Product brief without JS
+- [This index](https://tv.significanthobbies.com/llms.txt)
+
+## Optional
+
+- [Foundry](https://sassmaker.com): Parent fleet showcase
