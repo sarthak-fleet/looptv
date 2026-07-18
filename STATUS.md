@@ -39,23 +39,20 @@ catalog freshness, and documentation hygiene.
 
 ## Unresolved questions
 
-- **Stale video count in `README.md`.** `README.md` quotes "4,548 currently
-  shipped videos" but the most recent catalog commit (`162f583`) ships 8,760.
-  The README figure should be updated or made dynamic. The canonical current
-  figure lives in [docs/product/overview.md](docs/product/overview.md).
 - **ADR-007 rationale (`next build --webpack`).** The ADR flags the rationale
   as TBD — no commit message explains why Turbopack was opted out for
   production. See [docs/architecture/decisions.md#adr-007](docs/architecture/decisions.md#adr-007).
-- **ADR-004 rationale (log-scaled percentile).** Also flagged TBD — inferred
-  from a code comment, not a recorded decision.
+- **ADR-004 rationale (step-function percentile brackets).** The exact bracket
+  values are flagged TBD — the filter's intent is in `scripts/catalog-quality.mjs`
+  but no commit records why each threshold is set where it is.
 - **OpenSpec spec "Purpose" fields** are all `TBD - created by archiving
   change ...`. They should be filled in or the specs pruned if no longer
   authoritative.
 
 ## Next steps
 
-- Resolve the README video-count staleness (update figure or wire it to the
-  catalog summary at build time).
+- Consider wiring the README video count to `catalog-summary.json` at build
+  time so it can't drift again (it is currently a hand-maintained figure).
 - Fill the TBD ADR rationales where recoverable, or mark them permanently
   unrecoverable.
 - After this docs branch lands, consider wiring `pnpm docs:build` (Blume) into

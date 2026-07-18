@@ -78,14 +78,20 @@ graceful fallback UI renders instead of an infinite spinner.
 All client state is `localStorage`-only. Clearing site data wipes everything;
 nothing leaves the browser.
 
+Keys are defined in `src/lib/watched.ts` (and `looptv_quarantined_sources` /
+`looptv_embed_health` are read/written via `source-health.ts`):
+
 | Key | Contents |
 | --- | --- |
 | `looptv_watched` | Set of video IDs seen ≥50% through |
 | `looptv_stats` | Per-station/source counts, total seconds watched |
 | `looptv_blocked_sources` | Sources the user opted out of |
 | `looptv_watch_later` | Bookmarked video IDs |
+| `looptv_saved_for_playback` | Videos saved to play in the current session |
 | `looptv_smart_mix_profile` | Smart Mix preference weights |
 | `looptv_prefs` | Default station, autoplay/mute on load, hide-watched toggle |
+| `looptv_embed_health` | Sampled per-source embed success/failure outcomes |
+| `looptv_quarantined_sources` | Sources auto-quarantined for sustained embed failures |
 
 ## Smart Mix
 

@@ -30,7 +30,7 @@ See also: [external-references.md](../external-references.md) for authoritative 
 ## BERT NER (`dslim/bert-base-NER`)
 - What: HuggingFace transformer model for named-entity recognition (PER/LOC/ORG/MISC), fine-tuned on CoNLL-2003
 - Why here: TBD
-- Gotcha (from code): NER category UI removed in commit 8203c0b ("too noisy — v2 will use zero-shot topic classification instead"); `extract-tags.py` is kept as an offline fallback but CI runs `tag-videos.mjs` instead (`.github/workflows/update-catalog.yml:43`); `torch` and `transformers` survive in `requirements-ner.txt` for local fallback use only, never installed in CI (`update-catalog.yml:34` only installs `yt-dlp`)
+- Gotcha (from code): NER category UI removed in commit 8203c0b ("too noisy — v2 will use zero-shot topic classification instead"); `extract-tags.py` is kept as an offline fallback but CI runs `tag-videos.mjs` instead (`.github/workflows/build-catalog.yml`); `torch` and `transformers` survive in `requirements-ner.txt` for local fallback use only, never installed in CI (only `fetch-catalog-sources.yml` installs `yt-dlp`; no CI job installs `torch`)
 - Source: https://huggingface.co/dslim/bert-base-NER (verified)
 
 ---

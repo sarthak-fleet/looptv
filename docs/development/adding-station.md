@@ -40,7 +40,7 @@ Add a station entry. Each station groups one or more YouTube channel sources:
 | `handle` | yes | YouTube `@handle` used by yt-dlp |
 | `channelId` | optional | `UC...` id — needed for RSS feed URLs (handles don't work there) |
 | `minDuration` / `maxDuration` | optional | Per-source duration filter (seconds) |
-| `topPercentile` | optional | Override the log-interpolated percentile cap (e.g. `25` = keep top 25% by views) |
+| `topPercentile` | optional | Override the auto-selected percentile cap (e.g. `25` = keep top 25% by views). Default is a step function of source size — see [ADR-004](../architecture/decisions.md#adr-004). |
 | `maxVideos` | optional | Override the default 200-video source cap |
 
 The TypeScript types live in [src/lib/types.ts](../../src/lib/types.ts)

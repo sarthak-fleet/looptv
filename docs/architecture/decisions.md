@@ -87,7 +87,7 @@ Switched to `output: 'export'` (static Next.js export) deployed via `wrangler pa
 ---
 
 <a id="adr-004"></a>
-## ADR-004 — Log-scaled percentile filter per source
+## ADR-004 — Step-function percentile filter per source
 
 **Date:** 2026-04-05 (commit `70350e3`)  
 **Status:** Active
@@ -96,18 +96,18 @@ Switched to `output: 'export'` (static Next.js export) deployed via `wrangler pa
 Larger channels (e.g. 2,000+ videos) would dominate a station if all videos were included. Smaller channels (50 videos) would barely appear.
 
 ### Decision
-`process-catalog.mjs` applies a log-interpolated percentile cap: largest sources keep top 10%, smallest keep top 50%, with view-count as the sort key. Sources can override with `topPercentile` in `stations.json`.
+The shared filter (`calcPercentile` in `scripts/catalog-quality.mjs`, applied by `process-catalog.mjs`) picks a top-view percentile by a **step function** of the source's eligible video count: ≥10,000 → top 3%, ≥5,000 → 5%, ≥2,000 → 8%, ≥1,000 → 10%, ≥500 → 15%, ≥200 → 25%, ≥75 → 35%, else 50%. View count is the sort key; thresholds are absolute per source size, not relative to other sources. Sources can override with `topPercentile` in `stations.json`.
 
 ### Rationale
-TBD: capture rationale — inferred from code comment ("avoids large channels crowding out small ones"). The log scale was chosen to compress the range without a hard cliff.
+TBD: no commit message records the exact bracket values. The intent is documented in `scripts/catalog-quality.mjs` ("keep top videos per source, stable when channels are added") — the tighter percentile for larger channels prevents big channels from crowding out small ones while keeping small channels well represented.
 
 ### Alternatives
 - Hard per-source cap (e.g. max 200 videos): simpler but arbitrary; doesn't adapt to channel size.
 - No cap: large channels crowd out small ones.
 
 ### Tradeoffs
-- A top-10% cut of a 2,000-video channel keeps only the highest view-count videos — may miss recent/niche content.
-- Dynamic threshold means catalog composition changes as channels grow.
+- A top-8% cut of a 2,000-video channel keeps only the highest view-count videos — may miss recent/niche content.
+- The step-function threshold means a source's cut can tighten by one bracket as it grows past a boundary (e.g. crossing 2,000 videos drops it from 10% to 8%).
 
 ---
 
@@ -118,7 +118,7 @@ TBD: capture rationale — inferred from code comment ("avoids large channels cr
 **Status:** Active
 
 ### Context
-The app needs ~38K video records at runtime. Options: runtime DB query, on-demand API calls, or a static file served from CDN.
+The app needs the full curated video set at runtime (currently 8,760 records; ~1.9MB). Options: runtime DB query, on-demand API calls, or a static file served from CDN.
 
 ### Decision
 `public/catalog.json` (~2MB) is committed to the repo and served as a static CDN asset. No database or server-side catalog query.
@@ -126,7 +126,7 @@ The app needs ~38K video records at runtime. Options: runtime DB query, on-deman
 ### Rationale
 - Zero API keys required — the entire "zero API keys" positioning depends on this.
 - Cloudflare Pages CDN serves the file globally with low latency.
-- Weekly rebuild via GH Actions keeps it fresh without runtime infrastructure.
+- Bi-weekly rebuild via GH Actions (1st & 15th) keeps it fresh without runtime infrastructure.
 - Watched history and preferences live in `localStorage`; nothing requires a backend.
 
 ### Alternatives
@@ -135,7 +135,7 @@ The app needs ~38K video records at runtime. Options: runtime DB query, on-deman
 - KV or R2: possible but adds complexity for a read-only dataset.
 
 ### Tradeoffs
-- Catalog is stale between weekly rebuilds (max 7-day lag). Mitigated by `getCatalogFreshness()` surfacing stale state to the user.
+- Catalog is stale between bi-weekly rebuilds (max ~14-day lag). Mitigated by `getCatalogFreshness()` surfacing stale state to the user.
 - 2MB cold load on first visit; mitigated by `force-cache` fetch strategy and a separate `catalog-summary.json` for fast initial render.
 - Adding a station requires a full catalog rebuild + commit + deploy.
 
@@ -176,7 +176,7 @@ YouTube IFrame Player API (`https://www.youtube.com/iframe_api`) loaded dynamica
 **Status:** Active
 
 ### Context
-Building the video catalog requires fetching video IDs, titles, durations, view counts, and descriptions for ~78 YouTube channels.
+Building the video catalog requires fetching video IDs, titles, durations, view counts, and descriptions for every configured YouTube channel (currently 122 sources across 16 stations).
 
 ### Decision
 `yt-dlp --flat-playlist --dump-json` fetches all metadata locally. No YouTube API key needed.
@@ -188,7 +188,7 @@ Building the video catalog requires fetching video IDs, titles, durations, view 
 - Local cache (`data/sources/*.jsonl`) means subsequent runs are fast.
 
 ### Alternatives
-- YouTube Data API v3 (playlistItems): 10,000 quota units/day; a full 78-channel rebuild would likely exceed the free quota.
+- YouTube Data API v3 (playlistItems): 10,000 quota units/day; a full 122-source rebuild would likely exceed the free quota. (The later cache-first Data API path in ADR-002/ADR-001-successor work made this viable within quota — see [catalog-pipeline.md](catalog-pipeline.md).)
 - `pytube` / `youtube-dl` (archived): less maintained, worse handle support.
 
 ### Tradeoffs

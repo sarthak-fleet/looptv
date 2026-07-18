@@ -46,14 +46,10 @@ and incremental AI tagging.
 
 ## Current stats
 
-- **16 stations, 122 YouTube channels, 8,760 curated videos** (per the most
-  recent catalog commit `162f583 Update catalog: 8760 videos`).
+- **16 stations, 122 YouTube channels, 8,760 curated videos** (per
+  `public/catalog-summary.json`, generated 2026-07-15).
 - Global 10K-view minimum filter.
 - Per-source duration, percentile, and optional cap controls in `stations.json`.
-
-> **Unresolved:** `README.md` still quotes "4,548 currently shipped videos",
-> which is stale relative to the committed catalog. See
-> [STATUS.md](../../STATUS.md#unresolved-questions).
 
 ## Fork-friendly positioning
 

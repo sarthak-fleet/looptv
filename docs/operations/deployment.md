@@ -21,6 +21,7 @@ description: How LoopTV ships to Cloudflare Pages.
 | [`fetch-catalog-sources.yml`](jobs/fetch-catalog-sources.md) | cron `0 6 1,15 * *` + manual | 8-shard cache-first source fetch |
 | [`build-catalog.yml`](jobs/build-catalog.md) | on `Fetch Catalog Sources` completion + manual | Process + audit + tag + commit catalog |
 | [`weekly.yml`](jobs/weekly-quality.md) | cron `0 9 * * 1` + manual | lint + typecheck + test + build |
+| `docs.yml` | push/PR touching docs, `AGENTS.md`, `STATUS.md`, `CLAUDE.md`, or `validate-docs.mjs` (+ manual) | `node scripts/validate-docs.mjs --strict` |
 
 ## Manual deploy
 

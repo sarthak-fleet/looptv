@@ -12,7 +12,7 @@ Concrete lessons evidenced in code or git history. See [architecture/decisions.m
 ## yt-dlp
 
 ### Sequential fetching avoids rate-limit bans
-`fetch-all-sources.sh` and `build-catalog.sh` iterate channels in a `for` loop — one at a time, not parallel. Parallelizing yt-dlp across 78+ channels in a single CI job risks YouTube rate-limiting the GitHub Actions IP range. The sequential approach is slower (~minutes) but reliable.
+`fetch-all-sources.sh` and `build-catalog.sh` iterate channels in a `for` loop — one at a time, not parallel. Parallelizing yt-dlp across all configured sources (currently 122) in a single CI job risks YouTube rate-limiting the GitHub Actions IP range. The sequential approach is slower (~minutes) but reliable. (CI now shards the fetch across 8 parallel jobs — see [fetch-catalog-sources.md](../../operations/jobs/fetch-catalog-sources.md).)
 
 ### Cache wins when fresh fetch returns fewer rows
 `build-catalog.sh` compares the freshly fetched line count against the cached JSONL. If the new fetch has fewer rows (region block, temporary network error, YouTube returning a short playlist), it silently keeps the cache. The threshold `MIN_CACHE_ROWS_TO_TRUST` (default 5) also triggers a re-fetch when a cached file looks suspiciously small.
@@ -46,7 +46,7 @@ Character truncation is not the same as token truncation — a 512-character str
 Initial runs tagged `ORG` entities (brand names, channel names, "Patreon", "Peacock") and `MISC` ("German", "SNL", "American") that were useless for browse. The script now filters to only `PER` (people) and `LOC` (places) with a 0.8 confidence threshold. Even so, NER-derived categories were found too noisy for production use and were removed after one day (commit `8203c0b`).
 
 ### NER is retained but superseded in CI
-`extract-tags.py` and `requirements-ner.txt` are still in the repo. The weekly CI workflow now calls `tag-videos.mjs` (LLM gateway) instead. `extract-tags.py` remains useful locally if the free-AI gateway is down, but installs `torch` (~1GB).
+`extract-tags.py` and `requirements-ner.txt` are still in the repo. The `Build Catalog` workflow (`build-catalog.yml`, chained after the bi-weekly `Fetch Catalog Sources`) now calls `tag-videos.mjs` (LLM gateway) instead. `extract-tags.py` remains useful locally if the free-AI gateway is down, but installs `torch` (~1GB).
 
 ---
 

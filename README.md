@@ -16,14 +16,14 @@ TV-like app that plays random YouTube videos from curated channels, nonstop. Pic
 | Hosting | Cloudflare Pages (`looptv`, `tv.significanthobbies.com`) - static Next.js export, deployed via `wrangler pages deploy` |
 | Database | None — static `public/catalog.json` served at runtime; watched history in browser `localStorage` |
 | Analytics | PostHog via `local posthog-js wrapper` |
-| AI / tagging | Free-AI gateway in CI for untagged videos; local HuggingFace NER remains available |
+| AI / tagging | Free-AI LLM gateway in CI (multi-model fan-out) for untagged videos; local HuggingFace NER retained as an offline fallback, not run in CI |
 | CI/CD | GitHub Actions — Pages deploys plus cache-first catalog refreshes on the 1st and 15th |
 
 ## Stats
 
-- 16 stations, 122 YouTube channels, 4,548 currently shipped videos
-- NER-based auto-tagging via HuggingFace (dslim/bert-base-NER)
-- Quality filters: per-source minDuration/maxDuration, global 10K views minimum
+- 16 stations, 122 YouTube channels, 8,760 currently shipped videos (see `public/catalog-summary.json` for the live count)
+- Topic tagging via a free-AI LLM gateway (multi-model fan-out) in CI; HuggingFace `dslim/bert-base-NER` retained as a local offline fallback only
+- Quality filters: per-source minDuration/maxDuration, global 10K views minimum, per-source top-view percentile cap + 200-video default cap
 - Watched tracking with localStorage
 
 ## Configuration
@@ -72,10 +72,9 @@ stations.json          <- Add YouTube channels here
      |
 fetch-sources.sh       <- recent cache, then bounded Data API fetch; yt-dlp fallback
      |
-process-catalog.mjs    <- Merges with existing catalog, preserves NER tags for known videos
+process-catalog.mjs    <- Merges with existing catalog, preserves existing tags for known videos
      |
-tag-videos.mjs         <- free-AI gateway tags only new/untagged videos in CI
-     |                    Auto-derives categories from most frequent tags
+tag-videos.mjs         <- free-AI LLM gateway tags only new/untagged videos in CI
 catalog.json           <- Committed to repo, served as static JSON
      |
 Next.js frontend       <- Picks random videos, plays via YouTube IFrame API
@@ -88,7 +87,8 @@ Next.js frontend       <- Picks random videos, plays via YouTube IFrame API
 | `scripts/build-catalog.sh` | Process cached sources into the static catalog |
 | `scripts/fetch-sources.sh` | Cache-first Data API fetch with yt-dlp fallback |
 | `scripts/process-catalog.mjs` | Merge raw JSONL into catalog.json, preserve existing tags |
-| `scripts/extract-tags.py` | HuggingFace NER tagging on new/untagged videos |
+| `scripts/tag-videos.mjs` | Free-AI LLM gateway topic tagging for untagged videos (CI tagger) |
+| `scripts/extract-tags.py` | Local HuggingFace NER tagging fallback (not run in CI) |
 | `scripts/fetch-all-sources.sh` | Compatibility wrapper for fetching all sources |
 
 ## Controls
@@ -137,7 +137,7 @@ Clearing site data wipes all of it; nothing leaves the browser.
 
 The source workflow runs on the 1st and 15th. Complete source caches younger than 13 days make zero YouTube requests. Stale or missing sources scan at most 250 recent uploads, stop when known IDs are reached, request video metadata in batches of 50, and hard-stop at 20 requests per source. The chained build audits coverage and replacement churn before calling AI, tags only untagged additions, retries only still-pending tags once, and commits only a passing catalog.
 
-For an occasional complete quality rebaseline, `pnpm audit:catalog:full` scans full upload histories at five requests per second with a 4,500-request global ceiling and per-source checkpoints. It is never scheduled. The July 12 baseline used 3,467 requests for all 122 sources; an immediate rerun used zero. See [`docs/catalog-quality-audit.md`](docs/catalog-quality-audit.md).
+For an occasional complete quality rebaseline, `pnpm audit:catalog:full` scans full upload histories at five requests per second with a 4,500-request global ceiling and per-source checkpoints. It is never scheduled. The July 12 baseline used 3,467 requests for all 122 sources; an immediate rerun used zero. See [`docs/operations/catalog-quality-audit.md`](docs/operations/catalog-quality-audit.md).
 
 ## Deployment
 
@@ -150,10 +150,10 @@ wrangler pages deploy out --project-name=looptv
 
 ## Stack
 
-- Next.js 16 + Tailwind CSS v4
+- Next.js 16 (static export, `next build --webpack`) + Tailwind CSS v4
 - YouTube IFrame Player API (free, no key)
 - YouTube Data API for maintained catalog refreshes; yt-dlp fallback
-- HuggingFace Transformers (dslim/bert-base-NER)
+- Free-AI LLM gateway (multi-model fan-out) for CI topic tagging; HuggingFace Transformers (`dslim/bert-base-NER`) retained as a local offline fallback
 
 ## License
 

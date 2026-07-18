@@ -41,8 +41,12 @@ artifact extraction time. This prevents checkout time from hiding stale data.
 - Applies quality filters in order:
   1. Per-source `minDuration` / `maxDuration` from `stations.json`.
   2. Global 10,000-view minimum (requires full video metadata).
-  3. Log-interpolated percentile cap per source (largest sources keep top 10%,
-     smallest keep top 50%; overridable via `topPercentile` in `stations.json`).
+  3. Per-source top-view percentile cap, chosen by a step function of the
+     source's eligible video count (`calcPercentile` in
+     `scripts/catalog-quality.mjs`): ≥10,000 videos → top 3%, ≥5,000 → 5%,
+     ≥2,000 → 8%, ≥1,000 → 10%, ≥500 → 15%, ≥200 → 25%, ≥75 → 35%, else 50%.
+     Thresholds are absolute per source size, not relative to other sources;
+     overridable via `topPercentile` in `stations.json`.
   4. Per-source video cap (default 200; overridable via `maxVideos`; SNL uses
      1,000 because it occupies its own station).
 - Writes `public/catalog.json` (~2MB) and `public/catalog-summary.json`
