@@ -145,14 +145,11 @@ export default function CatalogPage() {
           / <span className="text-zinc-300">catalog</span>
         </nav>
 
-        <h1 className="text-4xl font-bold tracking-tight text-white mb-3">
-          Video Catalog
-        </h1>
+        <h1 className="text-4xl font-bold tracking-tight text-white mb-3">Video Catalog</h1>
         <p className="text-zinc-400 max-w-2xl mb-8">
           {totalVideos.toLocaleString()} curated YouTube videos across {stationsConfig.length}{' '}
-          stations and {stationsConfig.reduce((n, s) => n + s.sources.length, 0)} channels.
-          The catalog is rebuilt weekly via GitHub Action using yt-dlp and committed as
-          static JSON.
+          stations and {stationsConfig.reduce((n, s) => n + s.sources.length, 0)} channels. The
+          catalog is rebuilt weekly via GitHub Action using yt-dlp and committed as static JSON.
         </p>
 
         <div className="grid grid-cols-3 gap-4 mb-10">
@@ -202,7 +199,9 @@ export default function CatalogPage() {
                   <p className="text-sm text-zinc-500 mt-0.5">{station.description}</p>
                 </div>
                 <div className="text-right text-sm">
-                  <span className="text-zinc-300 font-medium">{station.videoCount.toLocaleString()}</span>
+                  <span className="text-zinc-300 font-medium">
+                    {station.videoCount.toLocaleString()}
+                  </span>
                   <span className="text-zinc-600 ml-1">videos</span>
                 </div>
               </div>
@@ -251,10 +250,7 @@ export default function CatalogPage() {
               )}
 
               <div className="mt-3">
-                <Link
-                  href={`/${station.id}`}
-                  className="text-sm text-blue-400 hover:text-blue-300"
-                >
+                <Link href={`/${station.id}`} className="text-sm text-blue-400 hover:text-blue-300">
                   Play {station.name} station &rarr;
                 </Link>
               </div>
@@ -266,12 +262,12 @@ export default function CatalogPage() {
           <h2 className="text-lg font-medium text-zinc-400 mb-2">Catalog provenance</h2>
           <p>
             Videos are fetched from public YouTube channels listed in{' '}
-            <code className="text-zinc-500">stations.json</code> using yt-dlp. A GitHub Action
-            (<code className="text-zinc-500">.github/workflows/update-catalog.yml</code>) runs
+            <code className="text-zinc-500">stations.json</code> using yt-dlp. A GitHub Action (
+            <code className="text-zinc-500">.github/workflows/update-catalog.yml</code>) runs
             weekly, fetches new uploads, applies duration and view-count quality filters, and
-            commits the updated <code className="text-zinc-500">catalog.json</code>. NER tagging
-            via HuggingFace (dslim/bert-base-NER) adds entity tags to untagged videos only.
-            Last updated: {catalog.lastUpdated}.
+            commits the updated <code className="text-zinc-500">catalog.json</code>. NER tagging via
+            HuggingFace (dslim/bert-base-NER) adds entity tags to untagged videos only. Last
+            updated: {catalog.lastUpdated}.
           </p>
         </section>
       </div>
