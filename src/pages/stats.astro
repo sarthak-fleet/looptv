@@ -1,0 +1,8 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import StatsPage from '@/react-pages/StatsPage';
+---
+
+<BaseLayout title="Watch stats" canonicalPath="/stats">
+  <StatsPage client:load />
+</BaseLayout>

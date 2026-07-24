@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import type { Catalog, CatalogSummary, Video } from '@/lib/types';
 import {
@@ -50,7 +48,7 @@ import {
 } from '@/lib/smartmix';
 import { ytErrorReason } from '@/lib/yt-errors';
 import { trackActivated, trackCoreAction } from '@/lib/analytics';
-import Link from 'next/link';
+import Link from './AppLink';
 import Player, { type PlayerHandle } from './Player';
 import Search from './Search';
 import ChannelHealth from './ChannelHealth';

@@ -1,10 +1,8 @@
-'use client';
-
 import posthog from 'posthog-js';
 
 const PROJECT_SLUG = 'looptv';
-const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY?.trim();
-const POSTHOG_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST?.trim() || 'https://us.i.posthog.com';
+const POSTHOG_KEY = import.meta.env.PUBLIC_POSTHOG_KEY?.trim();
+const POSTHOG_HOST = import.meta.env.PUBLIC_POSTHOG_HOST?.trim() || 'https://us.i.posthog.com';
 
 function route() {
   if (typeof window === 'undefined') return undefined;

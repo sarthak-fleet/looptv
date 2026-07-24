@@ -24,7 +24,7 @@ function sendToAnalytics(metric: VitalMetric) {
     });
   } else {
     const body = JSON.stringify({
-      project: process.env.NEXT_PUBLIC_PROJECT_SLUG ?? 'looptv',
+      project: import.meta.env.PUBLIC_PROJECT_SLUG ?? 'looptv',
       ...metric,
     });
     navigator.sendBeacon('https://vitals.fleet.workers.dev/collect', body);

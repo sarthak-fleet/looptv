@@ -10,7 +10,7 @@ description: How LoopTV ships to Cloudflare Pages.
 - **Host:** Cloudflare Pages, project `looptv`.
 - **Domain:** `tv.significanthobbies.com` (canonical).
 - **Preview URLs:** `pr-<N>.looptv.pages.dev` per pull request.
-- **Build output:** `out/` (Next.js `output: 'export'` static export).
+- **Build output:** `dist/` (Astro static build).
 
 ## Workflows
 
@@ -26,17 +26,17 @@ description: How LoopTV ships to Cloudflare Pages.
 ## Manual deploy
 
 ```bash
-pnpm deploy    # = pnpm cf:build && wrangler pages deploy out --project-name=looptv
+pnpm deploy    # = pnpm cf:build && wrangler pages deploy dist --project-name=looptv
 ```
 
 Or step-by-step:
 
 ```bash
 pnpm build
-wrangler pages deploy out --project-name=looptv
+wrangler pages deploy dist --project-name=looptv
 ```
 
-`wrangler.toml` sets `pages_build_output_dir = "out"` and the project name.
+`wrangler.toml` sets `pages_build_output_dir = "dist"` and the project name.
 
 ## Secrets
 
@@ -58,10 +58,9 @@ documentation.
 
 ## Caching
 
-`next.config.ts` sets long-lived `Cache-Control` for `/_next/static/*`
-(immutable, 1 year) and 1-hour caching for `/catalog-summary.json`,
-`/stations.json`, `/tags.json`. `public/_headers` overrides
-`/catalog.json` and `/catalog-summary.json` to
+Astro emits content-hashed client assets under `/_astro/`. Generated endpoints
+set their own content types and caching headers where applicable.
+`public/_headers` sets `/catalog.json` and `/catalog-summary.json` to
 `public, max-age=0, must-revalidate` so an old successful browser cache entry
 cannot outlive a newer deployment — this is the
 [fresh-catalog-delivery](https://tv.significanthobbies.com) spec requirement.

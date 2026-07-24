@@ -17,7 +17,7 @@ description: Get LoopTV running locally for development.
 
 ```bash
 pnpm install
-pnpm dev          # Next.js dev server (Turbopack)
+pnpm dev          # Astro development server
 ```
 
 Open the dev URL. The app uses the checked-in `public/catalog.json`, so no
@@ -26,20 +26,19 @@ API key or catalog rebuild is needed for playback.
 ## Common commands
 
 ```bash
-pnpm dev              # Next.js dev server
-pnpm build            # Production build (next build --webpack)
-pnpm start            # Serve the built out/ via wrangler pages dev
+pnpm dev              # Astro development server
+pnpm build            # Production static build
+pnpm start            # Serve the built dist/ via wrangler pages dev
 pnpm test             # vitest run
 pnpm test:coverage    # vitest with coverage
 pnpm lint             # biome check .
 pnpm format           # biome format --write .
-pnpm typecheck        # tsc --noEmit
+pnpm typecheck        # astro check
 pnpm check            # biome check . (alias of lint)
 ```
 
-> **Note:** `pnpm build` deliberately uses `next build --webpack` (Turbopack
-> opted out for production). See
-> [architecture/decisions.md#adr-007](../architecture/decisions.md#adr-007).
+`pnpm build` prerenders every public route and generated endpoint into `dist/`.
+See [architecture/decisions.md#adr-008](../architecture/decisions.md#adr-008).
 
 ## Catalog rebuild (optional locally)
 
@@ -55,7 +54,7 @@ browser build) are listed in `.env.example`:
 
 - `YOUTUBE_API_KEY` — repository Actions secret; never reaches build/deploy.
 - `FAGW_API_KEY` — free-AI gateway key; only used when untagged videos exist.
-- `NEXT_PUBLIC_SAASMAKER_API_KEY` — public SaaS Maker widget key (feedback /
+- `PUBLIC_SAASMAKER_API_KEY` — public SaaS Maker widget key (feedback /
   changelog / testimonials).
 
 See [operations/deployment.md](../operations/deployment.md) for how secrets are

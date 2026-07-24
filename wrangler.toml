@@ -1,6 +1,6 @@
 name = "looptv"
-pages_build_output_dir = "out"
+pages_build_output_dir = "dist"
 compatibility_date = "2026-04-28"
 
 [vars]
-NEXT_PUBLIC_SAASMAKER_API_KEY = "pk_6a7e5a03e5bcffd3f04080623af4f65a14e6ea8262409b4c"
+PUBLIC_SAASMAKER_API_KEY = "pk_6a7e5a03e5bcffd3f04080623af4f65a14e6ea8262409b4c"

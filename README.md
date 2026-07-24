@@ -13,7 +13,7 @@ TV-like app that plays random YouTube videos from curated channels, nonstop. Pic
 
 | Concern | Service |
 |---------|---------|
-| Hosting | Cloudflare Pages (`looptv`, `tv.significanthobbies.com`) - static Next.js export, deployed via `wrangler pages deploy` |
+| Hosting | Cloudflare Pages (`looptv`, `tv.significanthobbies.com`) — static Astro output, deployed via `wrangler pages deploy` |
 | Database | None — static `public/catalog.json` served at runtime; watched history in browser `localStorage` |
 | Analytics | PostHog via `local posthog-js wrapper` |
 | AI / tagging | Free-AI LLM gateway in CI (multi-model fan-out) for untagged videos; local HuggingFace NER retained as an offline fallback, not run in CI |
@@ -77,7 +77,7 @@ process-catalog.mjs    <- Merges with existing catalog, preserves existing tags 
 tag-videos.mjs         <- free-AI LLM gateway tags only new/untagged videos in CI
 catalog.json           <- Committed to repo, served as static JSON
      |
-Next.js frontend       <- Picks random videos, plays via YouTube IFrame API
+Astro + React islands  <- Picks random videos, plays via YouTube IFrame API
 ```
 
 ## Scripts
@@ -141,16 +141,16 @@ For an occasional complete quality rebaseline, `pnpm audit:catalog:full` scans f
 
 ## Deployment
 
-Deployed on Cloudflare Pages as a static Next.js export: `tv.significanthobbies.com`.
+Deployed on Cloudflare Pages as a static site: `tv.significanthobbies.com`.
 
 ```bash
 pnpm build
-wrangler pages deploy out --project-name=looptv
+wrangler pages deploy dist --project-name=looptv
 ```
 
 ## Stack
 
-- Next.js 16 (static export, `next build --webpack`) + Tailwind CSS v4
+- Astro static pages + React islands + Tailwind CSS v4
 - YouTube IFrame Player API (free, no key)
 - YouTube Data API for maintained catalog refreshes; yt-dlp fallback
 - Free-AI LLM gateway (multi-model fan-out) for CI topic tagging; HuggingFace Transformers (`dslim/bert-base-NER`) retained as a local offline fallback

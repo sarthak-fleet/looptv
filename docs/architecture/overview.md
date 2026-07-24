@@ -7,9 +7,10 @@ description: System shape, data flow, and the boundaries that define LoopTV.
 
 ## One-paragraph shape
 
-LoopTV is a 100% client-side Next.js static export. The server renders only the
-shell; `catalog.json` is fetched client-side and the YouTube IFrame Player API
-does all playback. A separate, CI-only catalog pipeline rebuilds
+LoopTV is a static Astro site. Content routes are prerendered and interactive
+playback or browser-state surfaces hydrate as React islands; `catalog.json` is
+fetched client-side and the YouTube IFrame Player API does all playback. A
+separate, CI-only catalog pipeline rebuilds
 `public/catalog.json` on a bi-weekly schedule from `stations.json` using a
 cache-first YouTube Data API path with yt-dlp fallback and incremental free-AI
 tagging. There is no database, no auth, and no server runtime.
@@ -37,7 +38,7 @@ tag-videos.mjs ── free-AI gateway, multi-model fan-out, retry once
 public/catalog.json + public/catalog-summary.json + catalog-manifest.json
      │  (committed to repo, served as static CDN assets)
      ▼
-Next.js frontend ── fetch /catalog.json client-side
+Astro + React islands ── fetch /catalog.json client-side
      │              pick random video per station
      ▼
 YouTube IFrame Player API ── onError 101/150 → auto-skip
@@ -49,10 +50,10 @@ watched.ts ── localStorage: watched, stats, blocked, watch-later, smart-mix,
 
 ## Boundaries (why this shape)
 
-- **No server runtime.** `output: 'export'` produces a static `out/` deployed
-  to Cloudflare Pages. This is a deliberate choice — see
-  [ADR-005](decisions.md#adr-005). Anything requiring a server (API routes,
-  SSR, `ImageResponse`) is out of scope.
+- **No server runtime.** `astro build` prerenders static `dist/` output for
+  Cloudflare Pages. This is a deliberate choice — see
+  [ADR-008](decisions.md#adr-008). Anything requiring an on-request server
+  adapter is out of scope.
 - **No database.** The "zero API keys for playback/forks" positioning depends
   on a committed static catalog. Watched history lives in `localStorage`. See
   [ADR-003](decisions.md#adr-003).

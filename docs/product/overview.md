@@ -23,7 +23,7 @@ and incremental AI tagging.
 
 ## In scope
 
-- Static Next.js export on Cloudflare Pages.
+- Static Astro pages with React islands on Cloudflare Pages.
 - YouTube IFrame Player API playback (free, no key).
 - Client-side watch history, playback diagnostics, source health
   auto-quarantine, lean-back controls redesign.

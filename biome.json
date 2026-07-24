@@ -23,7 +23,8 @@
       "!**/design.html",
       "!**/src/app/icon.svg",
       "!**/src/app/globals.css",
-      "!**/stations.json"
+      "!**/stations.json",
+      "!**/*.astro"
     ]
   },
   "formatter": {
@@ -39,6 +40,11 @@
       "semicolons": "always",
       "trailingCommas": "es5",
       "jsxQuoteStyle": "double"
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   },
   "linter": {

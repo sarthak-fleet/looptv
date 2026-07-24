@@ -1,7 +1,16 @@
 # Catalog assets use validators but must revalidate so an old successful browser
 # cache entry cannot outlive a newer deployment.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
 /catalog.json
   Cache-Control: public, max-age=0, must-revalidate
 
 /catalog-summary.json
   Cache-Control: public, max-age=0, must-revalidate
+
+/stations.json
+  Cache-Control: public, max-age=3600
+
+/tags.json
+  Cache-Control: public, max-age=3600

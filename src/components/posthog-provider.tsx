@@ -1,5 +1,3 @@
-'use client';
-
 // posthog-js + PostHogProvider intentionally NOT imported at module top.
 // `lib/analytics` lazy-imports posthog-js inside its emit() path; the React
 // `<PostHogProvider>` was wrapping `{children}` but no descendant uses

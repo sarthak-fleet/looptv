@@ -2,12 +2,6 @@
 
 Also read and follow the shared fleet-level agent standard at `../AGENTS.md`. Treat this repository as owned product code: protect production stability, keep changes scoped, verify work, and record durable follow-up tasks when something remains incomplete or blocked.
 
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
-
-This version has breaking changes -- APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
-
 # agents.md — LoopTV
 
 > **Full documentation lives in [`docs/`](docs/index.md).** This file is the
@@ -27,12 +21,12 @@ See [docs/product/overview.md](docs/product/overview.md).
 
 ## Stack
 
-- Next.js 16 (App Router, **webpack** — `next build --webpack`, not Turbopack)
+- Astro static pages with React islands
 - TypeScript (frontend), Python (NER fallback), Bash (catalog pipeline)
 - Tailwind CSS v4
 - No DB, no auth — static `public/catalog.json` + `localStorage` watched state
 - Vitest (unit), Biome (lint/format), Playwright (browser, not in default test)
-- Cloudflare Pages static export (`output: 'export'`)
+- Cloudflare Pages static output (`dist/`)
 - pnpm
 
 See [docs/architecture/overview.md](docs/architecture/overview.md).
@@ -41,11 +35,11 @@ See [docs/architecture/overview.md](docs/architecture/overview.md).
 
 ```bash
 pnpm install
-pnpm dev                # Next.js dev server (Turbopack)
-pnpm build              # next build --webpack (production static export)
+pnpm dev                # Astro development server
+pnpm build              # Astro production static build
 pnpm test               # vitest run
 pnpm lint               # biome check .
-pnpm typecheck          # tsc --noEmit
+pnpm typecheck          # astro check
 
 # Catalog (CI-only credentials; checked-in catalog needs no key)
 pnpm run build:catalog              # fetch + process (no NER)
@@ -63,13 +57,14 @@ See [docs/development/setup.md](docs/development/setup.md) and
 
 ## Critical constraints
 
-- **No server runtime.** `output: 'export'` — no API routes, no SSR, no
-  `ImageResponse`. See [docs/architecture/decisions.md#adr-005](docs/architecture/decisions.md#adr-005).
+- **No server runtime.** Astro prerenders every route and endpoint into
+  `dist/`; do not add an on-request adapter. See
+  [docs/architecture/decisions.md#adr-008](docs/architecture/decisions.md#adr-008).
 - **No YouTube API key in the browser/build/deploy.** `YOUTUBE_API_KEY` and
   `FAGW_API_KEY` are repository Actions secrets, CI-only, never in the static
   app. See [docs/operations/deployment.md](docs/operations/deployment.md).
-- **`next build --webpack`** — Turbopack is opted out for production. See
-  [docs/architecture/decisions.md#adr-007](docs/architecture/decisions.md#adr-007).
+- **React is for islands.** Keep content routes static and hydrate only
+  playback or browser-state surfaces.
 - **Catalog never ships with untagged videos.** The Build Catalog workflow's
   shipping gate refuses to commit if any video is still pending tags. See
   [docs/operations/jobs/build-catalog.md](docs/operations/jobs/build-catalog.md).

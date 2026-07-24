@@ -1,6 +1,6 @@
 # STATUS — LoopTV
 
-Last updated: 2026-07-18
+Last updated: 2026-07-24
 
 > Short, living view of the current objective, active work, blockers,
 > unresolved questions, and next steps. Detailed feature inventory and
@@ -15,10 +15,11 @@ catalog freshness, and documentation hygiene.
 
 ## Active work
 
-- **Documentation consolidation (this branch, `docs/knowledge-system`):**
-  unified scattered docs into a canonical `docs/` tree, added a Blume
-  presentation layer, link validation, and CI docs checks. See the branch
-  commit history for the full change set.
+- **Static-shell consolidation:** the local source now builds with Astro and
+  React islands instead of Next.js. All existing public pages, station
+  permalinks, catalog assets, and machine-readable routes are preserved.
+  The current production deployment remains unchanged until an explicitly
+  approved Pages preview and domain cutover.
 - **Bi-weekly catalog refresh:** runs on the 1st & 15th via
   `Fetch Catalog Sources` → `Build Catalog`. No manual intervention expected
   unless an audit fails (see
@@ -39,9 +40,6 @@ catalog freshness, and documentation hygiene.
 
 ## Unresolved questions
 
-- **ADR-007 rationale (`next build --webpack`).** The ADR flags the rationale
-  as TBD — no commit message explains why Turbopack was opted out for
-  production. See [docs/architecture/decisions.md#adr-007](docs/architecture/decisions.md#adr-007).
 - **ADR-004 rationale (step-function percentile brackets).** The exact bracket
   values are flagged TBD — the filter's intent is in `scripts/catalog-quality.mjs`
   but no commit records why each threshold is set where it is.
@@ -55,8 +53,8 @@ catalog freshness, and documentation hygiene.
   time so it can't drift again (it is currently a hand-maintained figure).
 - Fill the TBD ADR rationales where recoverable, or mark them permanently
   unrecoverable.
-- After this docs branch lands, consider wiring `pnpm docs:build` (Blume) into
-  the deploy workflow so the docs site publishes alongside the app.
+- Run an approved Cloudflare Pages preview, verify the owned-domain routes,
+  then cut production from the existing Next export to the Astro `dist/`.
 - Consider whether the OpenSpec specs still add value now that ADRs and
   operations docs cover the same ground; if not, archive the specs.
 

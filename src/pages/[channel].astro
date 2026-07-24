@@ -1,0 +1,22 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import TVApp from '@/components/TVApp';
+import stations from '../../channels.config';
+
+export function getStaticPaths() {
+  return stations.map((station) => ({
+    params: { channel: station.id },
+    props: { station },
+  }));
+}
+
+const { station } = Astro.props;
+---
+
+<BaseLayout
+  title={station.name}
+  description={station.description}
+  canonicalPath={`/${station.id}`}
+>
+  <TVApp initialChannel={station.id} client:load />
+</BaseLayout>

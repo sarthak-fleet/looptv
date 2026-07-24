@@ -1,0 +1,8 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import RandomStationPage from '@/react-pages/RandomStationPage';
+---
+
+<BaseLayout title="Random station" canonicalPath="/random">
+  <RandomStationPage client:load />
+</BaseLayout>

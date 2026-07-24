@@ -9,11 +9,39 @@ description: ADRs for LoopTV — the why behind each active architectural choice
 
 ---
 
+<a id="adr-008"></a>
+## ADR-008 — Astro static pages with React islands
+
+**Date:** 2026-07-24
+**Status:** Active
+
+### Context
+LoopTV has no server runtime, database, authentication, or request-time data
+requirements. Next.js was used only to export static routes around an
+interactive React player and local-browser utilities.
+
+### Decision
+Use Astro for static routing, metadata, and generated text/JSON/XML outputs.
+Keep the existing React player and browser-state surfaces as hydrated islands.
+Cloudflare Pages serves the generated `dist/` directory.
+
+### Rationale
+- Matches the product's static hosting boundary directly.
+- Keeps content pages HTML-first while preserving the tested React player.
+- Removes Next-specific routing, metadata, and export configuration.
+
+### Tradeoffs
+- React islands still ship React to interactive routes.
+- A future request-time feature would require a separate service or an
+  explicitly approved Astro server adapter.
+
+---
+
 <a id="adr-007"></a>
 ## ADR-007 — `next build --webpack` instead of Turbopack
 
 **Date:** 2026-05-28 (inferred from "Align TypeScript config" commit)  
-**Status:** Active
+**Status:** Superseded by ADR-008
 
 ### Context
 Next.js 16 ships with Turbopack as the default bundler for `next build`. The project moved to `output: 'export'` on Cloudflare Pages and needed a reliable static-export build.
