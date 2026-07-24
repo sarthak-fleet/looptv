@@ -1,6 +1,6 @@
 # STATUS — LoopTV
 
-Last updated: 2026-07-24
+Last updated: 2026-07-25
 
 > Short, living view of the current objective, active work, blockers,
 > unresolved questions, and next steps. Detailed feature inventory and
@@ -15,11 +15,12 @@ catalog freshness, and documentation hygiene.
 
 ## Active work
 
-- **Static-shell consolidation:** the local source now builds with Astro and
-  React islands instead of Next.js. All existing public pages, station
-  permalinks, catalog assets, and machine-readable routes are preserved.
-  The current production deployment remains unchanged until an explicitly
-  approved Pages preview and domain cutover.
+- **Static-shell consolidation:** production now runs the Astro build with
+  React islands on Cloudflare Pages at `tv.significanthobbies.com`. All
+  existing public pages, station permalinks, catalog assets, and
+  machine-readable routes are preserved. The 2026-07-25 release smoke covered
+  the home page, channel catalog, station selection, YouTube playback,
+  next-video control, and `/random` routing.
 - **Bi-weekly catalog refresh:** runs on the 1st & 15th via
   `Fetch Catalog Sources` → `Build Catalog`. No manual intervention expected
   unless an audit fails (see
@@ -53,8 +54,6 @@ catalog freshness, and documentation hygiene.
   time so it can't drift again (it is currently a hand-maintained figure).
 - Fill the TBD ADR rationales where recoverable, or mark them permanently
   unrecoverable.
-- Run an approved Cloudflare Pages preview, verify the owned-domain routes,
-  then cut production from the existing Next export to the Astro `dist/`.
 - Consider whether the OpenSpec specs still add value now that ADRs and
   operations docs cover the same ground; if not, archive the specs.
 
